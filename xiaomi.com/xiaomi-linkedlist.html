@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    function Node(value, next) {
+        this.value = value;
+        if (next) {
+            this.next = next;
+        }
+    }
+
+    function LinkedList() {
+        this.head = new Node(0, null);
+        this.length = 0;
+    }
+
+    LinkedList.prototype.getHead = function() {
+        return this.head;
+    }
+
+    //添加节点，返回头结点
+
+    LinkedList.prototype.add = function(data) {
+
+        var listLen = this.length,
+            head = this.head;
+        var node = new Node(data, null);
+
+        if (listLen == 0) {
+            this.head.next = node;
+        } else {
+            var previous = null,
+                current = head,
+                i = 0;
+            while (i++ < listLen) {
+                previous = current;
+                current = current.next;
+            }
+            current.next = node;
+        }
+        this.length++;
+        this.head.value = this.length;
+        return this.head;
+    };
+
+    //获得第index个节点
+
+    LinkedList.prototype.getNode = function(index) {
+        var length = this.length;
+        if (index <= 0 && index > length) {
+            console.log("越界！");
+            return false;
+        }
+        var node = this.head.next,
+            j = 1;
+        while (node && j < index) {
+            node = node.next;
+            j++;
+        };
+        if (!node || j > index) {
+            console.log("不存在");
+            return false;
+        }
+        return node;
+    };
+
+    //删除第index个节点，返回头结点
+
+    LinkedList.prototype.deleteNode = function(index) {
+        var node = this.head.next,
+            j = 0;
+        while (node && j < index - 2) {
+            node = node.next;
+            j++;
+        };
+        if (!(node.next) || j > index - 2) {
+            console.log("没有这个节点");
+            return false;
+        }
+        next = node.next;
+        node.next = next.next;
+        return this.head;
+    }
+
+    //在第index个节点后面插入新的节点，返回头结点
+
+    LinkedList.prototype.insertAfter = function(para, index) {
+        var node = this.head.next,
+            j = 0;
+        while (node && j < index - 1) {
+            node = node.next;
+            j++;
+        };
+        if (!node || j > index - 1) {
+            console.log("没有这个节点");
+        }
+        next = node.next;
+        node.next = para;
+        para.next = next;
+
+        return this.head;
+    }
+
+
+    //遍历 输出
+
+    function traverse(head) {
+
+        var length = head.value,
+            previous = null,
+            current = head;
+        i = 0;
+        while (i < length) {
+            previous = current;
+            if (current.next) {
+                current = current.next;
+            }
+            console.log("Node value: " + current.value);
+            i++;
+        }
+
+    }
+
+    //奇偶互换
+
+    function oddEvenSwap(head) {
+
+        var temp=head;
+            count=head.value/2;
+            j=0;
+
+        while(temp.next && temp.next.next && j<count){//确保有两个节点
+        	
+        	var a=temp.next;
+        	var b=temp.next.next;
+        	var c=temp.next.next.next;
+
+        	temp.next=b;
+        	b.next=a;
+        	a.next=c;
+        	temp=temp.next.next;
+
+			j++;
+        }
+
+        return head;
+
+    }
+
+
+    var list = new LinkedList();
+
+    for (var i = 1; i < 10; i++) {
+        list.add("node"+i);
+    }
+
+    var head = list.getHead();
+
+
+    oddEvenSwap(head);
+
+    traverse(head);
+
+
+
+    
+    </script>
+</body>
+
+</html>
