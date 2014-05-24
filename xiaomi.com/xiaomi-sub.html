@@ -76,28 +76,31 @@
         <div class="order-container">
             <div class="order">
                 <ul id="orderList">
-                    <li class="current">About</li>
-                    <li>Bookmarks: Clean All</li>
-                    <li>Bookmarks: Select All</li>
-                    <li>Bookmarks: Select Next</li>
-                    <li>Bookmarks: Select Previous</li>
-                    <li>Convert Case: Lower Case</li>
-                    <li>Convert Case: Upper Case</li>
-                    <li>File: Close All</li>
-                    <li>File: Revert</li>
-                    <li>File: Save All</li>
                 </ul>
             </div>
         </div>
     </div>
     <script src="scripts/jquery-2.1.0.min.js"></script>
     <script>
+    var COMMANDS = [
+        "About",
+        "Bookmarks: Clean All",
+        "Bookmarks: Select All",
+        "Bookmarks: Select Next",
+        "Bookmarks: Select Previous",
+        "Convert Case: Lower Case",
+        "Convert Case: Upper Case",
+        "File: Close All",
+        "File: Revert",
+        "File: Save All"
+    ];
+
     (function() {
         var MYAPP = MYAPP || {};
         MYAPP.subl = {};
+        MYAPP.subl.listContainer = $("#orderList");
         MYAPP.subl.list = $("#orderList li");
-        MYAPP.subl.listCloned=MYAPP.subl.list.clone();
-        MYAPP.subl.listLength = $("#orderList li").size();
+        // MYAPP.subl.listCloned = MYAPP.subl.list.clone();
 
         MYAPP.subl.addListener = null;
 
@@ -130,10 +133,20 @@
             }
         };
 
+        MYAPP.subl.autoLoadCommand=function(commands){
+            var length=commands.length,
+                frag=document.createDocumentFragment(),
+                currentCommand=commands[0],
+                html="<li class=\"current\">"+currentCommand+"</li>"
+            for(var i=1;i<length;i++){
+                html+=("<li>"+commands[i]+"</li>");
+            }
+            this.listContainer.html(html);
+        }
 
         MYAPP.subl.selectCommand = function(key) {
-            var $lists = this.list;
-            var length = this.listLength;
+            var $lists =$("#orderList li");
+            var length = $lists.size();
             var currentLine = $(".current", $("#orderList"));
             var count = $lists.index($(currentLine));
 
@@ -163,40 +176,39 @@
             return targetStr;
         };
         MYAPP.subl.cleanHighlight = function(targetStr) {
-            targetStr = targetStr.replace(/<\/?[^>]*>/g,'');
+            targetStr = targetStr.replace(/<\/?[^>]*>/g, '');
             return targetStr;
         };
 
         MYAPP.subl.filterCommand = function(value) {
 
-            var length = this.listLength,
-                list = this.list,
+            var list = $("#orderList li"),
+                length = list.size(),
                 i = 0;
-            var commandStore = [];//存放匹配到的li
+            var commandStore = []; //存放匹配到的li
 
             //检查输入的字符，外层循环命令中的字符串，每个字符与value的每个字符匹配
             while (i < length) {
-                var cur = list.get(i);//暂存 DOM
+                var cur = list.get(i); //暂存 DOM
 
-                cur.matchNum=0;//匹配的次数
-                cur.index=[]; //每次匹配到的位置
-                for (var j = 0; j < value.length ; j++) {
+                cur.matchNum = 0; //匹配的次数
+                cur.index = []; //每次匹配到的位置
+                var pos = -1;
+                for (var j = 0; j < value.length; j++) {
+                    pos = cur.innerHTML.indexOf(value[j], pos + 1);
 
-                    var checkCode = cur.innerHTML.indexOf(value[j]);
-
-                    console.log("checkCode"+checkCode);
-                    if (checkCode !== -1) {
+                    console.log(pos);
+                    if (pos !== -1) {
 
                         cur.matchNum++;
-                        cur.index.push(checkCode);
-                    
+                        cur.index.push(pos);
                     }
 
                 }
                 //如果匹配到的次数小于查询字符串的长度，则mark为false，不存入数组;
-                cur.mark= (cur.matchNum == value.length);
+                cur.mark = (cur.matchNum == value.length);
 
-                if(cur.mark){
+                if (cur.mark) {
                     cur.innerHTML = this.highlightChar($(cur).text(), value);
                     commandStore.push(cur);
                 }
@@ -215,16 +227,16 @@
                 //冒泡排序
 
                 for (var i = 0; i < length - 1; i++) {
-                    for(var j=0;j<length-1-i;j++){
+                    for (var j = 0; j < length - 1 - i; j++) {
 
-                    var a = commandArr[j],
-                        b = commandArr[j + 1];
+                        var a = commandArr[j],
+                            b = commandArr[j + 1];
 
-                    if (a.matchNum < b.matchNum ) {
-                        var c = a;
-                        commandArr[j] = b;
-                        commandArr[j + 1] = c;
-                    }
+                        if (a.matchNum < b.matchNum) {
+                            var c = a;
+                            commandArr[j] = b;
+                            commandArr[j + 1] = c;
+                        }
                     }
 
                 }
@@ -234,7 +246,7 @@
                     frag.appendChild(commandArr[i]);
                 }
                 var list = document.getElementById("orderList");
-                list.html="";
+                list.html = "";
                 list.insertBefore(frag, list.firstChild);
             }
 
@@ -242,17 +254,19 @@
 
         }
 
+
+        MYAPP.subl.autoLoadCommand(COMMANDS);
         var input = document.getElementById("input");
         //ctrl+shift+P 显示面板。esc退出
-        MYAPP.subl.addListener(document,"keydown",function(event){
+        MYAPP.subl.addListener(document, "keydown", function(event) {
             var panel = $("#panel");
             MYAPP.subl.togglePanel(panel, event);
             MYAPP.subl.selectCommand(event.keyCode);
         });
         //
         MYAPP.subl.addListener(input, "input", function() {
-                var value = this.value;
-                MYAPP.subl.filterCommand(value);
+            var value = this.value;
+            MYAPP.subl.filterCommand(value);
         });
 
     })();
