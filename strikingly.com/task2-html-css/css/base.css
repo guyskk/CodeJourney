@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding:0;
+}
+html{
+	height:100%;
+}
+body {
+    font-size:62.5%;
+    height:100%;
+}
+.wrapper {
+	height:100%;
+    background:url(../images/bg.png) left top repeat;
+}
+.account-panel {
+    width:325px;
+    height:440px;
+    margin:0 auto;
+    background: #2f363e;
+    border: 1px solid #171c20;
+    border-radius:10px;
+    box-shadow: 0 20px 20px -18px rgba(0,0,0,0.5)
+
+}
+
+/*avater starts*/
+
+.avatar-container {
+    height:140px;
+    background:#e7e0ce;
+    background: -webkit-linear-gradient(top, #e7decd 20%, #e7e0ce);
+    background: -moz-linear-gradient(top, #e7decd 20%, #e7e0ce);
+    background: linear-gradient(top, #e7decd 20%, #e7e0ce);
+	position:relative;
+}
+.profile {
+    width:155px;
+    height:155px;
+    margin:-30px 0 0 -80px;
+    padding:5px;
+    overflow:hidden;
+    background:#e8dfce;
+    border-radius:100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	m
+}
+.profile img {
+    max-width:100%;
+    border-radius:100%;
+}
+
+
+/*avater ends*/
+
+/*details-container starts*/
+
+.details-container{
+	padding-top:3em;
+}
+.fullname, .occupation {
+    line-height: 32px;
+    text-align:center;
+}
+.fullname {
+    color:#fff;
+    font-size:2.5em;
+}
+.occupation {
+    color:#525b64;
+    font-size:1.8em;
+}
+.follow-btn {
+    display: block;
+    width:160px;
+    height:37px;
+    margin:0 auto;
+    overflow: hidden;
+    border-radius: 5px;
+    border:1px solid #171c22;
+    background:#c44b30;
+    line-height:37px;
+    color:#fff;
+    font-size: 1.6em;
+    font-weight:bold;
+    text-decoration: none;
+    text-align:center;
+    text-shadow:0 2px 4px rgba(0,0,0,0.5);
+}
+.follow-btn::before {
+    content:"";
+    display: block;
+    height:1px;
+    background:#d16e59;
+}
+/*details-container ends*/
+/*account-status starts*/
+.account-status{
+	overflow:hidden;
+	margin-top:2.5em;
+	border-top:1px solid #171a1f;
+}
+.following,.follower{
+	float:left;
+	width:50%;
+	height:55px;
+	line-height: 55px;
+	font-size:2em;
+	text-align:center;
+}
+.following a,.follower a{
+	display: block;
+	color:#444c57;
+	text-decoration: none;
+}
+.following b,.follower b{
+	color:#191e22;
+}
