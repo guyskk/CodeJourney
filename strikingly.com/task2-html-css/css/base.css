@@ -8,6 +8,7 @@ html{
 body {
     font-size:62.5%;
     height:100%;
+	font-family: 'Arimo', sans-serif;
 }
 .wrapper {
 	height:100%;
@@ -20,8 +21,8 @@ body {
     background: #2f363e;
     border: 1px solid #171c20;
     border-radius:10px;
-    box-shadow: 0 20px 20px -18px rgba(0,0,0,0.5)
-
+    box-shadow: 0 20px 20px -18px rgba(0,0,0,0.5);
+	overflow:hidden;
 }
 
 /*avater starts*/
@@ -45,7 +46,6 @@ body {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	m
 }
 .profile img {
     max-width:100%;
@@ -58,19 +58,22 @@ body {
 /*details-container starts*/
 
 .details-container{
-	padding-top:3em;
+	padding-top:8.5em;
 }
 .fullname, .occupation {
-    line-height: 32px;
     text-align:center;
+    line-height:24px;
 }
 .fullname {
     color:#fff;
-    font-size:2.5em;
+    font-size:2em;
 }
 .occupation {
     color:#525b64;
-    font-size:1.8em;
+    font-size:1.3em;
+}
+.follow{
+	padding:2.3em;
 }
 .follow-btn {
     display: block;
@@ -83,11 +86,11 @@ body {
     background:#c44b30;
     line-height:37px;
     color:#fff;
-    font-size: 1.6em;
+    font-size: 1.3em;
     font-weight:bold;
     text-decoration: none;
     text-align:center;
-    text-shadow:0 2px 4px rgba(0,0,0,0.5);
+    text-shadow:1px 1px 1px rgba(0,0,0,0.3);
 }
 .follow-btn::before {
     content:"";
@@ -99,7 +102,6 @@ body {
 /*account-status starts*/
 .account-status{
 	overflow:hidden;
-	margin-top:2.5em;
 	border-top:1px solid #171a1f;
 }
 .following,.follower{
@@ -107,7 +109,7 @@ body {
 	width:50%;
 	height:55px;
 	line-height: 55px;
-	font-size:2em;
+	font-size:1.4em;
 	text-align:center;
 }
 .following a,.follower a{
@@ -117,4 +119,5 @@ body {
 }
 .following b,.follower b{
 	color:#191e22;
+	margin-right:0.5em;
 }
