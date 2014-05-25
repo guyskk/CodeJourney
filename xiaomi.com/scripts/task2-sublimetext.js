@@ -25,7 +25,6 @@
     var MYAPP = MYAPP || {};
     MYAPP.subl = {};
     MYAPP.subl.listContainer = $("#orderList");
-
     MYAPP.subl.addListener = null;
 
     if (typeof window.addEventListener === "function") {
@@ -43,7 +42,6 @@
     }
 
     MYAPP.subl.autoLoadCommand = function(commands) {
-
         var length = commands.length,
             currentCommand = commands[0],
             html = "<li class=\"current\">" + currentCommand + "</li>";
@@ -51,13 +49,11 @@
             html += ("<li>" + commands[i] + "</li>");
         }
         this.listContainer.html(html);
-
     };
 
     MYAPP.subl.togglePanel = function(panel, event) {
 
         var $panel=$(panel);
-
         if (event.ctrlKey && event.shiftKey && event.keyCode == 80) {
             if ($panel.css("display") == "none") {
                 $panel.show();
@@ -74,17 +70,19 @@
 
 
     MYAPP.subl.selectCommand = function(commandList,key) {
+
         var $list = $(commandList),
             $commands=$("li",$list);
             length = $commands.size(),
             currentLine = $(".current", $list).eq(0),
             count = $commands.index(currentLine);
 
+            console.log(count);
 
         if (key == 38 && count > 0) {
             currentLine.removeClass("current");
             currentLine.prev().addClass("current");
-        } else if (key == 40 && count >= 0 && count < length) {
+        } else if (key == 40 && count >= 0 && count < length-1) {
             currentLine.removeClass("current");
             currentLine.next().addClass("current");
         } else {
