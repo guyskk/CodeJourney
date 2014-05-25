@@ -7,10 +7,19 @@
         "Bookmarks: Select Next",
         "Bookmarks: Select Previous",
         "Convert Case: Lower Case",
+        "Convert Case: Swap Case",
         "Convert Case: Upper Case",
+        "Convert Case: Title Case",
         "File: Close All",
         "File: Revert",
-        "File: Save All"
+        "File: Save All",
+        "Package Control: Add Chinal",
+        "Package Control: Add Package",
+        "Package Control: Add Package",
+        "Package Control: Enable Package",
+        "Package Control: List Package",
+        "Package Control: Remove Package",
+        "Package Control: Upgrade Package"
     ];
 
     var MYAPP = MYAPP || {};
