@@ -35,7 +35,6 @@
 
     MYAPP.subl.autoLoadCommand = function(commands) {
         var length = commands.length,
-            frag = document.createDocumentFragment(),
             currentCommand = commands[0],
             html = "<li class=\"current\">" + currentCommand + "</li>"
         for (var i = 1; i < length; i++) {
@@ -88,62 +87,52 @@
             tarLen = targetStr.length;
 
         for (var j = 0; j < refLen; j++) {
-            var pattern = new RegExp(referStr[j]);
+            var pattern = new RegExp(referStr[j],"g");
             targetStr = targetStr.replace(pattern, "<b>" + referStr[j] + "</b>");
         }
 
         return targetStr;
     };
-    MYAPP.subl.cleanHighlight = function(targetStr) {
-        targetStr = targetStr.replace(/<\/?[^>]*>/g, '');
-        return targetStr;
-    };
 
-    MYAPP.subl.filterCommand = function(value) {
 
-        var list = $("#orderList li"),
+    MYAPP.subl.filterCommand = function(commandsContainer,commands,value) {
+
+        var list = $(COMMANDS),
             length = list.size(),
             i = 0;
         var commandStore = []; //存放匹配到的li
 
         //检查输入的字符，外层循环命令中的字符串，每个字符与value的每个字符匹配
         while (i < length) {
-            var cur = list.get(i); //暂存 DOM
-
-            cur.matchNum = 0; //匹配的次数
-            cur.index = []; //每次匹配到的位置
+            var cur = list[i],
+                node={}; //保存相关信息
+            node.matchNum = 0; //匹配的次数
+            node.index = []; //每次匹配到的位置
             var pos = -1;
             for (var j = 0; j < value.length; j++) {
-                pos = cur.innerHTML.indexOf(value[j], pos + 1);
+                pos = cur.indexOf(value[j], pos + 1);
 
                 if (pos !== -1) {
 
-                    cur.matchNum++;
-                    cur.index.push(pos);
+                    node.matchNum++;
+                    node.index.push(pos);
                 }
 
             }
             //如果匹配到的次数小于查询字符串的长度，则mark为false，不存入数组;
-            cur.mark = (cur.matchNum == value.length);
-
-            if (cur.mark) {
-                cur.innerHTML = this.highlightChar($(cur).text(), value);
-                commandStore.push(cur);
+            node.mark = (node.matchNum == value.length);
+            if (node.mark) {
+                node.dom = "<li>"+this.highlightChar(cur, value)+"</li>";
+                commandStore.push(node);
             }
             i++;
         }
-
         //将匹配的字符 重新排序
         var reOrder = function(commandArr) {
             var length = commandArr.length;
             var frag = document.createDocumentFragment();
 
-            // var compareArr=function(arr1,arr2){
-
-            // }
-
             //冒泡排序
-
             for (var i = 0; i < length - 1; i++) {
                 for (var j = 0; j < length - 1 - i; j++) {
 
@@ -159,12 +148,11 @@
 
             }
 
+            var html="";
             for (var i = 0; i < length; i++) {
-                frag.appendChild(commandArr[i]);
+                html+=commandArr[i].dom;
             }
-            var list = document.getElementById("orderList");
-            list.html = "";
-            list.insertBefore(frag, list.firstChild);
+            commandsContainer.innerHTML=html;
         }
 
         reOrder(commandStore);
@@ -185,11 +173,16 @@
         MYAPP.subl.addListener(document, "keydown", function(event) {
             MYAPP.subl.togglePanel(panel, event);
             MYAPP.subl.selectCommand(commandList, event.keyCode);
+            // console.log(event.keyCode);
+            // if(event.keyCode == "8"){
+            //     var value=input.value;
+            //     MYAPP.subl.filterCommand(commandList,commands,value);
+            // }
         });
         //
         MYAPP.subl.addListener(input, "input", function() {
             var value = this.value;
-            MYAPP.subl.filterCommand(value);
+            MYAPP.subl.filterCommand(commandList, commands,value);
         });
     }
 
