@@ -11,6 +11,7 @@
     <p>使用 list.add() 添加链表节点</p>
     <p>使用 traverse() 遍历输出数组</p>
     <p>使用 oddEvenSwap() 交换奇偶节点</p>
+    <p>打开控制台可以查看</p>
 
     <script>
     function Node(value, next) {
@@ -126,7 +127,7 @@
             if (current.next) {
                 current = current.next;
             }
-            console.log("Node value: " + current.value);
+            console.log("Node: " + current.value);
             i++;
         }
 
@@ -167,8 +168,12 @@
 
     var head = list.getHead();
 
-    oddEvenSwap(head);
 
+    console.error("初始状态：");
+    traverse(head);
+
+    oddEvenSwap(head);
+    console.error("奇偶互换之后：");
     traverse(head);
 
 
