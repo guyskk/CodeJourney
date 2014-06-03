@@ -77,7 +77,9 @@
             currentLine = $(".current", $list).eq(0),
             count = $commands.index(currentLine);
 
-            console.log(count);
+        if(count>=12){
+            $list.scrollTo(10px);
+        }
 
         if (key == 38 && count > 0) {
             currentLine.removeClass("current");
