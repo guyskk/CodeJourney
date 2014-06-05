@@ -25,9 +25,9 @@
         if(nickName.val()==""){
             return false;
         }
-        socket.emit("setnickname", {
-            nickname: nickName.val()，
-            nickImg: nickImg.val()
+        socket.emit("setName", {
+            nickname: nickName.val(),
+            userIcon: nickImg.val()
         }, function(data) {
             if (data) {
                 userName = nickName.val();
@@ -55,9 +55,10 @@
     socket.on("nickname list", function(data) {
         var html = "";
         for (var i = data.length - 1; i >= 0; i--) {
-            html += "<li>" + data[i] + "</li>";
+            console.log(data);
+            html += ("<li><a href='"+data[i].nickname+"'><img src='"+data[i].userIcon+"' alt='"+data[i].nickname+"'/></a></li>");
         };
-        // usersList.empty().append(html);
+        usersList.empty().append(html);
         usersList.append(html);
     });
 
@@ -77,26 +78,3 @@
 
 
 })();
-
-var num=[12,16,18,19,20,21,25,28,40,50];
-
-function bsearch(arr, target){
-    var low=0,
-        high=arr.length,
-        mid;
-    while(low<=high){
-        mid=parseInt((low+high)/2,10);
-        // console.log("mid"+mid);
-        if(arr[mid]==target){
-            console.log(mid);
-            return mid;
-
-        }
-        if(arr[mid]>target){
-            high=mid-1;
-        }else{
-            low=mid+1;
-        }
-    }
-}
-bsearch(num,50);
