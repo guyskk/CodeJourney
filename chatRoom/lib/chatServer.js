@@ -12,7 +12,7 @@ module.exports.listen = function(server) {
         //设置用户名
         setName_on(socket);
         //更新列表
-        refreshUsersList_emit(socket);
+        // refreshUsersList_emit(socket);
         
         //消息处理
         messageHandler_on(socket);
@@ -67,6 +67,6 @@ function messageHandler_on(socket){
 }
 
 function refreshUsersList_emit(socket){
-    // socket.emit("nickname list", USERS);
+    socket.emit("nickname list", USERS);
     socket.broadcast.emit("nickname list", USERS);
 }

@@ -54,12 +54,12 @@
     //更新用户列表
     socket.on("nickname list", function(data) {
         var html = "";
-        for (var i = data.length - 1; i >= 0; i--) {
-            console.log(data);
-            html += ("<li><a href='"+data[i].nickname+"'><img src='"+data[i].userIcon+"' alt='"+data[i].nickname+"'/></a></li>");
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[0]);
+            console.log(data.length);
+            html = ("<li><a href='users?username="+data[i].nickname+"'><img src='"+data[i].userIcon+"' alt='"+data[i].nickname+"'/></a></li>");
         };
         usersList.empty().append(html);
-        usersList.append(html);
     });
 
     //显示自己刚才发的消息
