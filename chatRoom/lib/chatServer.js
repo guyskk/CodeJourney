@@ -9,10 +9,12 @@ module.exports.listen = function(server) {
 
     io.sockets.on('connection', function(socket) {
         userCount++;
+
+        checkStorage(socket);
         //设置用户名
         setName_on(socket);
         //更新列表
-        // refreshUsersList_emit(socket);
+        refreshUsersList_emit(socket);
         
         //消息处理
         messageHandler_on(socket);
@@ -24,26 +26,33 @@ module.exports.listen = function(server) {
             if (!socket.name) {
                 return false
             }
-            console.log(USERS);
             var nameChecked = USERS.indexOf(socket.name);
             if (nameChecked > -1) {
                 USERS.splice(nameChecked);
             }
+
+            refreshUsersList_emit(socket);
+
 
         });
     });
 
 }
 
+function checkStorage(socket){
+    socket.emit("checkStorage",USERS);
+}
+
 function setName_on(socket) {
     socket.on("setName", function(data, callback) {
-        var name = data.nickname
+        var name = data.nickname,
             userIcon=data.userIcon;
         if (USERS.indexOf(name) != -1) {
             callback(false);
         } else {
             callback(true);
             USERS.push(data);
+            console.log(USERS);
             socket.name = name;
             socket.icon=userIcon;
             socket.broadcast.emit("nickname list", USERS);

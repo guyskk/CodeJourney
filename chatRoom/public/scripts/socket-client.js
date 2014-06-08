@@ -22,55 +22,79 @@
         userName = "";
 
     nickForm.submit(function() {
-        if(nickName.val()==""){
+        if (nickName.val() == "") {
             return false;
         }
-        socket.emit("setName", {
-            nickname: nickName.val(),
-            userIcon: nickImg.val()
-        }, function(data) {
+        var config = {
+            "nickname": nickName.val(),
+            "userIcon": nickImg.val()
+        }
+        postName(config);
+        return false;   
+    });
+
+    msgForm.submit(function() {
+        var config={
+            "message": msgArea.val(),
+             "name": nickName.val()
+        }
+        postMsg(config);
+        return false;
+    });
+
+    function postName(config) {
+        socket.emit("setName", config, function(data) {
             if (data) {
                 userName = nickName.val();
-                $("#login").fadeOut(function(){
+                $("#login").fadeOut(function() {
                     $("#msgPanel").fadeIn();
                 });
+                sessionStorage.setItem("username", userName);
                 msgForm.show();
             } else {
                 alert("用户名不可用！");
             }
         });
-        return false;
-    });
+    }
 
     //发送消息
-    msgForm.submit(function() {
-        socket.emit("user message", {
-            message: msgArea.val(),
-            name: nickName.val()
-        });
-        return false;
+
+    function postMsg(config) {
+        socket.emit("user message",config);
+    }
+
+    socket.on("checkStorage", function(data) {
+        for (var i = data.length - 1; i >= 0; i--) {
+            if (data[i].nickname != sessionStorage.getItem("username")) {
+                break;
+            }
+        var config = {
+            "nickname": data[i].nickname,
+            "userIcon": data[i].userIcon
+        }
+        postName(config);
+
+        }
     });
 
     //更新用户列表
     socket.on("nickname list", function(data) {
         var html = "";
-        for (var i = 0; i < data.length; i++) {
-            console.log(data[0]);
-            console.log(data.length);
-            html = ("<li><a href='users?username="+data[i].nickname+"'><img src='"+data[i].userIcon+"' alt='"+data[i].nickname+"'/></a></li>");
+        for (var i = data.length - 1; i >= 0; i--) {
+            html += ("<li><a href='users?username=" + data[i].nickname + "'><img src='" + data[i].userIcon + "' alt='" + data[i].nickname + "'/></a></li>");
         };
         usersList.empty().append(html);
     });
 
     //显示自己刚才发的消息
     socket.on("user message", function(data) {
-        console.log("data.name : "+data.name);
-        console.log("userName : "+userName);
-        var html="";
-        if(data.name !== userName){
-          html= "<li>" + data.name + " : " + data.message + "</li>";
-        }else{
-          html= "<li><strong>" + data.name + " : " + data.message + "</strong></li>";
+        console.log("data.name : " + data.name);
+        console.log("userName : " + userName);
+        var html = "";
+        if (data.name !== userName) {
+            html = "<li>" + data.name + " : " + data.message + "</li>";
+        } else {
+            html = "<li><strong>" + data.name + " : " + data.message + "</strong></li>";
         }
         msgList.prepend(html);
         $("#text").val("");
