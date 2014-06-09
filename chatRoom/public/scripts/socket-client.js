@@ -29,6 +29,7 @@
             "nickname": nickName.val(),
             "userIcon": nickImg.val()
         }
+        console.log(config);
         postName(config);
         return false;   
     });
@@ -45,7 +46,7 @@
     function postName(config) {
         socket.emit("setName", config, function(data) {
             if (data) {
-                userName = nickName.val();
+                userName = config.ncikname;
                 $("#login").fadeOut(function() {
                     $("#msgPanel").fadeIn();
                 });
@@ -63,19 +64,19 @@
         socket.emit("user message",config);
     }
 
-    socket.on("checkStorage", function(data) {
-        for (var i = data.length - 1; i >= 0; i--) {
-            if (data[i].nickname != sessionStorage.getItem("username")) {
-                break;
-            }
-        var config = {
-            "nickname": data[i].nickname,
-            "userIcon": data[i].userIcon
-        }
-        postName(config);
+    // socket.on("checkStorage", function(data) {
+    //     for (var i = data.length - 1; i >= 0; i--) {
+    //         if (data[i].nickname != sessionStorage.getItem("username")) {
+    //             break;
+    //         }
+    //     var config = {
+    //         "nickname": data[i].nickname,
+    //         "userIcon": data[i].userIcon
+    //     }
+    //     postName(config);
 
-        }
-    });
+    //     }
+    // });
 
     //更新用户列表
     socket.on("nickname list", function(data) {

@@ -10,7 +10,7 @@ module.exports.listen = function(server) {
     io.sockets.on('connection', function(socket) {
         userCount++;
 
-        checkStorage(socket);
+        // checkStorage(socket);
         //设置用户名
         setName_on(socket);
         //更新列表
@@ -47,7 +47,16 @@ function setName_on(socket) {
     socket.on("setName", function(data, callback) {
         var name = data.nickname,
             userIcon=data.userIcon;
-        if (USERS.indexOf(name) != -1) {
+        var check=null;
+        console.log(USERS[i].nickname);
+        for(var i=USERS.length-1;i>=0;i--){
+            var temp=USERS[i].nickname.indexOf(name);
+            if(temp  != -1){
+                check=false;
+                break;
+            }
+        }
+        if (!check) {
             callback(false);
         } else {
             callback(true);
