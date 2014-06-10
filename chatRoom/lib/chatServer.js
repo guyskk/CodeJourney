@@ -10,9 +10,11 @@ module.exports.listen = function(server) {
     io.sockets.on('connection', function(socket) {
         userCount++;
 
-        // checkStorage(socket);
+        checkStorage_emit(socket);
         //设置用户名
         setName_on(socket);
+
+        loadFromSession_on(socket);
         //更新列表
         refreshUsersList_emit(socket);
         
@@ -39,7 +41,7 @@ module.exports.listen = function(server) {
 
 }
 
-function checkStorage(socket){
+function checkStorage_emit(socket){
     socket.emit("checkStorage",USERS);
 }
 
@@ -47,29 +49,52 @@ function setName_on(socket) {
     socket.on("setName", function(data, callback) {
         var name = data.nickname,
             userIcon=data.userIcon;
-        var check=null;
-        console.log(USERS[i].nickname);
-        for(var i=USERS.length-1;i>=0;i--){
-            var temp=USERS[i].nickname.indexOf(name);
-            if(temp  != -1){
-                check=false;
-                break;
+        var check=true;
+        if(USERS.length>0){
+            for(var i=USERS.length-1;i>=0;i--){
+
+                if(USERS[i].nickname === name){
+                    check=false;
+                    break;
+                }
             }
         }
-        if (!check) {
-            callback(false);
-        } else {
+        if (check) {
             callback(true);
+            console.log("data");
+            console.log(data);
             USERS.push(data);
             console.log(USERS);
             socket.name = name;
             socket.icon=userIcon;
             socket.broadcast.emit("nickname list", USERS);
             socket.emit("nickname list", USERS);
+        } else {
+            callback(false);
         }
     });
 }
 
+function loadFromSession_on(socket){
+    socket.on("loadFromSession", function(data, callback) {
+        var name = data.nickname,
+            userIcon=data.userIcon;
+        var check=true;
+        if(USERS.length>0){
+            for(var i=USERS.length-1;i>=0;i--){
+                if(USERS[i].nickname===name){
+                    callback(true);
+
+                    socket.name = name;
+                    socket.icon=userIcon;
+                    socket.broadcast.emit("nickname list", USERS);
+                    socket.emit("nickname list", USERS);
+                    break;
+                }
+            }
+        }
+    });
+}
 function messageHandler_on(socket){
     socket.on("user message", function(data) {
         socket.broadcast.emit("user message", {

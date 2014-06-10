@@ -29,7 +29,6 @@
             "nickname": nickName.val(),
             "userIcon": nickImg.val()
         }
-        console.log(config);
         postName(config);
         return false;   
     });
@@ -46,7 +45,7 @@
     function postName(config) {
         socket.emit("setName", config, function(data) {
             if (data) {
-                userName = config.ncikname;
+                userName = config.nickname;
                 $("#login").fadeOut(function() {
                     $("#msgPanel").fadeIn();
                 });
@@ -64,19 +63,33 @@
         socket.emit("user message",config);
     }
 
-    // socket.on("checkStorage", function(data) {
-    //     for (var i = data.length - 1; i >= 0; i--) {
-    //         if (data[i].nickname != sessionStorage.getItem("username")) {
-    //             break;
-    //         }
-    //     var config = {
-    //         "nickname": data[i].nickname,
-    //         "userIcon": data[i].userIcon
-    //     }
-    //     postName(config);
-
-    //     }
-    // });
+    socket.on("checkStorage", function(data) {
+        if(!sessionStorage.getItem("username")){
+            return false;
+        }else{        
+            var config={};
+            for (var i = data.length - 1; i >= 0; i--) {
+                if (data[i].nickname == sessionStorage.getItem("username")) {
+                    config = {
+                        "nickname": data[i].nickname,
+                        "userIcon": data[i].userIcon
+                    }
+                    break;
+                }
+            }
+            socket.emit("loadFromSession", config, function(data) {
+                if (data) {
+                    userName = config.nickname;
+                    $("#login").fadeOut(function() {
+                        $("#msgPanel").fadeIn();
+                    });
+                    msgForm.show();
+                } else {
+                    alert("用户名不可用！");
+                }
+            });
+        }
+    });
 
     //更新用户列表
     socket.on("nickname list", function(data) {
