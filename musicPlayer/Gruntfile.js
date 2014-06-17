@@ -6,8 +6,8 @@ module.exports = function(grunt) {
                 separator: ';'
             },
             dist: {
-                src: ['src/**/*.js'],
-                dest: 'build/scripts/<%= pkg.name %>.js'
+                src: ['static/src/**/*.js'],
+                dest: 'static/build/scripts/<%= pkg.name %>.js'
             }
         },
         uglify: {
@@ -16,12 +16,12 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'build/scripts/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                    'static/build/scripts/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
                 }
             }
         },
         jshint: {
-            files: ['gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+            files: ['gruntfile.js', 'static/src/**/*.js', 'test/**/*.js'],
             options: {
                 globals: {
                     jQuery: true,
@@ -34,36 +34,38 @@ module.exports = function(grunt) {
         less: {
             development: {
                 options: {
-                    paths: ["assets/less"]
+                    paths: ["static/assets/less"]
                 },
                 files: {
-                    "build/css/<%= pkg.name %>.css": "assets/less/*.less"
+                    "static/build/css/<%= pkg.name %>.css": "assets/less/*.less",
+                    "static/build/css/<%= pkg.name %>.css": "static/assets/less/*.less"
                 }
             },
             production: {
                 options: {
-                    paths: ["assets/less"],
                     cleancss: true,
+                    paths: ["static/assets/less"],
                     modifyVars: {
                         imgPath: '"http://mycdn.com/path/to/images"',
                         bgColor: 'red'
                     }
                 },
                 files: {
-                    "build/css/<%= pkg.name %>.min.css": "assets/less/*.less"
+                    "static/build/css/<%= pkg.name %>.min.css": "static/assets/less/*.less",
+                    "static/build/css/<%= pkg.name %>.css": "static/assets/less/*.less"
                 }
             }
         },
         watch: {
             scripts: {
-                files: ['src/**/*.js'],
+                files: ['static/src/**/*.js'],
                 tasks: ['jshint', 'uglify', 'concat'],
                 options: {
                     debounceDelay: 250,
                 }
             },
             css: {
-                files: ["assets/**/*.less"],
+                files: ["static/assets/**/*.less"],
                 tasks: ["less"],
                 options: {
                     debounceDelay: 250,
