@@ -23,7 +23,6 @@ module.exports = function(grunt) {
         jshint: {
             files: ['gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
             options: {
-                //这里是覆盖JSHint默认配置的选项
                 globals: {
                     jQuery: true,
                     console: true,
@@ -82,5 +81,4 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', ['jshint', 'watch']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'less']);
-
 };
