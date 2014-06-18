@@ -12,5 +12,5 @@
         |   |   |-- scripts  
         |-- files                暂时存放音乐文件  
 
-
+auth.getToken : http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=1fb36946cd70f19cbcb9652f775c2620&format=json
 

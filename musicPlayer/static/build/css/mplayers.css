@@ -1,1 +1,110 @@
-.test{background:#343434}.clearfix{display:block;zoom:1}.clearfix:after{content:" ";display:block;font-size:0;height:0;clear:both;visibility:hidden}.autoImage{max-width:100%;min-height:100%}.fll{float:left}.flr{float:right}.ovh{overflow:hidden}.test{background:#343434}.clearfix{display:block;zoom:1}.clearfix:after{content:" ";display:block;font-size:0;height:0;clear:both;visibility:hidden}.autoImage{max-width:100%;min-height:100%}.fll{float:left}.flr{float:right}.ovh{overflow:hidden}.panel-shadow{-webkit-box-shadow:0 0 1px rgba(0,0,0,.5);-moz-box-shadow:0 0 1px rgba(0,0,0,.5);-o-box-shadow:0 0 1px rgba(0,0,0,.5);box-shadow:0 0 1px rgba(0,0,0,.5)}body{background:url(file:///E:/Code/nodejs/chatroom/public/images/1245808247021371828.jpg) no-repeat center center fixed}.player_panel{width:600px;height:250px;display:block;zoom:1;-webkit-box-shadow:0 0 1px rgba(0,0,0,.5);-moz-box-shadow:0 0 1px rgba(0,0,0,.5);-o-box-shadow:0 0 1px rgba(0,0,0,.5);box-shadow:0 0 1px rgba(0,0,0,.5)}.player_panel:after{content:" ";display:block;font-size:0;height:0;clear:both;visibility:hidden}#theme-douban .control{width:350px;height:250px;background:#fff}#theme-douban .music_info{margin-top:50px}#theme-douban .music_info h1,#theme-douban .music_info h2{padding:0 25px}#theme-douban .control_btn{padding:0 25px;cursor:pointer}#theme-douban .cover{width:250px;height:250px}#theme-douban .cover img{max-width:100%;min-height:100%}
+.test {
+  background: #343434;
+}
+.clearfix {
+  display: block;
+  zoom: 1;
+}
+.clearfix:after {
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.autoImage {
+  max-width: 100%;
+  min-height: 100%;
+}
+.fll {
+  float: left;
+}
+.flr {
+  float: right;
+}
+.ovh {
+  overflow: hidden;
+}
+/*style*/
+
+.test {
+  background: #343434;
+}
+.clearfix {
+  display: block;
+  zoom: 1;
+}
+.clearfix:after {
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.autoImage {
+  max-width: 100%;
+  min-height: 100%;
+}
+.fll {
+  float: left;
+}
+.flr {
+  float: right;
+}
+.ovh {
+  overflow: hidden;
+}
+/*style*/
+.panel-shadow {
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+body {
+  background: url(file:///E:/Code/nodejs/chatroom/public/images/1245808247021371828.jpg) no-repeat center center fixed;
+}
+.player_panel {
+  width: 600px;
+  height: 250px;
+  display: block;
+  zoom: 1;
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.player_panel:after {
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+#theme-douban .control {
+  width: 350px;
+  height: 250px;
+  background: #fff;
+}
+#theme-douban .music_info {
+  margin-top: 50px;
+}
+#theme-douban .music_info h1,
+#theme-douban .music_info h2 {
+  padding: 0 25px;
+}
+#theme-douban .control_btn {
+  padding: 0 25px;
+  cursor: pointer;
+}
+#theme-douban .cover {
+  width: 250px;
+  height: 250px;
+}
+#theme-douban .cover img {
+  max-width: 100%;
+  min-height: 100%;
+}

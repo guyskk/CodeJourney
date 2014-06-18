@@ -37,8 +37,8 @@ module.exports = function(grunt) {
                     paths: ["static/assets/less"]
                 },
                 files: {
-                    "static/build/css/<%= pkg.name %>.css": "assets/less/*.less",
                     "static/build/css/<%= pkg.name %>.css": "static/assets/less/*.less"
+                    // "static/build/css/<%= pkg.name %>.css": "static/assets/less/*.less"
                 }
             },
             production: {
@@ -51,8 +51,8 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "static/build/css/<%= pkg.name %>.min.css": "static/assets/less/*.less",
-                    "static/build/css/<%= pkg.name %>.css": "static/assets/less/*.less"
+                    "static/build/css/<%= pkg.name %>.min.css": "static/assets/less/*.less"
+                    // "static/build/css/<%= pkg.name %>.css": "static/assets/less/*.less"
                 }
             }
         },
@@ -61,14 +61,14 @@ module.exports = function(grunt) {
                 files: ['static/src/**/*.js'],
                 tasks: ['jshint', 'uglify', 'concat'],
                 options: {
-                    debounceDelay: 250,
+                    debounceDelay: 100,
                 }
             },
             css: {
                 files: ["static/assets/**/*.less"],
                 tasks: ["less"],
                 options: {
-                    debounceDelay: 250,
+                    debounceDelay: 100,
                 }
             }
         }
