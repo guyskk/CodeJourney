@@ -1,29 +1,40 @@
 @import "base";
-
-.panel-shadow{
-  -webkit-box-shadow:0 0 1px rgba(0,0,0,0.5);
-  -moz-box-shadow:0 0 1px rgba(0,0,0,0.5);
-  -o-box-shadow:0 0 1px rgba(0,0,0,0.5);
-  box-shadow:0 0 1px rgba(0,0,0,0.5);
+.panel-shadow {
+    -webkit-box-shadow:0 0 1px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:0 0 1px rgba(0, 0, 0, 0.5);
+    -o-box-shadow:0 0 1px rgba(0, 0, 0, 0.5);
+    box-shadow:0 0 1px rgba(0, 0, 0, 0.5);
 }
-
-
-body{
-	background:url(../../images/placeholder.jpg);
+body {
+    background:url(file:///E:/Code/nodejs/chatroom/public/images/1245808247021371828.jpg) no-repeat center center fixed;
 }
-
-.player_panel{
-	width:300px;
-	height:100px;
-	padding:10px;
-	margin:left;
-	.clearfix;
-	.panel-shadow;
+.player_panel {
+    width:@theme-douban-w*1.2;
+    height:@theme-douban-h;
+    .clearfix;
+    .panel-shadow;
 }
-
-.cover{
-	width:100px;
-	img{
-		.autoImage;
+#theme-douban {
+    .control {
+        width:@theme-douban-w*0.7;
+        height:@theme-douban-h;
+        background:#fff;
+    }
+	.music_info{
+		margin-top:50px;
+		h1,h2{
+			padding:0 25px;
+		}
 	}
+	.control_btn{
+		padding:0 25px;
+		cursor:pointer;
+	}
+    .cover {
+        width:@theme-douban-w*0.5;
+        height:@theme-douban-h;
+        img {
+            .autoImage;
+        }
+    }
 }
