@@ -4,29 +4,38 @@
 <head>
     <meta charset="UTF-8" />
     <title>Document</title>
+    <link rel="stylesheet" href="static/build/css/font-awesome.min.css">
     <link rel="stylesheet" href="static/build/css/mplayers.min.css">
 </head>
 
 <body>
-    <header>
-        <h1>Music</h1>
-    </header>
+
     <div class="player_panel ovh" id="theme-douban">
         <div class="cover fll">
-          <!-- <img src="static/images/placeholder.jpg" alt=""> -->
-          <img src="http://media-cache-ec0.pinimg.com/736x/00/21/c9/0021c9df0fb4163258d7bdb03af5263a.jpg" alt="placeholder">
+            <!-- <img src="static/images/placeholder.jpg" alt=""> -->
+            <img src="http://media-cache-ec0.pinimg.com/736x/00/21/c9/0021c9df0fb4163258d7bdb03af5263a.jpg" alt="placeholder">
         </div>
         <div class="control flr">
-          <div class="music_info">
-            <h1>歌曲名</h1>
-            <h2>作者和专辑名</h2>
-          </div>
-          <div class="control_btn">
-            <span>上一首</span>
-            <span>播放/暂停</span>
-            <span>下一首</span>
-            <span>音量</span>
-          </div>
+            <div class="music_info">
+                <h1>歌曲名</h1>
+                <h2>作者和专辑名</h2>
+            </div>
+            <div class="control_btn">
+                <ul>
+                    <li>
+                        <span class="icon-backward icon-large" data-action="上一首"></span>
+                    </li>
+                    <li>
+                        <span class="icon-play icon-large" data-action="播放/暂停"></span>
+                    </li>
+                    <li>
+                        <span class="icon-forward icon-large" data-action="下一首"></span>
+                    </li>
+                    <li>
+                        <span class="icon-volume-up icon-large" data-action="音量"></span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div>
@@ -35,7 +44,7 @@
                 Your browser does not support the audio element.
         </audio>
     </div>
-    <script src="static/build/scripts/mplayers.min.js">
+    <script src="static/build/scripts/mplayers.js">
     </script>
 </body>
 

@@ -1,9 +1,9 @@
 @import "base";
 .panel-shadow {
-    -webkit-box-shadow:0 0 1px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow:0 0 1px rgba(0, 0, 0, 0.5);
-    -o-box-shadow:0 0 1px rgba(0, 0, 0, 0.5);
-    box-shadow:0 0 1px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow:0 0 35px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:0 0 35px rgba(0, 0, 0, 0.5);
+    -o-box-shadow:0 0 35px rgba(0, 0, 0, 0.5);
+    box-shadow:0 0 35px rgba(0, 0, 0, 0.5);
 }
 body {
     background:url(file:///E:/Code/nodejs/chatroom/public/images/1245808247021371828.jpg) no-repeat center center fixed;
@@ -11,6 +11,7 @@ body {
 .player_panel {
     width:@theme-douban-w*1.2;
     height:@theme-douban-h;
+    margin:150px auto;
     .clearfix;
     .panel-shadow;
 }
@@ -29,6 +30,17 @@ body {
 	.control_btn{
 		padding:0 25px;
 		cursor:pointer;
+		ul{
+			.clearfix;
+		}
+		li{
+			float:left;
+			padding:8px 12px 8px 8px;
+			background:33434;
+		}
+		span{
+
+		}
 	}
     .cover {
         width:@theme-douban-w*0.5;

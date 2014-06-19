@@ -5,7 +5,7 @@
 
     var mplayers = {
         "ajax": {
-            "getRequest":null
+            "getRequest": null
         }
     };
 
@@ -26,5 +26,7 @@
         console.log("callback");
         console.log(data);
     });
+
+
 
 })();
