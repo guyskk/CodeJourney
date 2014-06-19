@@ -22,10 +22,10 @@
 
     };
 
-    mplayers.ajax.getRequest(tokenUrl, function(data) {
-        console.log("callback");
-        console.log(data);
-    });
+    // mplayers.ajax.getRequest("https://partner.api.beatsmusic.com/v1/api/tracks?client_id=gfj3eq79wjf6x75rvnyebwae", function(data) {
+    //     console.log("callback");
+    //     console.log(JSON.parse(data));
+    // });
 
 
 
