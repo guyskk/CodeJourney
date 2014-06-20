@@ -37,7 +37,7 @@
     {
         "user_id": 0,
         "user_name": "",
-        "hash_code": "447e1a1ecd49dd3f5701cd284ebd9428",
+        "hash_code": "447e1a1ecd49dd3f5701cd284ebd9428",//第一次获取之后会存在cookies中
         "level": null,
         "counts": {
             "like_songs": 0,
