@@ -27,6 +27,11 @@
     //     console.log(JSON.parse(data));
     // });
 
+    var playList="http://fm.baidu.com/dev/api/?tn=playlist&id=public_yuzhong_huayu&special=flash&prepend=&format=json&_=1403362900890";
+    mplayers.ajax.getRequest("php/proxy.php?url="+playList, function(data) {
+        console.log("callback");
+        console.log(JSON.parse(data));
+    });
 
 
 })();

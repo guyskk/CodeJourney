@@ -64,10 +64,5 @@
 		audioControl.adjustVolume();
 
 
-		audio.seekable.start();  // Returns the starting time (in seconds)
-		audio.seekable.end();    // Returns the ending time (in seconds)
-		audio.currentTime = 122; // Seek to 122 seconds
-		audio.played.end(); 
-
 	};
 })();
