@@ -1,5 +1,8 @@
 (function(){
 
+	SONGIDS=[];
+	SONGLIST=[];
+
 	function AudioControl(target){
 		this.target=target;
 		this.status=false;
@@ -24,6 +27,7 @@
 			}
 		},false);
 	};
+	// AudioControl
 
 	AudioControl.prototype.adjustVolume=function(){
 		var _this=this,
@@ -40,6 +44,25 @@
 				audio.volume=(audio.volume+0.1).toFixed(1);
 			}
 		},false);
+	};
+
+
+	AudioControl.prototype.next=function(){
+		var _this=this,
+			forward=this.forward,
+			audio=this.audio,
+			i=0;
+			console.log(forward);
+		forward.addEventListener("click",function(event){
+			mplayers.ajax.getRequest("php/post.php?time="+mplayers.getTime(),function(data){
+				console.log(data);
+			});
+		audio.src=SONGLIST[i].songLink;
+		// audio.src="http://cc.stream.qqmusic.qq.com/C2000035GveV3i9dBM.m4a?vkey=5225C26FFDF2725D44393419A6FB62DA3C88E31FFE3195372F43FD6B285E92FC&guid=1382235036&fromtag=0";
+		audio.play();
+		i++;
+		},false);
+
 	};
 
 	window.onload=function(){
@@ -60,8 +83,10 @@
 		audioControl.addItem("volumeDown",volumeDown);
 		audioControl.addItem("volumeUp",volumeUp);
 		
+		console.log(audioControl);
 		audioControl.emitplay();
 		audioControl.adjustVolume();
+		audioControl.next();
 
 
 	};

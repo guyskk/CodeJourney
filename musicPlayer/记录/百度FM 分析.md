@@ -56,7 +56,10 @@ http://fm.baidu.com/dev/api/?action=userop&tn=userop&_=1403271279060
 
     action : userop
     tn : userop
-    _ : 1403271279060     //好像是频道编号
+    _ : 1403271279060     //时间戳 
+    -的生成:
+    var date = new Date();
+    var _=date.getTime();
 
 返回：
 
@@ -73,3 +76,11 @@ http://music.baidu.com/data/music/fmlink/?
     rate : 128                      //比特率
     callback : callback             //jsonp回调函数
     _ : 1403269028729               //暂时不知道代表什么意思，好像是频道编号。例子中的是欧美频道
+
+2014/0/622
+
+这个地址中：
+
+    http://music.baidu.com/data/music/fmlink?songIds=1432738,266322,246001,732612,338673,933461,2070801,217229,2498424,421057&type=mp3&rate=128&callback=jsonplink1403398364096&_=1403398363457
+
+返回的json中包含了文件下载地址，其中参数 "_=1403398363457" 可以去除，只是返回的json中的 "xcode" 不同，但是不影响地址
