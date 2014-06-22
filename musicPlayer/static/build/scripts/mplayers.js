@@ -54,11 +54,14 @@
 			i=0;
 			console.log(forward);
 		forward.addEventListener("click",function(event){
-			mplayers.ajax.getRequest("php/post.php?time="+mplayers.getTime(),function(data){
-				console.log(data);
-			});
+			// mplayers.ajax.getRequest("php/post.php?time="+mplayers.getTime(),function(data){
+			// console.log(data);
+			// });
 		audio.src=SONGLIST[i].songLink;
-		// audio.src="http://cc.stream.qqmusic.qq.com/C2000035GveV3i9dBM.m4a?vkey=5225C26FFDF2725D44393419A6FB62DA3C88E31FFE3195372F43FD6B285E92FC&guid=1382235036&fromtag=0";
+		// console.log(SONGLIST[i].songPicBig);
+		// document.getElementById("song-cover").src=SONGLIST[i].songPicBig;
+		audio.src="http://cc.stream.qqmusic.qq.com/C2000035GveV3i9dBM.m4a?vkey=5225C26FFDF2725D44393419A6FB62DA3C88E31FFE3195372F43FD6B285E92FC&guid=1382235036&fromtag=0";
+
 		audio.play();
 		i++;
 		},false);
@@ -155,38 +158,38 @@ function jsonpGetSongList(data) {
 //     console.log("users callback");
 // });
 
-// mplayers.ajax.getRequest("php/proxy.php?url=" + CONFIG.url.playlist, function(data) {
-//     console.log("playlist callback");
-//     data = JSON.parse(data);
-//     var list = data.list;
-//     for (var i = list.length - 1; i >= 0; i--) {
-//         SONGIDS.push(list[i].id);
-//     }
-//     console.log(SONGIDS);
-// });
+mplayers.ajax.getRequest("php/proxy.php?url=" + CONFIG.url.playlist, function(data) {
+    console.log("playlist callback");
+    data = JSON.parse(data);
+    var list = data.list;
+    for (var i = list.length - 1; i >= 0; i--) {
+        SONGIDS.push(list[i].id);
+    }
+    console.log(SONGIDS);
+});
 
 CONFIG.url.songlink += SONGIDS.join(",");
 CONFIG.url.songlink += ("&_=" + mplayers.getTime());
 
 
 
-// mplayers.addScript(CONFIG.url.songlink, function() {
-//     console.log("jsonp 调用成功！！！！");
-// });
+mplayers.addScript(CONFIG.url.songlink, function() {
+    console.log("jsonp 调用成功！！！！");
+});
 
 // mplayers.ajax.getRequest("php/post.php?time="+mplayers.getTime(),function(data){
 //     console.log(data);
 // });
 
 
-var douban="http://www.douban.com/j/app/radio/people?version=100&app_name=radio_desktop_win&channel=153&type=n";
-mplayers.ajax.getRequest("php/proxy.php?url=" +douban, function(data) {
-    console.log("playlist callback");
-    data = JSON.parse(data);
-    console.log(data);
-    // var list = data.list;
-    // for (var i = list.length - 1; i >= 0; i--) {
-    //     SONGIDS.push(list[i].id);
-    // }
-    // console.log(SONGIDS);
-});
+// var douban="http://douban.fm/j/mine/playlist?type=p&sid=1821905&pt=0.0&channel=153&pb=64&from=mainsite&r=aa0106fd44";
+// mplayers.ajax.getRequest("php/proxy.php?url=" +douban, function(data) {
+//     console.log("playlist callback");
+//     data = JSON.parse(data);
+//     console.log(data);
+//     var list = data.list;
+//     for (var i = list.length - 1; i >= 0; i--) {
+//         SONGIDS.push(list[i].id);
+//     }
+//     console.log(SONGIDS);
+// });
