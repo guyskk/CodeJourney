@@ -58,9 +58,9 @@
 			// console.log(data);
 			// });
 		audio.src=SONGLIST[i].songLink;
-		// console.log(SONGLIST[i].songPicBig);
-		// document.getElementById("song-cover").src=SONGLIST[i].songPicBig;
-		audio.src="http://cc.stream.qqmusic.qq.com/C2000035GveV3i9dBM.m4a?vkey=5225C26FFDF2725D44393419A6FB62DA3C88E31FFE3195372F43FD6B285E92FC&guid=1382235036&fromtag=0";
+
+
+		audio.src="http://stream19.qqmusic.qq.com/30081265.mp3";
 
 		audio.play();
 		i++;
