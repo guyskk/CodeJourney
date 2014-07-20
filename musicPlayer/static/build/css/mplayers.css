@@ -83,9 +83,6 @@ li {
   -o-box-shadow: 0 0 35px rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 35px rgba(0, 0, 0, 0.5);
 }
-body {
-  background: url(file:///E:/Code/nodejs/chatroom/public/images/1245808247021371828.jpg) no-repeat center center fixed;
-}
 .player_panel {
   width: 600px;
   height: 250px;

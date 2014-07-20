@@ -85,7 +85,7 @@
 		audioControl.addItem("forward",forward);
 		audioControl.addItem("volumeDown",volumeDown);
 		audioControl.addItem("volumeUp",volumeUp);
-		
+
 		console.log(audioControl);
 		audioControl.emitplay();
 		audioControl.adjustVolume();
@@ -127,6 +127,7 @@ mplayers.ajax.postRequest = function(url, para, callback) {
     };
     http.open("POST", url, false);
     http.setRequestHeader("Content-Type", "applicaiotn/x-www-form-urlencoded");
+    http.setRequestHeader("Access-Control-Allow-Origin", "*");
     http.send(para);
 
 };
@@ -153,43 +154,23 @@ function jsonpGetSongList(data) {
     }
 }
 
+var douban = "http://douban.fm/j/mine/playlist?type=p&sid=1821905&pt=0.0&channel=153&pb=64&from=mainsite&r=aa0106fd44";
 
-// mplayers.ajax.getRequest("php/proxy.php?url=" + CONFIG.url.users, function(data) {
-//     console.log("users callback");
-// });
+var netcase = {
+    "post": "http://music.163.com/api/artist/albums/10557?offset=0&limit=3",
+    "get": ""
+};
 
-mplayers.ajax.getRequest("php/proxy.php?url=" + CONFIG.url.playlist, function(data) {
+document.cookie = "appver=2.0.2";
+
+mplayers.ajax.postRequest("php/proxy.php?url=" + netcase.post, "csrf_token=", function(data) {
+    console.log(data);
+});
+
+
+
+mplayers.ajax.getRequest(netcase, function(data) {
     console.log("playlist callback");
     data = JSON.parse(data);
-    var list = data.list;
-    for (var i = list.length - 1; i >= 0; i--) {
-        SONGIDS.push(list[i].id);
-    }
-    console.log(SONGIDS);
+    console.log(data);
 });
-
-CONFIG.url.songlink += SONGIDS.join(",");
-CONFIG.url.songlink += ("&_=" + mplayers.getTime());
-
-
-
-mplayers.addScript(CONFIG.url.songlink, function() {
-    console.log("jsonp 调用成功！！！！");
-});
-
-// mplayers.ajax.getRequest("php/post.php?time="+mplayers.getTime(),function(data){
-//     console.log(data);
-// });
-
-
-// var douban="http://douban.fm/j/mine/playlist?type=p&sid=1821905&pt=0.0&channel=153&pb=64&from=mainsite&r=aa0106fd44";
-// mplayers.ajax.getRequest("php/proxy.php?url=" +douban, function(data) {
-//     console.log("playlist callback");
-//     data = JSON.parse(data);
-//     console.log(data);
-//     var list = data.list;
-//     for (var i = list.length - 1; i >= 0; i--) {
-//         SONGIDS.push(list[i].id);
-//     }
-//     console.log(SONGIDS);
-// });

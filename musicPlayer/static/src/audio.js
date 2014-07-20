@@ -85,7 +85,7 @@
 		audioControl.addItem("forward",forward);
 		audioControl.addItem("volumeDown",volumeDown);
 		audioControl.addItem("volumeUp",volumeUp);
-		
+
 		console.log(audioControl);
 		audioControl.emitplay();
 		audioControl.adjustVolume();
