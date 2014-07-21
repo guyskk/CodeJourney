@@ -161,16 +161,23 @@ var netcase = {
     "get": ""
 };
 
-document.cookie = "appver=2.0.2";
+// document.cookie = "appver=2.0.2";
 
 mplayers.ajax.postRequest("php/proxy.php?url=" + netcase.post, "csrf_token=", function(data) {
     console.log(data);
+    document.getElementsByTagName("body")[0].innerHTML+=data;
 });
 
+// mplayers.ajax.getRequest("php/proxy.php?url=" + CONFIG.url.users+mplayers.getTime(), function(data) {
+//     console.log(data);
+//     document.getElementsByTagName("body")[0].innerHTML=data;
+// });
 
 
-mplayers.ajax.getRequest(netcase, function(data) {
-    console.log("playlist callback");
-    data = JSON.parse(data);
-    console.log(data);
-});
+
+
+// mplayers.ajax.getRequest(netcase, function(data) {
+//     console.log("playlist callback");
+//     data = JSON.parse(data);
+//     console.log(data);
+// });

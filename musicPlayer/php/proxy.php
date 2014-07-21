@@ -18,8 +18,8 @@
 	 $query = isset($urlQuery['query']) ? $urlQuery['query'] : '';
 	 $path = isset($urlQuery['path']) ? $urlQuery['path'] : '/';
 	 $NetCaseRefer= "http://".$urlQuery['host'];
-	 echo "urlQuery : ".$url;
-	 echo "query : ".$query;
+	 // echo "urlQuery : ".$url;
+	 // echo "query : ".$query;
 	 $header = array (
 		 "Host: {$urlQuery['host']}",
 		 "Content-Type: text/xml; charset=utf-8",
