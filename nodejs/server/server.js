@@ -25,6 +25,7 @@ function serverStatic(response, cache, absPath) {
     if (cache[absPath]) {
         sendFile(response, absPath, cache[absPath]);
     } else {
+        //检查是否存在路径 absPath, 回调函数中的 exists 为布尔值
         fs.exists(absPath, function(exists) {
             if (exists) {
                 fs.readFile(absPath, function(err, data) {
@@ -32,7 +33,7 @@ function serverStatic(response, cache, absPath) {
                         send404(response);
                     } else {
                         cache[absPath] = data;
-                        sendFile(response, abPath, data);
+                        sendFile(response, absPath, data);
                     }
                 });
             } else {
@@ -50,10 +51,13 @@ var server = http.createServer(function(request, response) {
         filePath = 'public' + request.url;
     }
     var absPath = './' + filePath;
-    serveStatic(response, cache, absPath);
+    serverStatic(response, cache, absPath);
 });
 
 
 server.listen(3000, function() {
     console.log("Server listening on port 3000.");
 });
+
+var chatServer=require("./lib/chat_server");
+chatServer.listen(server);
