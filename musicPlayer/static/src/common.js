@@ -41,6 +41,7 @@ mplayers.ajax.postRequest = function(url, para, callback) {
     http.open("POST", url, false);
     http.setRequestHeader("Content-Type", "applicaiotn/x-www-form-urlencoded");
     http.setRequestHeader("Access-Control-Allow-Origin", "*");
+    http.setRequestHeader("cookies","BAIDUID=920CC4796EF5303142F616848B57AA86:FG=1; fm_1=1407590010867; fm_dv=50; fm_1u=1; Hm_lvt_095dca06dff008569144e1c474bad69a=1407590002; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407590002; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=769145");
     http.send(para);
 
     http.onreadystatechange = function() {
@@ -83,7 +84,7 @@ var netcase = {
 
 var douban={
     "getChannels":"http://www.douban.com/j/app/radio/channels",
-    "getList":"http://douban.fm/j/mine/playlist?type=n&sid=&pt=0.0&channel=1003824&from=mainsite&r=4e1944f0f2",
+    "getList":"http://www.douban.com/j/app/radio/people?app_name=radio_desktop_win&version=100&user_id=&expire=&token=&sid=&h=&channel=1&type=n",
     "playlist":"http://www.douban.com/j/app/radio/people",
     "playlistParams":"?app_name=radio_desktop_win&version=100&type=e"
 };
@@ -110,7 +111,12 @@ mplayers.ajax.getRequest("php/proxy.php?url=" + douban.getChannels, function(res
     }
     listContainer.innerHTML=html;
 });
-mplayers.ajax.getRequest("php/proxy.php?url="+douban.playlist+douban.playlistParams,function(response){
+mplayers.ajax.getRequest("php/proxy.php?url="+"http://fm.baidu.com/dev/api/?tn=playlist&id=public_yuzhong_huayu&special=flash&prepend=&format=json&_=1407590010199",function(response){
     console.log(response);
+});
 
+//post  获得 hashcode
+var timestamp=new Date().getTime();
+mplayers.ajax.postRequest("php/proxy.php?url="+"http://fm.baidu.com/dev/api/?tn=usercounts&_=1407590010198","tn=usercounts&_="+(new Date()).getTime(),function(response){
+    console.log(response);
 });

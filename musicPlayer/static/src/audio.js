@@ -46,7 +46,6 @@
         }, false);
     };
 
-
     AudioControl.prototype.prev = function() {
         var _this = this,
             forward = this.backward,
