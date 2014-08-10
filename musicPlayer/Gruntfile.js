@@ -61,14 +61,14 @@ module.exports = function(grunt) {
                 files: ['static/src/**/*.js'],
                 tasks: ['jshint', 'uglify', 'concat'],
                 options: {
-                    debounceDelay: 100,
+                    debounceDelay: 0,
                 }
             },
             css: {
                 files: ["static/assets/**/*.less"],
                 tasks: ["less"],
                 options: {
-                    debounceDelay: 100,
+                    debounceDelay: 0,
                 }
             }
         }

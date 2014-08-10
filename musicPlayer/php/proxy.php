@@ -43,7 +43,7 @@
         // curl_setopt($ch, CURLOPT_HTTPHEADER, $header);  //设置头信息的地方
 
     	curl_setopt($ch, CURLOPT_URL, $fmUrl); //你要访问的页面
-    	// curl_setopt($ch, CURLOPT_REFERER, $referer); //伪造来路页面
+    	curl_setopt($ch, CURLOPT_REFERER, $referer); //伪造来路页面
 
 
         curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
