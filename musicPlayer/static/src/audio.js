@@ -52,7 +52,7 @@
             audio = this.audio,
             i = 0;
         forward.addEventListener("click", function(event) {
-                if(!_this.playList){
+            if (!_this.playList) {
                 alert("没有上一首!");
             }
             audio.src = "http://stream19.qqmusic.qq.com/30081265.mp3";
@@ -68,17 +68,15 @@
             audio = this.audio,
             i = 0;
         forward.addEventListener("click", function(event) {
-            if(!_this.playList){
+            if (!_this.playList) {
                 alert("没有下一首!");
             }
-            audio.src = "http://stream19.qqmusic.qq.com/30081265.mp3";
+            audio.src = SONGLIST[i].songLink;
 
             audio.play();
             i++;
         }, false);
     };
-
-
 
     AudioControl.prototype.init = function() {
         this.emitplay();
@@ -88,6 +86,10 @@
         this.prev();
     };
 
+    AudioControl.prototype.addPlayList = function(array) {
+        //暂时只是引用，其实应该是复制一份，array 在函数外部修改不应该影响到 _this.playList
+        this.playList = array;
+    };
     window.onload = function() {
 
         var audio = document.getElementsByTagName("audio")[0];
@@ -105,9 +107,10 @@
         audioControl.addItem("forward", forward);
         audioControl.addItem("volumeDown", volumeDown);
         audioControl.addItem("volumeUp", volumeUp);
-
+        audioControl.playList = SONGLIST;
         audioControl.init();
 
 
     };
+
 })();

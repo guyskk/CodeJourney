@@ -52,7 +52,7 @@
             audio = this.audio,
             i = 0;
         forward.addEventListener("click", function(event) {
-                if(!_this.playList){
+            if (!_this.playList) {
                 alert("没有上一首!");
             }
             audio.src = "http://stream19.qqmusic.qq.com/30081265.mp3";
@@ -68,17 +68,15 @@
             audio = this.audio,
             i = 0;
         forward.addEventListener("click", function(event) {
-            if(!_this.playList){
+            if (!_this.playList) {
                 alert("没有下一首!");
             }
-            audio.src = "http://stream19.qqmusic.qq.com/30081265.mp3";
+            audio.src = SONGLIST[i].songLink;
 
             audio.play();
             i++;
         }, false);
     };
-
-
 
     AudioControl.prototype.init = function() {
         this.emitplay();
@@ -88,6 +86,10 @@
         this.prev();
     };
 
+    AudioControl.prototype.addPlayList = function(array) {
+        //暂时只是引用，其实应该是复制一份，array 在函数外部修改不应该影响到 _this.playList
+        this.playList = array;
+    };
     window.onload = function() {
 
         var audio = document.getElementsByTagName("audio")[0];
@@ -105,14 +107,14 @@
         audioControl.addItem("forward", forward);
         audioControl.addItem("volumeDown", volumeDown);
         audioControl.addItem("volumeUp", volumeUp);
-
+        audioControl.playList = SONGLIST;
         audioControl.init();
 
 
     };
+
 })();
-;
-var mplayers={};
+;var mplayers = {};
 
 // mplayers.namespace=function(ns){
 //     var a=
@@ -124,21 +126,13 @@ var mplayers = {
         "getRequest": null
     }
 };
-var CONFIG = {
-    "url": {
-        "users": "http://fm.baidu.com/dev/api/?tn=usercounts&_=1403397847605",
-        "postUrl": "http://fm.baidu.com/dev/api/?action=userop&tn=userop&_=",
-        "playlist": "http://fm.baidu.com/dev/api/?tn=playlist&id=public_yuzhong_huayu&special=flash&prepend=&format=json&_=1403362900890",
-        "songlink": "http://music.baidu.com/data/music/fmlink?type=mp3&rate=128&callback=jsonpGetSongList&songIds="
-    }
-};
-
 //GET
 mplayers.ajax.getRequest = function(url, callback) {
     var http = new XMLHttpRequest();
-
+    url = "php/proxy.php?url=" + url;
     http.open("GET", url, false);
 
+    // http.setRequestHeader("cookies", "BAIDUID=4D39573D023B4F1A304E6797EDC0687F:FG=1; BDUSS=FlMaWE4dGxJYUFia1ZGeWRHU3NQUmluYTVsajFncENpZmJkaDJSMHEwV0RCOVpUQVFBQUFBJCQAAAAAAAAAAAEAAAD47CYUUm96aW5nUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIN6rlODeq5TN; BDRCVFR[v8WxSimZ_e0]=ACuw4BhQjvbuL9LUAY8mvqV; BDRCVFR[fuyyy8mkBk_]=mk3SLVN4HKm; H_PS_PSSID=7353_6491_1436_5225_6995_7539_7442_6506_7233_6017_7203_6931_6699_7134_7417_7415; MCITY=-349%3A; fm_cloud=1; cflag=65535%3A1; BAIDU_DUP_lcr=https://www.google.com.hk/; fm_1=1407629513866; fm_dv=50; Hm_lvt_095dca06dff008569144e1c474bad69a=1405089305,1407594265; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407629514; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=227711%2C439491%2C4770778");
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
             callback(http.responseText);
@@ -146,15 +140,20 @@ mplayers.ajax.getRequest = function(url, callback) {
     };
     http.send(null);
 };
-
 //POST
 mplayers.ajax.postRequest = function(url, para, callback) {
+
     var http = new XMLHttpRequest();
 
     http.open("POST", url, false);
     http.setRequestHeader("Content-Type", "applicaiotn/x-www-form-urlencoded");
     http.setRequestHeader("Access-Control-Allow-Origin", "*");
+<<<<<<< HEAD
     http.setRequestHeader("cookies","BAIDUID=920CC4796EF5303142F616848B57AA86:FG=1; fm_1=1407590010867; fm_dv=50; fm_1u=1; Hm_lvt_095dca06dff008569144e1c474bad69a=1407590002; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407590002; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=769145");
+=======
+    // http.setRequestHeader("cookies", "BAIDUID=4D39573D023B4F1A304E6797EDC0687F:FG=1; BDUSS=FlMaWE4dGxJYUFia1ZGeWRHU3NQUmluYTVsajFncENpZmJkaDJSMHEwV0RCOVpUQVFBQUFBJCQAAAAAAAAAAAEAAAD47CYUUm96aW5nUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIN6rlODeq5TN; BDRCVFR[v8WxSimZ_e0]=ACuw4BhQjvbuL9LUAY8mvqV; BDRCVFR[fuyyy8mkBk_]=mk3SLVN4HKm; H_PS_PSSID=7353_6491_1436_5225_6995_7539_7442_6506_7233_6017_7203_6931_6699_7134_7417_7415; MCITY=-349%3A; fm_cloud=1; cflag=65535%3A1; BAIDU_DUP_lcr=https://www.google.com.hk/; fm_1=1407629513866; fm_dv=50; Hm_lvt_095dca06dff008569144e1c474bad69a=1405089305,1407594265; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407629514; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=227711%2C439491%2C4770778");
+       // http.setRequestHeader("cookies","BAIDUID=4D39573D023B4F1A304E6797EDC0687F:FG=1; BDRCVFR[v8WxSimZ_e0]=ACuw4BhQjvbuL9LUAY8mvqV; BDRCVFR[fuyyy8mkBk_]=mk3SLVN4HKm; H_PS_PSSID=7353_6491_1436_5225_6995_7539_7442_6506_7233_6017_7203_6931_6699_7134_7417_7415; MCITY=-349%3A; fm_cloud=1; cflag=65535%3A1; BAIDU_DUP_lcr=https://www.google.com.hk/; fm_1u=1; fm_1=1407630243386; fm_dv=50; Hm_lvt_095dca06dff008569144e1c474bad69a=1405089305,1407594265; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407630243; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=341461%2C224523%2C311471");
+>>>>>>> 49dd4a69490a330293ec0665a06916c0bbd596d6
     http.send(para);
 
     http.onreadystatechange = function() {
@@ -162,8 +161,6 @@ mplayers.ajax.postRequest = function(url, para, callback) {
             callback(http.responseText);
         }
     };
-
-
 };
 
 mplayers.addScript = function(url, callback) {
@@ -180,48 +177,53 @@ mplayers.getTime = function() {
     return date.getTime();
 };
 
-function jsonpGetSongList(data) {
-    console.log(data);
-    var songList = data.data.songList;
-    for (var i = 0, len = songList.length; i < len; i++) {
-        SONGLIST[i] = songList[i];
-    }
-}
 
-// var douban = "http://douban.fm/j/mine/playlist?type=p&sid=1821905&pt=0.0&channel=153&pb=64&from=mainsite&r=aa0106fd44";
 
-var netcase = {
-    "post": "http://music.163.com/api/artist/albums/10557?offset=0&limit=3",
-    "get": ""
-};
-
+<<<<<<< HEAD
 var douban={
     "getChannels":"http://www.douban.com/j/app/radio/channels",
     "getList":"http://www.douban.com/j/app/radio/people?app_name=radio_desktop_win&version=100&user_id=&expire=&token=&sid=&h=&channel=1&type=n",
     "playlist":"http://www.douban.com/j/app/radio/people",
     "playlistParams":"?app_name=radio_desktop_win&version=100&type=e"
+=======
+var baiduFm = {
+    "channel": "public_yuzhong_huayu",
+    "getHashCode": "http://fm.baidu.com/dev/api/?tn=usercounts&_=" + mplayers.getTime(),
+    "getPlayList": "http://fm.baidu.com/dev/api/?tn=playlist&id=" + this.channel + "&special=flash&prepend=&format=json&_=" + mplayers.getTime(),
+    "getSongList": "http://music.baidu.com/data/music/fmlink?type=mp3&rate=128&songIds=615750,50326329,285172&callback=jsonpGetSongList&_=1407594343228"
+>>>>>>> 49dd4a69490a330293ec0665a06916c0bbd596d6
 };
 
 
-// document.cookie = "appver=2.0.2";
 
-// mplayers.ajax.postRequest("php/proxy.php?url=" + netcase.post, "csrf_token=", function(data) {
-//     console.log(data);
-//     document.getElementsByTagName("body")[0].innerHTML += data;
-// });
-
-mplayers.ajax.getRequest("php/proxy.php?url=" + douban.getChannels, function(response) {
-
-    document.body.innerHTML +=response;
-    var listContainer=document.getElementById("channels-list");
-
-    var html="";
-    var channels=JSON.parse(response).channels;
-
-    for(var i=0,len=channels.length;i<len-1;i++){
-
-        html+= "<li>"+channels[i].name +" : "+channels[i].channel_id+"</li>";
+mplayers.ajax.getRequest(baiduFm.getHashCode, function(response) {
+    var hash_code = JSON.parse(response).hash_code;
+    console.log(hash_code);
+});
+mplayers.ajax.getRequest(baiduFm.getPlayList, function(response) {
+    var list = JSON.parse(response).list;
+    var idStr = "";
+    for (var i = 0; i < list.length; i++) {
+        idStr += list[i].id + ",";
     }
+    var url = "http://music.baidu.com/data/music/fmlink?type=mp3&rate=128&songIds=" + idStr + "&callback=getSongList&_=" + mplayers.getTime();
+    mplayers.addScript(url, function() {
+        console.log("jsonp success!");
+    });
+
+});
+
+
+function getSongList(data) {
+    console.log(data.data.songList);
+    var songList = data.data.songList;
+    for (var i = 0, len = songList.length; i < len; i++) {
+        if(songList.songLink.indexOf("file.qianqian.com") != -1){
+            SONGLIST[i] = songList[i];
+
+        }
+    }
+<<<<<<< HEAD
     listContainer.innerHTML=html;
 });
 mplayers.ajax.getRequest("php/proxy.php?url="+"http://fm.baidu.com/dev/api/?tn=playlist&id=public_yuzhong_huayu&special=flash&prepend=&format=json&_=1407590010199",function(response){
@@ -233,3 +235,6 @@ var timestamp=new Date().getTime();
 mplayers.ajax.postRequest("php/proxy.php?url="+"http://fm.baidu.com/dev/api/?tn=usercounts&_=1407590010198","tn=usercounts&_="+(new Date()).getTime(),function(response){
     console.log(response);
 });
+=======
+}
+>>>>>>> 49dd4a69490a330293ec0665a06916c0bbd596d6
