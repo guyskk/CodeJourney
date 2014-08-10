@@ -32,9 +32,8 @@ mplayers.ajax.postRequest = function(url, para, callback) {
     http.open("POST", url, false);
     http.setRequestHeader("Content-Type", "applicaiotn/x-www-form-urlencoded");
     http.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-    // http.setRequestHeader("cookies", "BAIDUID=4D39573D023B4F1A304E6797EDC0687F:FG=1; BDUSS=FlMaWE4dGxJYUFia1ZGeWRHU3NQUmluYTVsajFncENpZmJkaDJSMHEwV0RCOVpUQVFBQUFBJCQAAAAAAAAAAAEAAAD47CYUUm96aW5nUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIN6rlODeq5TN; BDRCVFR[v8WxSimZ_e0]=ACuw4BhQjvbuL9LUAY8mvqV; BDRCVFR[fuyyy8mkBk_]=mk3SLVN4HKm; H_PS_PSSID=7353_6491_1436_5225_6995_7539_7442_6506_7233_6017_7203_6931_6699_7134_7417_7415; MCITY=-349%3A; fm_cloud=1; cflag=65535%3A1; BAIDU_DUP_lcr=https://www.google.com.hk/; fm_1=1407629513866; fm_dv=50; Hm_lvt_095dca06dff008569144e1c474bad69a=1405089305,1407594265; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407629514; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=227711%2C439491%2C4770778");
-       // http.setRequestHeader("cookies","BAIDUID=4D39573D023B4F1A304E6797EDC0687F:FG=1; BDRCVFR[v8WxSimZ_e0]=ACuw4BhQjvbuL9LUAY8mvqV; BDRCVFR[fuyyy8mkBk_]=mk3SLVN4HKm; H_PS_PSSID=7353_6491_1436_5225_6995_7539_7442_6506_7233_6017_7203_6931_6699_7134_7417_7415; MCITY=-349%3A; fm_cloud=1; cflag=65535%3A1; BAIDU_DUP_lcr=https://www.google.com.hk/; fm_1u=1; fm_1=1407630243386; fm_dv=50; Hm_lvt_095dca06dff008569144e1c474bad69a=1405089305,1407594265; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407630243; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=341461%2C224523%2C311471");
+    http.setRequestHeader("cookies", "BAIDUID=4D39573D023B4F1A304E6797EDC0687F:FG=1; BDUSS=FlMaWE4dGxJYUFia1ZGeWRHU3NQUmluYTVsajFncENpZmJkaDJSMHEwV0RCOVpUQVFBQUFBJCQAAAAAAAAAAAEAAAD47CYUUm96aW5nUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIN6rlODeq5TN; BDRCVFR[v8WxSimZ_e0]=ACuw4BhQjvbuL9LUAY8mvqV; BDRCVFR[fuyyy8mkBk_]=mk3SLVN4HKm; H_PS_PSSID=7353_6491_1436_5225_6995_7539_7442_6506_7233_6017_7203_6931_6699_7134_7417_7415; MCITY=-349%3A; fm_cloud=1; cflag=65535%3A1; BAIDU_DUP_lcr=https://www.google.com.hk/; fm_1=1407629513866; fm_dv=50; Hm_lvt_095dca06dff008569144e1c474bad69a=1405089305,1407594265; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407629514; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=227711%2C439491%2C4770778");
+       http.setRequestHeader("cookies","BAIDUID=4D39573D023B4F1A304E6797EDC0687F:FG=1; BDRCVFR[v8WxSimZ_e0]=ACuw4BhQjvbuL9LUAY8mvqV; BDRCVFR[fuyyy8mkBk_]=mk3SLVN4HKm; H_PS_PSSID=7353_6491_1436_5225_6995_7539_7442_6506_7233_6017_7203_6931_6699_7134_7417_7415; MCITY=-349%3A; fm_cloud=1; cflag=65535%3A1; BAIDU_DUP_lcr=https://www.google.com.hk/; fm_1u=1; fm_1=1407630243386; fm_dv=50; Hm_lvt_095dca06dff008569144e1c474bad69a=1405089305,1407594265; Hm_lpvt_095dca06dff008569144e1c474bad69a=1407630243; fm_quality=0; fm_dc=public_yuzhong_huayu; fm_ph3=341461%2C224523%2C311471");
     http.send(para);
 
     http.onreadystatechange = function() {
@@ -87,12 +86,14 @@ mplayers.ajax.getRequest(baiduFm.getPlayList, function(response) {
 });
 
 
-function getSongList(data) {
-    console.log(data.data.songList);
-    var songList = data.data.songList;
+function getSongList(response) {
+    console.log(response);
+    var songList = response.data.songList;
+    var j=0;
     for (var i = 0, len = songList.length; i < len; i++) {
-        if(songList.songLink.indexOf("file.qianqian.com") != -1){
-            SONGLIST[i] = songList[i];
+        if(songList[i].songLink.indexOf("file.qianqian.com") == -1){
+            SONGLIST[j] = songList[i];
+            j++;
 
         }
     }
