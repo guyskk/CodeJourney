@@ -118,6 +118,12 @@ li {
   padding: 0 25px;
   cursor: pointer;
 }
+#theme-douban .control_btn span {
+  color: #333;
+}
+#theme-douban .control_btn span:hover {
+  color: #000;
+}
 #theme-douban .control_btn ul {
   display: block;
   zoom: 1;
