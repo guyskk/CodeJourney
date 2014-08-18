@@ -25,7 +25,6 @@ AudioControl.prototype.emitplay = function() {
     }, false);
 };
 // AudioControl
-
 AudioControl.prototype.adjustVolume = function() {
     var _this = this,
         volumeDown = this.volumeDown,
@@ -42,7 +41,7 @@ AudioControl.prototype.adjustVolume = function() {
         }
     }, false);
 };
-
+// 上一首
 AudioControl.prototype.prev = function() {
     var _this = this,
         forward = this.backward,
@@ -51,16 +50,20 @@ AudioControl.prototype.prev = function() {
         if (!_this.playList) {
             alert("没有上一首!");
         }
+        // _this.playingIndex=_this.random();
         if (_this.playingIndex <= 0) {
-            _this.playingIndex = _this.songList.length - 1;
+            _this.playingIndex = _this.playList.length - 1;
+        }else{
+            _this.playingIndex--;
         }
-        audio.src = _this.playingIndex;
+        console.log(_this.playingIndex);
+        audio.src = _this.playList[_this.playingIndex];
 
         audio.play();
-        _this.playingIndex--;
+        
     }, false);
 };
-
+// 下一首
 AudioControl.prototype.next = function() {
     var _this = this,
         forward = this.forward,
@@ -71,29 +74,43 @@ AudioControl.prototype.next = function() {
             alert("没有下一首!");
         }
         // 下一首的歌曲链接
-        if (_this.playingIndex >= _this.songList.length - 1) {
+        // _this.playingIndex=_this.random();
+        console.log(_this.playingIndex);
+        if (_this.playingIndex >= _this.playList.length - 1) {
             _this.playingIndex = 0;
         } else {
             _this.playingIndex++;
         }
-        audio.src = _this.playingIndex;
+        audio.src = _this.playList[_this.playingIndex];
         audio.play();
     }, false);
 };
 
+// 初始化
 AudioControl.prototype.init = function() {
     this.emitplay();
     this.adjustVolume();
-
     this.next();
     this.prev();
+};
+
+AudioControl.prototype.random=function(){
+    var index=Math.floor(Math.random()*4);
+    return index;
 };
 
 AudioControl.prototype.addPlayList = function(array) {
     //暂时只是引用，其实应该是复制一份，array 在函数外部修改不应该影响到 _this.playList
     this.playList = array;
-};
-window.onload = function() {
+};;$(document).ready(function() {
+    var SONGLiST = [
+        "http://1.mplayers.sinaapp.com/mplayer/music/01%20Avicii%20vs.%20Nicky%20Romero%20-%20I%20Could%20Be%20The%20One%20(Nicktim%20Radio%20Edit).mp3",
+        "http://1.mplayers.sinaapp.com/mplayer/music/02%20Otto%20Knows%20-%20Million%20Voices%20(Radio%20Edit).mp3",
+        "http://1.mplayers.sinaapp.com/mplayer/music/03%20The%20Wanted%20-%20Chasing%20The%20Sun%20(Hardwell%20Edit).mp3",
+        "http://1.mplayers.sinaapp.com/mplayer/music/04%20DJ%20Antoine%20-%20Bella%20Vita%20(DJ%20Antoine%20vs.%20Mad%20Mark%202K13%20Radio%20Edit).mp3",
+        "http://1.mplayers.sinaapp.com/mplayer/music/05%20Dada%20Life%20-%20So%20Young%20So%20High%20(Radio%20Edit).mp3",
+        "http://1.mplayers.sinaapp.com/mplayer/music/1772883837_11718726_l.mp3"
+    ];
 
     var audio = document.getElementsByTagName("audio")[0];
     var play = document.getElementById("control-play"),
@@ -110,10 +127,12 @@ window.onload = function() {
     audioControl.addItem("forward", forward);
     audioControl.addItem("volumeDown", volumeDown);
     audioControl.addItem("volumeUp", volumeUp);
+    audioControl.addPlayList(SONGLiST);
+    audioControl.audio.src=SONGLiST[Math.floor(0+Math.random()*4)];
     audioControl.init();
+    
 
 
-};
-;$(document).ready(function(){
-   console.log(1);
+
+
 });
