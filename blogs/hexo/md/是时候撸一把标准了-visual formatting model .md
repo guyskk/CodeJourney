@@ -1,0 +1,67 @@
+#是时候撸一把标准了-visual formatting model
+
+##[视觉格式化模型介绍](http://www.w3.org/TR/CSS21/visuren.html)
+
+CSS 视觉格式化模型（visual formatting model）是一种用来处理文档，将其呈现在可视化媒体中的算法。这是 CSS 中的一个最基本的概念。可视化格式模型会转化文档中的每一个元素，并且形成零个，一个或者多个符合CSS盒模型规范的盒子（boxes）。每个盒子的布局由下面的内容来控制：
+
+* 盒子的尺寸：精确定义，或者被限制，或者都没有；
+* 盒子的类型：inline，inline-level，atomic inline-level，block box；
+* 定位方式：普通文档流，浮动或者绝对定位；
+* DOM树中的其他元素：它的子元素和相邻元素；
+* 视口的大小和位置；
+* 包含的图像的固定尺寸（因为盒子包裹着图片，图片有大小，从而影响了盒子的大小）；
+* 其他的外部信息（？？？）
+
+总的来说，VFM 决定了用户代理（浏览器）在视觉媒体（visual media）如何处理 DOM 树。
+
+<h3>containing block</h3>
+
+在 CSS2.1 中定义了 “containing block”。一些盒子的大小和位置是相对于一个矩形盒子计算的，这个矩形的盒子，就是 `containing block` 。
+
+一个盒子相对于它的包含块(containing block) 的边界来渲染。一般来说，生成的盒子会表现得像一个 `containing block` （就像它爹一样），它内部的盒子相对于它的边界来渲染。这就是所谓的：盒子为它的后代元素建立包含块。而我们说的”一个盒子的包含块“指的是这个盒子赖以生存的包含块，而不是盒子生成的包含块。注意盒子并不受它的包含块的限制，当它的布局跑到包含块的外面时称为溢出(overflow)。
+
+关于 containing block 具体的细节 [link](http://www.w3.org/TR/CSS21/visudet.html#containing-block-details)，暂时先放一边，稍后在整理。现在只是按照 W3C 的文档顺序集合其他资料做一个整理。
+
+###盒子的生成（Box generation）
+
+CSS 视觉格式化模型的一部分工作就是从文档（document）生成盒子。一个盒子的类型在一定程度上会影响它在 VFM 中的表现。一般元素都有一个默认的盒子类型，可以通过 CSS 的 display 属性修改。
+
+####块级元素和块级盒子（block-level element and block boxes）
+
+块级元素（block-level element）就是那些在 document 中在视觉上被渲染成块的元素，比如 \<p>。当元素的 CSS 属性  display 为 block, list-item 或 table 时，它是块级元素(block-level)，被块级化。
+
+每一个块级元素（block-level element）生成一个主块级盒子（principal block-level box）。主块级盒子包含后代元素生成的盒子以及生成的内容，它可以采用任意一种[定位方案（positioning schemes）](#positioning-schemes)。有的块级元素会生成除了主块级盒子之外额外的盒子：比如 "list-item" 元素，会生成额外的盒子来放置项目符号
+
+![li](http://img5.tuchuang.org/uploads/2014/08/QQ20140816_1(1).png)
+
+不过多数元素只生成一个主要块级盒。 
+每个块级盒子都会涉及到一个 [块级格式化上下文（block formatting context）](#block-formatting-context)。
+
+除了表格盒子（table box，表格元素形成的盒子）和被替换的元素，一个块级盒子同时也是一个块容器盒子（block container box），一个块容器盒子只能包含块级盒子或者生成一个行内格式化上下文（inline formatting context），这个时候块容器盒子只能包含行级盒子（inline-level block）。
+总是感觉上面的话很绕，说直白一点其实就是这么回事：
+
+    一个用来装酒的瓶子，我们自然只会用它来装酒，但是如果在这个瓶子里面装了水，你还会把酒装进去嘛？
+
+并不是所有的块容器盒子都是块级盒子：非替换的行内块和非替换的表格单元是块容器（可以理解成它们可以作为一个容纳新的块级盒子的容器），但是它们本身不是块级盒子。而块盒子（block boxes ）则是是块级盒子（block-level boxes）和块容器(block container)的交集。
+
+![image](http://img1.picbed.org/uploads/2014/08/_venn_inlines.png)
+
+
+####还有一个叫”匿名块盒“(Anonymous block boxes)的东西
+
+有一种盒子叫”匿名块盒子“，比如说下面的代码中：
+
+    <div>
+        hello,
+        <p>world!</p>
+    </div>
+
+
+
+
+
+<h3 id="positioning-schemes">CSS 中的定位方案（positioning schemes</h3>
+
+<h3 id="block-formatting-context">块级格式化上下文（block formatting context）</h3>
+
+
