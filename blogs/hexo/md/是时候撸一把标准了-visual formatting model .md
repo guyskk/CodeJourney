@@ -56,12 +56,39 @@ CSS 视觉格式化模型的一部分工作就是从文档（document）生成�
         <p>world!</p>
     </div>
 
+![image](http://ncuey.sinaapp.com/blog_files/images/2014-08-21_224544.png)
+
+div 中同时出现了行内内容和块级内容，为了更加方便的定义格式，我们假定在文本 “hello,”外部包裹着一个匿名的块级盒子（anonymous block）。 换句话说，如果一个块级容器盒子（就是一个用来装会块级盒子的大盒子）中只要包含任何一个块级盒子，我们就认为它只包含块级盒子。
+对于匿名盒子还要注意的是，和 \<p> 元素不同, 开发者不能控制这个匿名盒子。对于可继承属性， 它们将取 \<div> 的属性值, 比如 color。对于非继承属性，值为初始值 ，比如没有指定 background-color, 值为初始值即 transparent，于是 \<div> 背景可见。而 \<p> 可以指定 background-color 。类似的，这个匿名盒文本是一样的颜色。
+
+另外一种创建匿名块盒子的情况是：当一个行内盒包含了一个或几个块盒时，包含块盒的盒将拆分为两个行内盒放置于块盒前后，然后分别由两个匿名块盒包含。这样块盒就与两个包含行内元素的匿名块盒形成了兄弟关系。如果行内盒包含多个块盒，并且这些块盒之间没有夹杂内容，将在这些块盒前后创建匿名块盒。<a class="jsbin-embed" href="http://jsbin.com/japinularoji/1/embed?html,css,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
+
+    CSS：
+    .two p    { display: inline }
+    .two span { display: block }
+    
+    
+    HTML：
+    <h2>块盒包含行内盒子</h2>
+        <div class="one">
+            <P>This is anonymous text before the SPAN.
+            <span>This is the content of SPAN.</span>This is anonymous text after the SPAN.
+            </P>
+        </div>
+    <h2>一个行内盒包含了一个或几个块盒</h2>
+        <div class="two">
+            <P>This is anonymous text before the SPAN.
+            <span>This is the content of SPAN.</span>This is anonymous text after the SPAN.
+            </P>
+        </div>
+
+![image](http://ncuey.sinaapp.com/blog_files/images/2014-08-21_230945.png)
+
+前面说到的，匿名盒子无法被选中，但是会继承离他最近的非匿名盒子的样式。在触发匿名盒子形成的元素上添加的属性也会应用在元素的盒子和内容中，比如上面的例子，p元素师导致匿名盒子形成的元素，如果给它加上border，border也会应用的它形成的匿名盒子上
+
+![image](http://ncuey.sinaapp.com/blog_files/images/2014-08-21_232806.png)
 
 
-
-
-<h3 id="positioning-schemes">CSS 中的定位方案（positioning schemes</h3>
-
-<h3 id="block-formatting-context">块级格式化上下文（block formatting context）</h3>
+撸的好累，这一篇小小文章都搞了几天，现在已经快十二点了，要睡觉了。之后还需要把定位和浮动好好复习一下。
 
 
