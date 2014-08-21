@@ -1,4 +1,8 @@
-#是时候撸一把标准了-visual formatting model
+title: 是时候撸一把标准了-visual formatting model
+date: 2014-08-21 20:39
+tags: [CSS, 笔记]
+---
+是时候撸一把标准了-visual formatting model
 
 ##[视觉格式化模型介绍](http://www.w3.org/TR/CSS21/visuren.html)
 
