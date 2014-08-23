@@ -12,7 +12,7 @@ app.enable('trust proxy');
 
 // set方法用于设定内部变量，use方法用于调用express的中间件
 
-app.set("port",  process.env.PORT || 3000);
+app.set("port", 3000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,13 +27,7 @@ routes(app);
 
 
 
-
-
-
-
-
-
-var server = app.listen(app.get("port"), function(req, res) {
+var server = app.listen(3000, function(req, res) {
     console.log('Listening on port %d', server.address().port);
 });
 
