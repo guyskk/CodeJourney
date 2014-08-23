@@ -29,5 +29,16 @@ content = urllib2.urlopen(urls).read()
 
 html = BeautifulSoup(content)
 
-title = html
-print title.dl
+
+# 创建文件
+# 
+f = open('features.html', 'w')
+
+print html.dl
+
+f.write("<meta charset=\"UTF-8\">"+str(html.find_all("dl")))
+f.close()
+
+
+
+
