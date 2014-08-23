@@ -3,25 +3,8 @@
 
 import urllib2
 # from pyquery import PyQuery as pq
-from bs4 import BeautifulSoup
-from sgmllib import SGMLParser
- 
-class ListName(SGMLParser):
-    def __init__(self):
-        SGMLParser.__init__(self)
-        self.is_h2 = ""
-        self.name = []
-    def start_h4(self, attrs):
-        self.is_h2 = 1
-    def end_h4(self):
-        self.is_h2 = ""
-    def handle_data(self, text):
-        if self.is_h2 == 1:
-            self.name.append(text)
+from BeautifulSoup import BeautifulSoup
 
-
-class subjectList():
-    pass
 
 urls = 'http://www.yayaxz.com/features'
 
@@ -31,12 +14,15 @@ html = BeautifulSoup(content)
 
 
 # 创建文件
-# 
+#
 f = open('features.html', 'w')
 
 print html.dl
 
-f.write("<meta charset=\"UTF-8\">"+str(html.find_all("dl")))
+result = str(html.findAll('dl'))
+
+f.write("<meta charset=\"UTF-8\">"+result)
+
 f.close()
 
 
