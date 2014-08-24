@@ -8,7 +8,7 @@ var luoo_dir = './luoo/';
 function saveContent(content){
 
     var dir = luoo_dir + 'maganize.html';
-
+ 
     fs.exists(dir, function(exists){
         if(exists){
             fs.writeFile(dir, content, function(err){

@@ -1,29 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import urllib2
-# from pyquery import PyQuery as pq
-from BeautifulSoup import BeautifulSoup
+import os.path
+from pyquery import PyQuery as pq
+from lxml import etree
 
-
-urls = 'http://www.yayaxz.com/features'
-
+rootDir = './html/'
+urls = 'http://www.luoo.net/music/'
 content = urllib2.urlopen(urls).read()
 
-html = BeautifulSoup(content)
+content = pq(content)
 
+print content("a")
 
 # 创建文件
-#
-f = open('features.html', 'w')
+luooDir = rootDir+'luoo/'
+if not os.path.exists(luooDir): 
+    os.makedirs(luooDir)
 
-print html.dl
+with open(luooDir+'music.html', 'w+') as file_obj:
+    file_obj.write(str(content))
 
-result = str(html.findAll('dl'))
-
-f.write("<meta charset=\"UTF-8\">"+result)
-
-f.close()
 
 
 
