@@ -57,12 +57,30 @@ length = recommendations.size()
 
 i = 0
 while i < length:
+
+    c.execute('select href from MOVIE where visited = ?', (False, ))
+    print c.fetchone()
+    print '>>>>>>'
+    if c.fetchone():
+        print '------'
+        print c.fetchone()
+        new = c.fetchone()
+    else:
+        new = c.fetchone()
+
+    print 'This : ' + new[0]
+    c.execute('update MOVIE set visited = ? where href = ?', (True, new, ))
+
+    content = getDataStr(movie_classics)
+    content = pq(content)
+    movie_type = content('#info span').eq(3)
+    recommendations = content('#recommendations img')
+
     item = recommendations.eq(i)
     item_link = item.parent().attr('href')
     item_img_src = item.attr('src')
     item_name = item.attr('alt')
-    print item_link
-    print '>>>>>>>'
+
     content = getDataStr(item_link)
     content = pq(content)
     recommendations = content('#recommendations img')
@@ -71,9 +89,9 @@ while i < length:
     c.execute('select * from MOVIE where name=?', (item_name,))
     if not c.fetchone():
         print c.fetchone()
-        c.execute('insert into MOVIE(href, name, post_url) values (?, ?, ?) ', (item_link, item_name, item_img_src))
+        c.execute('insert into MOVIE(href, name, post_url, visited) values (?, ?, ?, ?) ', (item_link, item_name, item_img_src, False))
         conn.commit()
-    
+
     i += 1
 
 
