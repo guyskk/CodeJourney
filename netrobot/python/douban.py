@@ -32,7 +32,7 @@ rootUrl = 'http://movie.douban.com/'
 # 保存电影分类
 url_movie_tag = 'http://movie.douban.com/j/search_tags?type=movie'
 movie_tags = getDataStr(url_movie_tag)
-saveFile('tags.json', movie_tags);
+# saveFile('tags.json', movie_tags);
 
 
 
@@ -41,7 +41,7 @@ saveFile('tags.json', movie_tags);
 
 
 # 连接数据库
-conn = sqlite3.connect('./db/douban.rdb')
+conn = sqlite3.connect('./douban/db/douban.rdb')
 # 连接成功之后，你可以创建一个 cursor 对象，可以调用他的 execute() 方法来执行 SQL 命令
 
 c = conn.cursor()
