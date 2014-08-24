@@ -74,10 +74,6 @@ while i < length:
         c.execute('insert into MOVIE(href, name, post_url) values (?, ?, ?) ', (item_link, item_name, item_img_src))
         conn.commit()
     
-#    c.execute("select * from MOVIE order by id desc")
-#    print c.fetchone()
-    
-#    saveFile("move_list.html", recommendations)    
     i += 1
 
 
