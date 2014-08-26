@@ -2,9 +2,8 @@ title: 是时候撸一把标准了-visual formatting model
 date: 2014-08-21 20:39
 tags: [CSS, 笔记]
 ---
-是时候撸一把标准了-visual formatting model
 
-##[视觉格式化模型介绍](http://www.w3.org/TR/CSS21/visuren.html)
+##[视觉格式化模型](http://www.w3.org/TR/CSS21/visuren.html)
 
 CSS 视觉格式化模型（visual formatting model）是一种用来处理文档，将其呈现在可视化媒体中的算法。这是 CSS 中的一个最基本的概念。可视化格式模型会转化文档中的每一个元素，并且形成零个，一个或者多个符合CSS盒模型规范的盒子（boxes）。每个盒子的布局由下面的内容来控制：
 
@@ -36,7 +35,7 @@ CSS 视觉格式化模型的一部分工作就是从文档（document）生成�
 
 每一个块级元素（block-level element）生成一个主块级盒子（principal block-level box）。主块级盒子包含后代元素生成的盒子以及生成的内容，它可以采用任意一种[定位方案（positioning schemes）](#positioning-schemes)。有的块级元素会生成除了主块级盒子之外额外的盒子：比如 "list-item" 元素，会生成额外的盒子来放置项目符号
 
-![li](http://img5.tuchuang.org/uploads/2014/08/QQ20140816_1(1).png)
+![li](http://ncuey-crispelite.stor.sinaapp.com/QQ20140816_1(1).png)
 
 不过多数元素只生成一个主要块级盒。 
 每个块级盒子都会涉及到一个 [块级格式化上下文（block formatting context）](#block-formatting-context)。
@@ -65,7 +64,7 @@ CSS 视觉格式化模型的一部分工作就是从文档（document）生成�
 div 中同时出现了行内内容和块级内容，为了更加方便的定义格式，我们假定在文本 “hello,”外部包裹着一个匿名的块级盒子（anonymous block）。 换句话说，如果一个块级容器盒子（就是一个用来装会块级盒子的大盒子）中只要包含任何一个块级盒子，我们就认为它只包含块级盒子。
 对于匿名盒子还要注意的是，和 \<p> 元素不同, 开发者不能控制这个匿名盒子。对于可继承属性， 它们将取 \<div> 的属性值, 比如 color。对于非继承属性，值为初始值 ，比如没有指定 background-color, 值为初始值即 transparent，于是 \<div> 背景可见。而 \<p> 可以指定 background-color 。类似的，这个匿名盒文本是一样的颜色。
 
-另外一种创建匿名块盒子的情况是：当一个行内盒包含了一个或几个块盒时，包含块盒的盒将拆分为两个行内盒放置于块盒前后，然后分别由两个匿名块盒包含。这样块盒就与两个包含行内元素的匿名块盒形成了兄弟关系。如果行内盒包含多个块盒，并且这些块盒之间没有夹杂内容，将在这些块盒前后创建匿名块盒。<a class="jsbin-embed" href="http://jsbin.com/japinularoji/1/embed?html,css,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
+另外一种创建匿名块盒子的情况是：当一个行内盒包含了一个或几个块盒时，包含块盒的盒将拆分为两个行内盒放置于块盒前后，然后分别由两个匿名块盒包含。这样块盒就与两个包含行内元素的匿名块盒形成了兄弟关系。如果行内盒包含多个块盒，并且这些块盒之间没有夹杂内容，将在这些块盒前后创建匿名块盒。
 
     CSS：
     .two p    { display: inline }
