@@ -58,8 +58,11 @@ def updateMovieInfo(url):
     movie_director = movie_info.eq(0).find('a').html()
     movie_actors = getMovieActors(movie_info.eq(2).find('a'))
 
-    movie_type = movie_info.eq(3).filter("property=v:genre")
-    print movie_type
+    movie_type = movie_info.filter(lambda i: pq(this).attr('property') == 'v:genre')
+    print ">>>>"
+    print movie_type.size()
+    print pq(movie_type)
+    print "----"
     movie_country = movie_info.eq(4).find('a').html()
 
     c.execute('select href from MOVIE where href = ?', (url,))
