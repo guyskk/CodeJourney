@@ -38,7 +38,11 @@ def getMovieActors(DOM):
     return result
 
 def getMovieType(DOM):
-    result = ''
+    result = [];
+    for item in DOM:
+        result[0:0] = pq(item).html()
+        print pq(item).html()
+    return result
 
 
 
@@ -58,17 +62,17 @@ def updateMovieInfo(url):
     movie_director = movie_info.eq(0).find('a').html()
     movie_actors = getMovieActors(movie_info.eq(2).find('a'))
 
-    movie_type = movie_info.filter(lambda i: pq(this).attr('property') == 'v:genre')
-    print ">>>>"
-    print movie_type.size()
-    print pq(movie_type)
-    print "----"
-    movie_country = movie_info.eq(4).find('a').html()
+    movie_type = getMovieType(movie_info.filter(lambda i: pq(this).attr('property') == 'v:genre'))
 
+    print movie_type
+    movie_type = str(movie_type)
+
+    movie_country = str(movie_info.filter(lambda i: pq(this).text() == u'制片国家/地区:').next())
+    print movie_country
     c.execute('select href from MOVIE where href = ?', (url,))
 
     if c.fetchone() is not None:
-        c.execute('update MOVIE set type = ?, director = ?, country = ? where href = ?', (movie_type, movie_director, movie_country, url, ))
+        c.execute('update MOVIE set type = ?, director = ?, country = ? where href = ?', (movie_type, movie_director,  movie_country, url, ))
 
     recommendations = content('#recommendations img')
     length = recommendations.size()
