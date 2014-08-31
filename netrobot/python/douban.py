@@ -45,74 +45,59 @@ c = conn.cursor()
 # 将链接存入数据库
 
 def updateMovieInfo(url):
-    pass
+    content = getDataStr(url)
+    content = pq(content)
+    movie_info = content('#info>span')
+
+    # 保存一部分电影的信息
+    movie_director = movie_info.eq(0).find('a').html()
+    movie_actors = movie_info.eq(2).find('a').html()
+    movie_type = movie_info.eq(3).find('a').html()
+    movie_country = movie_info.eq(4).find('a').html()
+
+    print movie_director
+    print movie_actors
+    print movie_type
+    print movie_country
+
+    c.execute('select href from MOVIE where href = ?', (url,))
+
+    if c.fetchone() is not None:
+        print ">>>>"
+        print c.fetchone()
+        c.execute('update MOVIE set type = ?, director = ?, country = ? where href = ?', (movie_type, movie_director, movie_country, url, ))
+
+    recommendations = content('#recommendations img')
+    length = recommendations.size()
+    i = 0
+    while i < length:
+        item = recommendations.eq(i)
+        item_link = item.parent().attr('href')
+        item_img_src = item.attr('src')
+        item_name = item.attr('alt')
+
+
+        # 查找表中是否已经存在该链接
+        c.execute('select * from MOVIE where name=?', (item_name,))
+        if not c.fetchone():
+            print c.fetchone()
+            c.execute('insert into MOVIE(href, name, post_url, visited) values (?, ?, ?, ?) ', (item_link, item_name, item_img_src, False))
+            conn.commit()
+        i = i + 1
 
 # 尝试以此 url 作为入口
 movie_classics = 'http://movie.douban.com/subject/1292052/?tag=%E7%BB%8F%E5%85%B8&from=gaia_video'
-
-content = getDataStr(movie_classics)
-content = pq(content)
-movie_info = content('#info span')
-# 保存一部分电影的信息
-movie_director = movie_info.eq(0)
-movie_actors = movie_info.eq(2)
-movie_type = movie_info.eq(3)
-movie_producter = movie_info.eq(4)
-
-recommendations = content('#recommendations img')
-length = recommendations.size()
-i = 0
-while i < length:
-    item = recommendations.eq(i)
-    item_link = item.parent().attr('href')
-    item_img_src = item.attr('src')
-    item_name = item.attr('alt')
-
-    print item
-
-    # 查找表中是否已经存在该链接
-    c.execute('select * from MOVIE where name=?', (item_name,))
-    if not c.fetchone():
-        print c.fetchone()
-        c.execute('insert into MOVIE(href, name, post_url, visited) values (?, ?, ?, ?) ', (item_link, item_name, item_img_src, False))
-        conn.commit()
-    i = i + 1
-# updateMovieInfo(movie_classics)
+updateMovieInfo(movie_classics)
 
 while True:
 
     c.execute('select href from MOVIE where visited = ?', (False, ))
     new = c.fetchone()
-    print new == None
     if  new is not None:
-        print '------'
-        print new
         c.execute('update MOVIE set visited = 1 where href = ?', new)
 
-    # print 'This : ' + new[0]
         updateMovieInfo(new[0]);
-        content = getDataStr(new[0])
-        content = pq(content)
-        movie_type = content('#info span').eq(3)
-        recommendations = content('#recommendations img')
-        length = recommendations.size()
 
-        i = 0
-        while i < length:
-            item = recommendations.eq(i)
-            item_link = item.parent().attr('href')
-            item_img_src = item.attr('src')
-            item_name = item.attr('alt')
-
-            print item
-
-            # 查找表中是否已经存在该链接
-            c.execute('select * from MOVIE where name=?', (item_name,))
-            if not c.fetchone():
-                print c.fetchone()
-                c.execute('insert into MOVIE(href, name, post_url, visited) values (?, ?, ?, ?) ', (item_link, item_name, item_img_src, False))
-                conn.commit()
-            i = i + 1
     else :
         print "Done!!"
         break
