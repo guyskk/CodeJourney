@@ -25,15 +25,20 @@ def saveFile(filename, content):
     with open(file_dir + filename, 'a+') as file_obj:
         file_obj.write('\xEF\xBB\xBF'+ str(content))
 
-rootUrl = 'http://movie.douban.com/'
-
 # 保存电影分类
 url_movie_tag = 'http://movie.douban.com/j/search_tags?type=movie'
 movie_tags = getDataStr(url_movie_tag)
 # saveFile('tags.json', movie_tags);
 
 
+def getMovieActors(DOM):
+    result = {}
+    for item in DOM:
+        result[pq(item).html()] = pq(item).attr('href')
+    return result
 
+def getMovieType(DOM):
+    result = ''
 
 
 
@@ -51,20 +56,15 @@ def updateMovieInfo(url):
 
     # 保存一部分电影的信息
     movie_director = movie_info.eq(0).find('a').html()
-    movie_actors = movie_info.eq(2).find('a').html()
-    movie_type = movie_info.eq(3).find('a').html()
-    movie_country = movie_info.eq(4).find('a').html()
+    movie_actors = getMovieActors(movie_info.eq(2).find('a'))
 
-    print movie_director
-    print movie_actors
+    movie_type = movie_info.eq(3).filter("property=v:genre")
     print movie_type
-    print movie_country
+    movie_country = movie_info.eq(4).find('a').html()
 
     c.execute('select href from MOVIE where href = ?', (url,))
 
     if c.fetchone() is not None:
-        print ">>>>"
-        print c.fetchone()
         c.execute('update MOVIE set type = ?, director = ?, country = ? where href = ?', (movie_type, movie_director, movie_country, url, ))
 
     recommendations = content('#recommendations img')
@@ -80,7 +80,6 @@ def updateMovieInfo(url):
         # 查找表中是否已经存在该链接
         c.execute('select * from MOVIE where name=?', (item_name,))
         if not c.fetchone():
-            print c.fetchone()
             c.execute('insert into MOVIE(href, name, post_url, visited) values (?, ?, ?, ?) ', (item_link, item_name, item_img_src, False))
             conn.commit()
         i = i + 1
@@ -88,6 +87,7 @@ def updateMovieInfo(url):
 # 尝试以此 url 作为入口
 movie_classics = 'http://movie.douban.com/subject/1292052/?tag=%E7%BB%8F%E5%85%B8&from=gaia_video'
 updateMovieInfo(movie_classics)
+
 
 while True:
 
