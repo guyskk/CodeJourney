@@ -25,15 +25,12 @@ def saveFile(filename, content):
     with open(file_dir + filename, 'a+') as file_obj:
         file_obj.write('\xEF\xBB\xBF'+ str(content))
 
-
-
 rootUrl = 'http://movie.douban.com/'
 
 # 保存电影分类
 url_movie_tag = 'http://movie.douban.com/j/search_tags?type=movie'
 movie_tags = getDataStr(url_movie_tag)
 # saveFile('tags.json', movie_tags);
-
 
 
 
@@ -47,43 +44,31 @@ conn = sqlite3.connect('./douban/db/douban.rdb')
 c = conn.cursor()
 # 将链接存入数据库
 
+def updateMovieInfo(url):
+    pass
+
 # 尝试以此 url 作为入口
 movie_classics = 'http://movie.douban.com/subject/1292052/?tag=%E7%BB%8F%E5%85%B8&from=gaia_video'
+
 content = getDataStr(movie_classics)
 content = pq(content)
-movie_type = content('#info span').eq(3)
+movie_info = content('#info span')
+# 保存一部分电影的信息
+movie_director = movie_info.eq(0)
+movie_actors = movie_info.eq(2)
+movie_type = movie_info.eq(3)
+movie_producter = movie_info.eq(4)
+
 recommendations = content('#recommendations img')
 length = recommendations.size()
-
 i = 0
 while i < length:
-
-    c.execute('select href from MOVIE where visited = ?', (False, ))
-    print c.fetchone()
-    print '>>>>>>'
-    if c.fetchone():
-        print '------'
-        print c.fetchone()
-        new = c.fetchone()
-    else:
-        new = c.fetchone()
-
-    print 'This : ' + new[0]
-    c.execute('update MOVIE set visited = ? where href = ?', (True, new, ))
-
-    content = getDataStr(movie_classics)
-    content = pq(content)
-    movie_type = content('#info span').eq(3)
-    recommendations = content('#recommendations img')
-
     item = recommendations.eq(i)
     item_link = item.parent().attr('href')
     item_img_src = item.attr('src')
     item_name = item.attr('alt')
 
-    content = getDataStr(item_link)
-    content = pq(content)
-    recommendations = content('#recommendations img')
+    print item
 
     # 查找表中是否已经存在该链接
     c.execute('select * from MOVIE where name=?', (item_name,))
@@ -91,8 +76,46 @@ while i < length:
         print c.fetchone()
         c.execute('insert into MOVIE(href, name, post_url, visited) values (?, ?, ?, ?) ', (item_link, item_name, item_img_src, False))
         conn.commit()
+    i = i + 1
+# updateMovieInfo(movie_classics)
 
-    i += 1
+while True:
+
+    c.execute('select href from MOVIE where visited = ?', (False, ))
+    new = c.fetchone()
+    print new == None
+    if  new is not None:
+        print '------'
+        print new
+        c.execute('update MOVIE set visited = 1 where href = ?', new)
+
+    # print 'This : ' + new[0]
+        updateMovieInfo(new[0]);
+        content = getDataStr(new[0])
+        content = pq(content)
+        movie_type = content('#info span').eq(3)
+        recommendations = content('#recommendations img')
+        length = recommendations.size()
+
+        i = 0
+        while i < length:
+            item = recommendations.eq(i)
+            item_link = item.parent().attr('href')
+            item_img_src = item.attr('src')
+            item_name = item.attr('alt')
+
+            print item
+
+            # 查找表中是否已经存在该链接
+            c.execute('select * from MOVIE where name=?', (item_name,))
+            if not c.fetchone():
+                print c.fetchone()
+                c.execute('insert into MOVIE(href, name, post_url, visited) values (?, ?, ?, ?) ', (item_link, item_name, item_img_src, False))
+                conn.commit()
+            i = i + 1
+    else :
+        print "Done!!"
+        break
 
 
 conn.close()
