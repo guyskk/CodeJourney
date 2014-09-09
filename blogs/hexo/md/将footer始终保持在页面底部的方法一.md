@@ -1,6 +1,6 @@
 title: 如何将页面的footer保持在页面的底部
 date: 2014-08-25 22:25
-tag:['CSS', '兼容性']
+tag: ['CSS', '兼容性']
 ---
 
 我敢说这一定是很常见的问题，因为到处都是页面不够长而上吊的footer，而。比如这里：
@@ -52,6 +52,7 @@ tag:['CSS', '兼容性']
      	background:#6cf;
     }
 
+<a class="jsbin-embed" href="http://jsbin.com/ziqim/15/embed?html,css,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
 
 在原文中，作者为了兼容 IE6 和 IE5.5（原文发布的时间是2007年），为 #wrapper 添加了 `height:100%` ，在这里我就不加上去了。
 
