@@ -1,0 +1,17 @@
+$def with (movie) 
+
+$for item in movie:
+    <dl id="t$item['id']">
+        <dt>
+            <a href="$item['href']" alt="$item['name']" target="_blank">$item['name']</a>
+        </dt>
+        <dd>
+            <a href="$item['href']"><img src="$item['post_url']" alt="$item['href']"></a>
+        </dd>
+        <dd>
+            <p>类型： 
+                $ type = item['type']
+                <span>$type</span>
+            </p>
+        </dd>
+    </dl>
