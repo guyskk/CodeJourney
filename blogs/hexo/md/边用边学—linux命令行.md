@@ -1,12 +1,18 @@
-title: 边用边学—Linux命令行(持续更新)  
-date: 2014-07-12 18：12  
+title: 边用边学—Linux命令行(持续更新)
 tags: [Linux, 命令行, 笔记]    
 ---
 
 ####文件操作
 
-    删除空目录  --->  rmdir dir  
-    删除非空目录 --->  rm -rf dir
+|操作 |指令|
+|---|---|
+|删除空目录|rmdir dir  
+|删除非空目录|rm -rf dir
+|复制文件|cp source_dir aim_dir
+|复制文件夹|cp -R source_dir aim_dir|
+    
+ 
+    
 
 ####Nignx
 
