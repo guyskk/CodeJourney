@@ -52,4 +52,4 @@ if __name__ == "__main__":
 
 # 告诉 web.py 去 templates 目录中寻找模板
 
-render = web.template.render('templates/')
+render = web.template.render('templates/', base = 'base')

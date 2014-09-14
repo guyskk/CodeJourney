@@ -1,8 +1,9 @@
 $def with (movie)
 
+$var title: movie
 
-$ title = This is title
-
+<div class="movies">
+	
 $for item in movie:
     <dl>
         <dt>
@@ -14,9 +15,11 @@ $for item in movie:
 			</a>
         </dd>
         <dd>
-            <p>类型： 
+            <p>
+				<span>类型 : </span> 
                 $ type = item['type']
                 <span>$type</span>
             </p>
         </dd>
     </dl>
+</div>

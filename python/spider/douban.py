@@ -60,8 +60,10 @@ def updateMovieInfo(url):
     movie_director = movie_info.eq(0).find('a').html()
     movie_actors = getMovieActors(movie_info.eq(2).find('a'))
     movie_type = getMovieType(movie_info.filter(lambda i: pq(this).attr('property') == 'v:genre'))
-    movie_country = str(movie_info.filter(lambda i: pq(this).text() == u'制片国家/地区:').next())
+    # movie_country = str(movie_info.filter(lambda i: pq(this).text() == u'制片国家/地区:').next())
+    movie_country = 'unknown'
     movie_name = getMovieName(content('#content > h1 > span').filter(lambda i: pq(this).attr('property') == 'v:itemreviewed'))
+    
     print str(content('#content > h1 > span').filter(lambda i: pq(this).attr('property') == 'v:itemreviewed').html().encode('utf-8'))    
 
     c.execute('select href from MOVIE where href = ?', (url,))
@@ -87,6 +89,10 @@ def updateMovieInfo(url):
 
 # 尝试以此 url 作为入口
 movie_classics = 'http://movie.douban.com/subject/1292052/?tag=%E7%BB%8F%E5%85%B8&from=gaia_video'
+movie_love = 'http://movie.douban.com/subject/6874403/?tag=%E5%86%B7%E9%97%A8%E4%BD%B3%E7%89%87&from=gaia'
+
+
+# updateMovieInfo(movie_love)
 updateMovieInfo(movie_classics)
 
 
