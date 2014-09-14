@@ -1,0 +1,155 @@
+<strong><!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style>
+	* {
+	  margin: 0;
+	  padding: 0;
+	}
+	li {
+	  list-style-type: none;
+	}
+	.custom-drop-select {
+	  width: 132px;
+	  height: 20px;
+	  border: 1px solid #d4d4d4;
+	  background: #45d5d5;
+	}
+	.custom-drop-select .select-group {
+	  font-size: 0;
+	}
+	.custom-drop-select .select-group:after {
+	  content: ".";
+	  display: block;
+	  height: 0;
+	  clear: both;
+	  visibility: hidden;
+	}
+	.custom-drop-select .select-group span {
+	  display: inline-block;
+	  font-size: 14px;
+	}
+	.custom-drop-select .select-group .select-cart {
+	  cursor: pointer;
+	}
+	.custom-drop-select .select-value {
+	  width: 110px;
+	  background: #d4d4d4;
+	}
+	.custom-drop-select .select-cart {
+	  width: 20px;
+	  height: 20px;
+	}
+	.custom-drop-select .tier-lvl-2 {
+	  padding-bottom: 1px;
+	  display: none;
+	  position: relative;
+	  border: 1px solid #d4d4d4;
+	  border-top: none;
+	}
+	.custom-drop-select .tier-lvl-2.active {
+	  display: block;
+	}
+	.custom-drop-select .tier-lvl-2 li {
+	  padding: 4px 10px;
+	}
+	.custom-drop-select .tier-lvl-2 > li {
+	  z-index: 1000;
+	  background: ;
+	  border-top: 1px solid #fff;
+	  border-bottom: 1px solid #fff;
+	}
+	.custom-drop-select .tier-lvl-2 > li.hover {
+	  border-top: 1px solid #d4d4d4;
+	  border-bottom: 1px solid #d4d4d4;
+	}
+	.custom-drop-select .tier-lvl-2 > li.hover > ul {
+	  display: table;
+	}
+	.custom-drop-select .tier-lvl-2 > li > ul {
+	  display: none;
+	  /* display: table; */
+	  border: 1px solid #d4d4d4;
+	  position: absolute;
+	  left: 128px;
+	  top: 0px;
+	  background: #fff;
+	}
+	</style>
+</head>
+<body>
+	<div class="custom-drop-select">
+	    <div class="select-group">
+	      <span class="select-value">类目</span>
+	      <span class="select-cart">
+	        阿
+	        <!--<i class="fa fa-plus"></i>-->
+	      </span>
+	    </div>
+	    <ul class="tier-lvl-2">
+	      <li>
+	        <div class="tier-lvl-2-item">
+	            电子书1
+	        </div>
+	        <ul class="tier-item-list">
+	          <li>免费小说1</li>
+	          <li>励志与成功2</li>
+	          <li>婚恋/两性</li>
+	          <li>经管畅读VIP</li>
+	        </ul>
+	      </li> 
+	      <li>
+	        <div class="tier-lvl-2-item">
+	            电子书2
+	        </div>
+	<ul class="tier-item-list">
+	          <li>免费小说2</li>
+	          <li>励志与成2</li>
+	          <li>婚恋/两性</li>
+	          <li>经管畅读VIP</li>
+	        </ul>
+	      </li> 
+	      <li>
+	        <div class="tier-lvl-2-item">
+	            电子书3
+	        </div>
+	<ul class="tier-item-list">
+	          <li>免费小说3</li>
+	          <li>励志与成功</li>
+	          <li>婚恋/两性</li>
+	          <li>经管畅读VIP</li>
+	        </ul>
+	      </li> 
+
+	    </ul>
+    
+	  </div>
+	  <script src="//code.jquery.com/jquery.min.js"></script>
+	  <script>
+	  $(document).ready(function(){
+	    var timer = null;
+	    $(".select-cart").on("click", function(){
+	      $(".tier-lvl-2").toggleClass("active");
+	    });
+  
+	    $(".tier-lvl-2 > li").on("mouseover", function(){
+	      $(this).addClass("hover");
+	    });
+	      $(".tier-lvl-2 > li").on("mouseout", function(){
+	        var _this = $(this);
+	  //       timer = setTimeout(function(){
+	        _this.removeClass("hover");
+	  //     }, 400);
+	    });
+	    $(".tier-item-list").on("mouseover", function(){
+	        $(this).parent().addClass("hover");
+	      clearTimeout(timer);
+	    });
+  
+  
+	});
+	  </script>
+</body>
+</html></strong>
