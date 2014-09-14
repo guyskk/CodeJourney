@@ -76,7 +76,8 @@ def updateMovieInfo(url):
         item = recommendations.eq(i)
         item_link = item.parent().attr('href')
         item_img_src = item.attr('src')
-        item_name = item.attr('alt')
+        item_name = item.attr('alt') 
+
         # 查找表中是否已经存在该链接
         c.execute('select * from MOVIE where name=?', (item_name,))
         if not c.fetchone():
