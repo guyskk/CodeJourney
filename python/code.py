@@ -34,11 +34,8 @@ class movie:
         print entries   # IterBetter
         for name in entries:
             print name  # Storage
-            print '>>>>'
             movies.append(dict(name)) # after dict(), name -> dict and movies is list
-
-        print 'movies >>>>> '
-        print movies
+            
         return render.movie(movies)
 
 class user:
