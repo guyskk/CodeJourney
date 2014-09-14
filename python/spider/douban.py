@@ -88,6 +88,7 @@ def updateMovieInfo(url):
         i = i + 1
 
 # 尝试以此 url 作为入口
+
 movie_classics = 'http://movie.douban.com/subject/1292052/?tag=%E7%BB%8F%E5%85%B8&from=gaia_video'
 movie_love = 'http://movie.douban.com/subject/6874403/?tag=%E5%86%B7%E9%97%A8%E4%BD%B3%E7%89%87&from=gaia'
 
