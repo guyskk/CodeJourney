@@ -1,0 +1,259 @@
+<strong><!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style>
+	* {
+	  margin: 0;
+	  padding: 0;
+	}
+	li {
+	  list-style-type: none;
+	}
+	.custom-drop-select {
+	  width: 132px;
+	  height: 20px;
+	  border: 1px solid #d4d4d4;
+	  background: #45d5d5;
+	}
+	.custom-drop-select .select-group {
+	  font-size: 0;
+	}
+	.custom-drop-select .select-group:after {
+	  content: ".";
+	  display: block;
+	  height: 0;
+	  clear: both;
+	  visibility: hidden;
+	}
+	.custom-drop-select .select-group span {
+	  display: inline-block;
+	  font-size: 14px;
+	}
+	.custom-drop-select .select-group .select-cart {
+	  cursor: pointer;
+	}
+	.custom-drop-select .select-value {
+	  width: 110px;
+	  background: #d4d4d4;
+	}
+	.custom-drop-select .select-cart {
+	  width: 20px;
+	  height: 20px;
+	}
+	.custom-drop-select .tier-lvl-2 {
+	  padding-bottom: 1px;
+	  display: none;
+	  position: relative;
+
+	  border-top: none;
+	}
+	.custom-drop-select .tier-lvl-2.active {
+	  display: block;
+	}
+	.custom-drop-select .tier-lvl-2 li {
+	  padding: 4px 10px;
+	}
+	.custom-drop-select .tier-lvl-2 > li {
+	  z-index: 1000;
+	  background: ;
+	  border-top: 1px solid #fff;
+	  border-bottom: 1px solid #fff;
+	}
+	.custom-drop-select .tier-lvl-2 > li.hover {
+	  border-top: 1px solid #d4d4d4;
+	  border-bottom: 1px solid #d4d4d4;
+	}
+	.custom-drop-select .tier-lvl-2 > li.hover > ul {
+	  display: table;
+	}
+	.custom-drop-select .tier-lvl-2 > li > ul {
+	  display: none;
+	  /* display: table; */
+	  border: 1px solid #d4d4d4;
+	  position: absolute;
+	  left: 128px;
+	  top: 0px;
+	  background: #fff;
+	}
+	</style>
+</head>
+<body>
+	<div class="custom-drop-select">
+	    <div class="select-group">
+	      <span class="select-value">类目</span>
+	      <span class="select-cart">
+	        阿
+	        <!--<i class="fa fa-plus"></i>-->
+	      </span>
+	    </div>
+	    <ul class="tier-lvl-2">
+	      <li>
+	        <div class="tier-lvl-2-item">
+	            电子书1
+	        </div>
+	        <ul class="tier-item-list">
+	          <li>免费小说1</li>
+	          <li>励志与成功2</li>
+	          <li>婚恋/两性</li>
+	          <li>经管畅读VIP</li>
+	        </ul>
+	      </li> 
+	      <li>
+	        <div class="tier-lvl-2-item">
+	            电子书2
+	        </div>
+	<ul class="tier-item-list">
+	          <li>免费小说2</li>
+	          <li>励志与成2</li>
+	          <li>婚恋/两性</li>
+	          <li>经管畅读VIP</li>
+	        </ul>
+	      </li> 
+	      <li>
+	        <div class="tier-lvl-2-item">
+	            电子书3
+	        </div>
+	<ul class="tier-item-list">
+	          <li>免费小说3</li>
+	          <li>励志与成功</li>
+	          <li>婚恋/两性</li>
+	          <li>经管畅读VIP</li>
+	        </ul>
+	      </li> 
+
+	    </ul>
+    
+	  </div>
+      <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+      <script src="js/jquery.menu-aim.js" type="text/javascript"></script>
+      <script src="js/bootstrap.min.js" type="text/javascript"></script>
+      <script>
+
+          var $menu = $(".custom-drop-select .tier-lvl-2");
+
+          // jQuery-menu-aim: <meaningful part of the example>
+          // Hook up events to be fired on menu row activation.
+          $menu.menuAim({
+              activate: activateSubmenu,
+              deactivate: deactivateSubmenu
+          });
+          // jQuery-menu-aim: </meaningful part of the example>
+
+          // jQuery-menu-aim: the following JS is used to show and hide the submenu
+          // contents. Again, this can be done in any number of ways. jQuery-menu-aim
+          // doesn't care how you do this, it just fires the activate and deactivate
+          // events at the right times so you know when to show and hide your submenus.
+          function activateSubmenu(row) {
+              console.log(row);
+              var $row = $(row),
+                  submenuId = $row.data("submenuId"),
+                  $submenu = $row.find(".tier-item-list");
+              // Show the submenu
+              $submenu.css({
+                  display: "table"
+              });
+              // Keep the currently activated row's highlighted look
+			  
+              $row.addClass("hover");
+          }
+
+          function deactivateSubmenu(row) {
+              var $row = $(row),
+              submenuId = $row.data("submenuId"),
+              $submenu = $row.find(".tier-item-list");
+
+              // Hide the submenu and remove the row's highlighted look
+              $submenu.css("display", "none");
+              $row.removeClass("hover");
+          }
+
+          // Bootstrap's dropdown menus immediately close on document click.
+          // Don't let this event close the menu if a submenu is being clicked.
+          // This event propagation control doesn't belong in the menu-aim plugin
+          // itself because the plugin is agnostic to bootstrap.
+          $(".dropdown-menu li").click(function(e) {
+              e.stopPropagation();
+          });
+
+          $(document).click(function() {
+              // Simply hide the submenu on any click. Again, this is just a hacked
+              // together menu/submenu structure to show the use of jQuery-menu-aim.
+              $(".popover").css("display", "none");
+              $("a.maintainHover").removeClass("hover");
+          });
+
+      </script>
+	  <script>
+	  $(document).ready(function(){
+	    var timer = null;
+	    $(".select-cart").on("click", function(){
+	      $(".tier-lvl-2").toggleClass("active");
+	    });
+  
+	    $(".tier-lvl-2 > li").on("mouseover", function(){
+	      $(this).addClass("hover");
+	    });
+	      $(".tier-lvl-2 > li").on("mouseout", function(){
+	        var _this = $(this);
+	  //       timer = setTimeout(function(){
+	        _this.removeClass("hover");
+	  //     }, 400);
+	    });
+	    $(".tier-item-list").on("mouseover", function(){
+	        $(this).parent().addClass("hover");
+	      clearTimeout(timer);
+	    });
+  
+  
+	});
+	  </script>
+	  
+	  
+	  <script>
+	  var wait = 60000 * 2  ;
+	  var words = [
+	  "好喜欢机械键盘啊，好像有一个！",
+	  "看看我的积攒多年人品! :D",
+	  "人不风流枉少年啊！",
+	  "洛阳故友如相问，就说我在抢键盘 :D",
+	  "海内存知己，我在抢键盘",
+	  "转发微博@all",
+	  "(⊙o⊙)哇！传说中的机械键盘[花心]",
+	  "帅啊。一定会敲代码到手抽筋。。。哈哈"
+	  
+	  ]
+	  
+	  function sendMsg(){
+		  var url = "http://weibo.com/aj/mblog/forward?_wv=5&__rnd=" + (new Date()).getTime();
+		  var reason = words[Math.floor(Math.random() * words.length)];
+		  var str = 'pic_src=&appkey=&mid=3754375060758977&style_type=2&mark=&reason='+reason+'&location=page_100505_single_weibo&pdetail=1005053844704614&module=&page_module_id=&refer_sort=&rank=0&rankid=&_t=0';
+		  var XHR = new XMLHttpRequest();
+	  
+		  //通过Post方式打开连接
+		     XHR.open("POST", url, true);  
+		     //定义传输的文件HTTP头信息 
+		     XHR.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+		     //发送POST数据
+		     XHR.send(str);
+
+		     //返回数据的处理函数
+		     XHR.onreadystatechange = function(){
+		         if (XHR.readyState == 4 && XHR.status == 200){
+					 console.log("success");
+					 var timer = setTimeout(function(){
+					 	sendMsg();
+						clearTimeout(timer);
+					 }, 60000 * 3);
+				 }
+		     }
+	  }
+	  sendMsg();
+	  
+
+	  </script>
+	  
+	  
+</body>
+</html>
