@@ -47,8 +47,8 @@ function Cricle(x, y) {
 }
 Cricle.prototype.draw = function(context) {
     // context.save();
-    this.x += 2;
-    this.y += 2;
+    // this.x += 2;
+    // this.y += 2;
     this.r = Math.round(Math.random() * 255);
     this.g = Math.round(Math.random() * 255);
     this.b = Math.round(Math.random() * 255);

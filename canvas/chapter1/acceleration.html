@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Acceleration</title>
+    <link rel="stylesheet" href="base.css">
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script src="utils.js"></script>
+    <script src="ball.js"></script>
+    <script>
+    window.onload = function() {
+        var W = window.innerWidth,
+            H = window.innerHeight;
+        var canvas = document.getElementById("canvas"),
+            context = canvas.getContext("2d"),
+            ball = new Cricle(20),
+            vx = 0,
+            ax = 0.1;
+
+        canvas.width = W;
+        canvas.height = H;
+        ball.x = 50;
+        ball.y = 100;
+
+        function draw() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            vx += ax;
+            ball.x += vx;
+            ball.draw(context);
+        }
+        var timer = setInterval(function() {
+            draw();
+        }, 30);
+    }
+    </script>
+</body>
+
+</html>
