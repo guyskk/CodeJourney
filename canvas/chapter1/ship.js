@@ -10,11 +10,11 @@ function Ship(){
 Ship.prototype.draw = function(context){
     context.save();
     context.translate(this.x, this.y);
-    context.rotate(this.rotatiom);
+    context.rotate(this.rotation);
     context.lineWidth = 1;
     context.strokeStyle = "#fff";
     context.beginPath();
-    context.moveTo(10，0);
+    context.moveTo(10, 0);
     context.lineTo(-10, 10);
     context.lineTo(-5, 0);
     context.lineTo(-10, -10);
