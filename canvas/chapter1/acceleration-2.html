@@ -28,7 +28,6 @@
         canvas.height = H;
 
         window.addEventListener("keydown", function(e) {
-            console.log(e.keyCode);
             var keyCode = e.keyCode;
             if (keyCode == 37) {
                 ax = -0.1;
@@ -61,7 +60,6 @@
             ball.draw(context);
         }
         var timer = setInterval(function() {
-            console.log(ball.y);
             draw();
         }, 30);
     }
