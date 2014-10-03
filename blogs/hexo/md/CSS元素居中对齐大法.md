@@ -1,4 +1,4 @@
-title: (译)CSS元素居中对齐大法  
+title: CSS元素居中对齐大法  
 date: 2014-09-30 20:34  
 category: ["前端","重构"]  
 tag: ["译文","CSS","笔记"]  
