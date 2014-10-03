@@ -1,11 +1,12 @@
-title: [译]CSS元素居中大法
-date: 2014-09-30
-tag: ["译文", "CSS", "笔记"]
----
+title: (译)CSS元素居中对齐大法  
+date: 2014-09-30 20:34  
+category: ["前端","重构"]  
+tag: ["译文","CSS","笔记"]  
 
->原文标题：Centering in CSS: A Complete Guide
- 原文链接：[http://css-tricks.com/centering-css-complete-guide/
-](http://css-tricks.com/centering-css-complete-guide/)
+---  
+
+>原文标题：Centering in CSS: A Complete Guide  
+ 原文链接：[http://css-tricks.com/centering-css-complete-guide/](http://css-tricks.com/centering-css-complete-guide/)  
 
 
 > 在CSS-tricks上看到一篇关于CSS居中的文章，综合和大部分的CSS居中的解决方案，暂且称作“CSS元素居中大法”好了。
@@ -14,16 +15,18 @@ tag: ["译文", "CSS", "笔记"]
 
 所以让我们来做一个决策树，希望能够让CSS的元素居中问题变得简单。
 
-###水平方向居中
-####inline 和 inline-* 元素的水平方向居中
+##水平方向居中
+
+###inline 和 inline-* 元素的水平方向居中
 
 你可以很轻松的将一个块级元素中的inline或者类inline元素居中：
 
 	.center-children{
     	text-align:center;
     }
-    
-    HTML
+   
+HTML:
+
     <header>
   		This text is centered.
     </header>
@@ -33,7 +36,8 @@ tag: ["译文", "CSS", "笔记"]
         <a href="#0">Three</a>
         <a href="#0">Four</a>
     </nav>
-    CSS
+
+CSS:
     
     header, nav {
         text-align: center;
@@ -41,7 +45,6 @@ tag: ["译文", "CSS", "笔记"]
         margin: 20px 0;
 		padding: 10px;
     }
-
     nav a {
         text-decoration: none;
         background: #333;
@@ -54,7 +57,7 @@ tag: ["译文", "CSS", "笔记"]
 
 **注意：** 这个方法对inline, inline-block, inline-table, inline-flex元素都有效
 
-####块级元素的水平方向居中
+###块级元素的水平方向居中
 
 将一个定宽的块级元素的左外边距和右外边距设为`auto`，就是这么的easy  
 
@@ -89,7 +92,7 @@ CSS:
 如果想让多个块级元素在同一行中水平居中时，最好的处理方式就是修改块级元素的 display 的属性值。一种方式是将display的值设置为`inline-block`，另一种是`flexbox`。
 
 HTML：
-	
+
     <main class="inline-block-center">
         <div>
        		I'm an element that is block-like with my siblings and we're centered in a row.
@@ -121,13 +124,11 @@ CSS:
         background: #f06d06;
         font-size: 80%;
     }
-
     main {
         background: white;
         margin: 20px 0;
         padding: 10px;
     }
-
     main div {
         background: black;
         color: white;
@@ -135,7 +136,6 @@ CSS:
         max-width: 125px;
         margin: 5px;
     }
-
     .inline-block-center {
         text-align: center;
     }
@@ -143,7 +143,6 @@ CSS:
         display: inline-block;
         text-align: left;
     }
-
     .flex-center {
         display: flex;
         justify-content: center;
@@ -151,15 +150,15 @@ CSS:
 
 ![multiple-block](http://ncuey-crispelite.stor.sinaapp.com/mulity-block-center.png)
 
-###垂直方向居中
+##垂直方向居中
 
 关于垂直方向上的居中，需要用到一下小trickers
 
-####inline 和 inline-* 元素的垂直方向居中
+###inline 和 inline-* 元素的垂直方向居中
+####单行的内联元素垂直居中
 
-#####单行的内联元素垂直居中
 最简单的一种，上内边距和下内边距相等：
-    
+
 HTML:
 
     <main>
@@ -168,7 +167,7 @@ HTML:
         <a href="#0">Bits of</a>
         <a href="#0">Text</a>
     </main>
-    
+
 CSS:
 
     main {
@@ -176,7 +175,6 @@ CSS:
         margin: 20px 0;
         padding: 50px;
     }
-
     main a {
         background: black;
         color: white;
@@ -195,7 +193,7 @@ HTML:
             I'm a centered line.
         </div>
     </main>
-    
+
 CSS:
 
     main {
@@ -203,7 +201,6 @@ CSS:
         margin: 20px 0;
         padding: 40px;
     }
-
     main div {
         background: black;
         color: white;
@@ -216,8 +213,7 @@ CSS:
     
 ![line-height](http://ncuey-crispelite.stor.sinaapp.com/v-single-lineheight.png)
 
-
-#####多行的内联元素垂直居中
+####多行的内联元素垂直居中
 
 上下内边距相等的方法同样可以用在多行的处理上，但是就像前面所说的，这种方法有局限性。当元素是一个表格单元或者通过CSS的设置表现成一个单元格时，这种方法就不奏效了。在这种情况下，使用`vertical-align`属性来解决这个问题
 
@@ -230,7 +226,6 @@ HTML:
             </td>
         </tr>
     </table>
-
     <div class="center-table">
         <p>I'm vertically centered multiple lines of text in a CSS-created table layout.</p>
     </div>
@@ -241,7 +236,6 @@ CSS:
         background: #f06d06;
         font-size: 80%;
     }
-
     table {
         background: white;
         width: 240px;
@@ -249,7 +243,6 @@ CSS:
         margin: 20px;
         height: 250px;
     }
-
     table td {
         background: black;
         color: white;
@@ -257,7 +250,6 @@ CSS:
         border: 10px solid white;
         /* 单元格自带 vertical-align: middle; */
     }
-
     .center-table {
         display: table;
         height: 250px;
@@ -300,13 +292,11 @@ CSS:
         background: #f06d06;
         font-size: 80%;
     }
-
     div {
         background: white;
         width: 240px;
         margin: 20px;
     }
-
     .flex-center {
         background: black;
         color: white;
@@ -320,8 +310,7 @@ CSS:
         margin: 0;
         padding: 20px;
     }
-    
-    
+   
 ![mu-flex-center](http://ncuey-crispelite.stor.sinaapp.com/mu-flex-center.png)
 
 flex-parent元素必须指定一个固定高度。
@@ -349,9 +338,7 @@ HTML:
 
     <div class="ghost-center">
         <p>I'm vertically centered multiple lines of text in a container. Centered with a ghost pseudo element</p> 
-        
         <p>I'm vertically centered multiple lines of text in a container. Centered with a ghost pseudo elementI'm vertically centered multiple lines of text in a container. Centered with a ghost pseudo elementI'm vertically centered multiple lines of text in a container. Centered with a ghost pseudo element</p>
-        
     </div>
 
 CSS:
@@ -360,7 +347,6 @@ CSS:
         background: #f06d06;
         font-size: 80%;
     }
-
     div {
         background: white;
         height: 360px;
@@ -370,7 +356,6 @@ CSS:
         overflow: auto;
         padding: 20px;
     }
-
     .ghost-center::before {
         content: "";
         display: inline-block;
@@ -389,10 +374,11 @@ CSS:
     }
 
 ![presudo-element-center](http://ncuey-crispelite.stor.sinaapp.com/presudo-element-center.png)
+
 你可以试着修改伪元素的高度~~
 
-
 ####单个块级元素的垂直方向居中
+
 在页面的布局中，其高度未知是很正常的，有很多原因。当宽度改变的时候，内容中的文本回流改变高度；变化的文本样式也可能改变高度；变化的文本数量也会改变高度；一些按比例放置的元素，比如图片，当它调整大小的时候，高度也会变化；等等。
 
 如果知道元素的高度。可以使用定位来垂直居中：
@@ -431,27 +417,31 @@ CSS:
 		justify-content: center;
     }
 
-
-###水平方向和垂直方向同时居中
+##水平方向和垂直方向同时居中
 
 前面分开介绍了水平方向和垂直方向上CSS元素居中的解决方案。我们可以组合上面的方法，提出两个方向上同时居中对齐的解决方案。但是我发现一般来说可以分成三类
 
-####固定大小的元素两个方向上的居中对齐
+###固定大小的元素两个方向上的居中对齐
 
 在两个方向上定位之后，水平方向上添加值为宽度的一半的负margin，在垂直方向上添加值为高度一般的负margin。
+
 这很好理解，无需做过多解释
 
-####大小未知的元素两个方向上的居中对齐
+###大小未知的元素两个方向上的居中对齐
 
 这个可以说其实就是上面介绍的方法的拓展，只不过也是增加了一个水平方向的处理而已，自己想想~~
 
-####第三类：flexbox
+###第三类：flexbox
 
 第三类就是可以称之上万能的的CSS3中的flexbox
 
-###结论
+##结论
 
-酱紫，你就可以轻松解决CSS的元素居中问题了。
+酱紫，你就可以轻松解决CSS的元素居中问题了。拜拜了，CSS Center。
+
+
+
+
 
 
 
