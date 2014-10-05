@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import urllib2
 import sqlite3
+import re
 import os.path
 from pyquery import PyQuery as pq
 from lxml import etree
@@ -60,6 +61,15 @@ def updateMovieInfo(url):
     movie_director = movie_info.eq(0).find('a').html()
     movie_actors = getMovieActors(movie_info.eq(2).find('a'))
     movie_type = getMovieType(movie_info.filter(lambda i: pq(this).attr('property') == 'v:genre'))
+
+    temp_html = content('#info')
+    reg = re.compile(r'<span class="pl">制片国家/地区:</span>')
+
+    match = reg.match('u\'制片国家/地区:')
+    if match:
+        print match.group()
+
+
     # movie_country = str(movie_info.filter(lambda i: pq(this).text() == u'制片国家/地区:').next())
     movie_country = 'unknown'
     movie_name = getMovieName(content('#content > h1 > span').filter(lambda i: pq(this).attr('property') == 'v:itemreviewed'))

@@ -3,7 +3,6 @@ $def with (movie)
 $var title: movie
 
 <div class="movies">
-	
 $for item in movie:
     <dl>
         <dt>
@@ -11,7 +10,7 @@ $for item in movie:
         </dt>
         <dd>
             <a href="$item['href']">
-				<!-- <img src="$item['post_url']" alt="$item['href']"> -->
+			    <img src="$item['post_url']" alt="$item['href']">
 			</a>
         </dd>
         <dd>
