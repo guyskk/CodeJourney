@@ -2,26 +2,44 @@
 # -*- coding: utf-8 -*-
 import web
 import itertools
+import json
 import urllib2
 
-url = 'http://www.douban.com'
-header = {
-    'Host': '',
-    'Referer':'',
-    'Cookie': '',
-    'User-Agent':'Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1',
-    'Connection': 'keep-alive',
-    'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Language':'zh-cn,zh;q=0.5',
-    'Accept-Charset':'GB2312,utf-8;q=0.7,*;q=0.7',
-}
-header['Host'] = 'img3.douban.com'
-header['Referer'] = url
-req = urllib2.Request( url, headers=headers )
+
+APIPaths = {
+        'start_image':'http://news-at.zhihu.com/api/3/start-image/1080*1776',
+        'news_latest':'http://news-at.zhihu.com/api/3/news/latest'
+        }
 
 
-# opener = urllib2.build_opener()
-# f = opener.open(req)
+# {'text':'XXX', 'url':''}
+def getStartImage():
+    content_stream = urllib2.urlopen(APIPaths['start_image'])
+    daily_start_img = json.load(content_stream)
+    return daily_start_img 
+
+daily_start_image = getStartImage()
+
+def getNewsLatest():
+    stream = urllib2.urlopen(APIPaths['news_latest']);
+    news_latest = json.load(stream)
+    return news_latest
+
+news_latest = getNewsLatest()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Python 中有一个东西叫做可变参数 真是给跪了 还有一个叫做关键字参数的东西
 # 
@@ -31,6 +49,7 @@ urls = (
     '/', 'index',
     '/about', 'about',
     '/movie', 'movie',
+    '/daily', 'daily',
     '/user(.*)', 'user'
     )
 
@@ -62,6 +81,15 @@ class user:
     def GET(self, name):
         i = web.input(name=None)
         return render.users(i.name)
+
+
+class daily:
+    def GET(self):
+        data = daily_start_image
+        return render.daily(data);
+
+
+
 
 if __name__ == "__main__":
     app = web.application(urls, globals())
