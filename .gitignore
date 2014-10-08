@@ -1,5 +1,5 @@
 *.swp
-*.pyc
+**/*.pyc
 *.map
 **/.sass-cache/**
 node_modules/*
