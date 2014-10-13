@@ -25,8 +25,28 @@ ___
 
 ![Chrome](http://ncuey-crispelite.stor.sinaapp.com/2014-10-12_0948.png)
 
+在CSS中定义的宽和高，其实都是内容区域的宽和高，padding，border 和 margin 被排除在盒子尺寸之外。
 
+所以对于一个定义了宽度的盒子来说，其尺寸的计算方式：
 
+    实际宽度 = margin(left+right) + border(left+right) + padding(left+right) + width(定义的值)
+    
+    实际高度 = margin(top+bottom) + border(top+bottom) + padding(top+bottom) + height(定义的值)
+    
+可以利用margin调整两个元素之间的距离，用padding调整内容与元素边框之间的距离（留白）。这是标准的盒模型
+
+## IE6 中的盒模型
+
+那么问题来了，当元素定义了一个固定的宽度（高度）值后，如果修改padding，元素在页面上所占的宽度（高度）也会随着padding的值的变化而变化。同理，当你想调整内容与边框之间的距离而修改了padding后，为了保持元素在页面上所占的宽度（高度）固定，还需要修改定义的内容的宽度。如此的麻烦。
+
+再举个例子，日常生活中的盒子，当我们定义它的大小时，绝对不会使用盒子中存放的物品的尺寸来定义盒子的大小。对于这个盒子来说，外围的挡板可以看成border，防止物品破损的填充物可以看成padding，在现实中，当我们说一个盒子有多大时，指的就是它的实际大小，也就是 `“border+padding+contentWidth”`。这种设定似乎是更贴合实际也更容易理解和接受。
+
+在IE的quirks模式下，其盒模型的解释正是如此。
+
+## box-sizing
+不过在新的 CSS3 中，推出了一个新的属性 `box-sizing` 。有两个可选值，一个是默认的 content-box 一个是 border-box，选用后者，盒子模型将按 IE6 的方式进行处理
+
+##margin的重叠
 
 
 
