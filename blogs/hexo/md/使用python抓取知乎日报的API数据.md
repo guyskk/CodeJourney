@@ -1,5 +1,6 @@
 title: 使用python抓取知乎日报的API数据
 date: 2014-10-08 20:12
+category: Python
 tags: ["Python", "笔记"]
 ---
 
