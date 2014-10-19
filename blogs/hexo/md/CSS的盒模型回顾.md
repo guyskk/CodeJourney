@@ -49,12 +49,10 @@ tag: ["CSS", "笔记"]
 ##margin的重叠
 
 
->参考：  
+参考：  
+
 [box model (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/box_model)  
 [The CSS Box Model](http://css-tricks.com/the-css-box-model/)  
 [IE盒模型缺陷](http://zh.wikipedia.org/wiki/IE%E7%9B%92%E6%A8%A1%E5%9E%8B%E7%BC%BA%E9%99%B7)  
 [box model](http://www.w3.org/TR/CSS2/box.html#box-dimensions)
-
-
-
 

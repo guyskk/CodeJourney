@@ -1,6 +1,5 @@
 title: 规范之路-CSS中的定位简介
 date: 2014-09-12 20:30
-category: 前端
 tags: ["CSS", "笔记"]
 
 ---

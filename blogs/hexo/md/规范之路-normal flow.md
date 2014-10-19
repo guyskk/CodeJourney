@@ -55,7 +55,6 @@ Line box 的诞生是为了容纳一个包含着一个行级格式化上下文�
          sentence, dear.
     </p>
 
-The P element generates a block box that contains five inline boxes, three of which are anonymous:
 
 p元素形成了一个块级盒子，包含着五个行内盒子，其中三个是匿名盒子：
 
