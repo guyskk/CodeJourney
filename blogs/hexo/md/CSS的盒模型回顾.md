@@ -48,11 +48,50 @@ tag: ["CSS", "笔记"]
 
 ##margin的重叠
 
+> 就参照标准的文档，结合自己的理解稍微翻译了一下，有些名词还是用英文描述比较合适。文档地址：[点这里](http://www.w3.org/TR/CSS21/box.html#margin-properties)
+
+
+
+在CSS中，两个或者更多的盒子的毗邻的外边距会重叠在一起，形成一个单一的外边距。外边距的这种组合方式我们称之为“坍塌”，最后形成的外边距我们称之为“坍塌的外边距（collapse margin）”。
+
+垂直方向上的外边距的坍塌，除了：
+
+1. 根元素的盒子（the root elements's box）的外边距永远不会坍塌。当你为 `html` 标签加上 `margin` 时，无论有无毗邻的外边距，这个margin的都不会坍塌，是多少就多少。
+2. 如果一个拥有了“空隙”（[clearance](http://www.w3.org/TR/CSS21/visuren.html#clearance)）的元素上下外边距毗邻，它的外边距将会与后面的兄弟元素的相邻外边距发生坍塌，但是发生坍塌后形成的外边距不会与父盒子的底外边
+
+
+水平方向的外边距永远不会坍塌。
+
+什么情况下两个外边距才算是毗邻（adjoining）呢？有且只有在下面的情况中：
+
+1. 同一个块级格式化上下文（block formatting context）中未脱离正常流（in-flow）中的块级盒子的外边距；
+2. 两个外边距之间不存在 line box（不包括高度确定无疑为零的 line box），没有 [clearance](http://www.w3.org/TR/CSS21/visuren.html#clearance)，外边距和边框；
+3. 垂直相邻的的盒子之间的外边距，可以下面的任一种情况：
+     元素的 `margin-top` 与其第一个正常流（in-flow）的子元素的 `margin-top` ；
+     元素的 `margin-top` 与其第一个正常流的子元素的 `margin-top` ;
+     height为auto的元素的 `margin-bottom` 与其最后一个正常流的子元素的 `margin-bottom` ;
+     高度为0并且最小高度也为0，不包含正常流的子元素，并且自身没有建立新的BFC的元素的 `margin-top` 和 `margin-bottom` ;
+
+
+形成坍塌的外边距的元素可以使非相邻元素或者祖先元素。
+
+上面说到的也就意味着：
+
+* 一个浮动的盒子与其他的盒子不会发生外边距坍塌，即使是浮动盒子和它内部的正常流中的孩子们；
+* 自身建立了新的BFC的元素的外边距不会与它的处于正常流的孩子们的外边距重叠；
+* inline-block 盒子的外边距不会坍塌，即使是它内部的正常流中的孩子们；
+* 一个正常流元素的 `margin-bottom` 与它下一个正常流的兄弟元素的 `margin-top` 会产生折叠，除非它们之间存在间隙（clearance）。
+* 一个正常流元素的 `margin-top` 与其第一个正常流的子元素的 `margin-top` 产生折叠，条件为父元素不包含 `padding` 和 `border` ，子元素不包含 clearance。
+* 一个 'height' 为 'auto' 并且 'min-height' 为 '0'的正常流元素的 `margin-bottom` 会与其最后一个正常流子元素的 `margin-bottom` 折叠，条件为父元素不包含 `padding` 和 `border` ，子元素的 `margin-bottom` 不与包含 clearance 的 `margin-top` 折叠。
+* 一个不包含 `border-top`、`border-bottom`、`padding-top`、`padding-bottom`的正常流元素，并且其 'height' 为 0 或 'auto'， 'min-height' 为 '0'，其里面也不包含行盒(line box)，其自身的 `margin-top` 和 `margin-bottom` 会折叠。
+
+在 W3CPlus 的[这篇文章](http://www.w3cplus.com/css/understanding-bfc-and-margin-collapse.html)中，有详细的分析，不懂的话可以看[这里](http://www.w3cplus.com/css/understanding-bfc-and-margin-collapse.html)
 
 参考：  
-
 [box model (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/box_model)  
 [The CSS Box Model](http://css-tricks.com/the-css-box-model/)  
 [IE盒模型缺陷](http://zh.wikipedia.org/wiki/IE%E7%9B%92%E6%A8%A1%E5%9E%8B%E7%BC%BA%E9%99%B7)  
 [box model](http://www.w3.org/TR/CSS2/box.html#box-dimensions)
+[W3CPlus](http://www.w3cplus.com/css/understanding-bfc-and-margin-collapse.html)  
+[margin-prototypies](http://www.w3.org/TR/CSS21/box.html#margin-properties)  
 
