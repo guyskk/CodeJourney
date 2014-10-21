@@ -1,0 +1,168 @@
+/*reset*/
+
+@media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px) { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px) { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */}
+@media (min-width:961px) { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
+
+$landscape: 641px;
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+    display: block;
+}
+html,body,ul,li{
+    margin:0;
+    padding:0;    
+}
+html,body{
+    width:100%;
+}
+
+body{
+    font-size:62.5%;
+    background: #BEDAE8;
+    font-family: "Helvetica Neue",Arial,"Microsoft Yahei",sans-serif;
+}
+
+li{
+    list-style-type:none;
+}
+
+a{
+    text-decoration:none;
+}
+a, input{
+    outline:none;
+}
+
+
+/*grid*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**/
+.clearfix:after{
+    content:".";
+    display: block;
+    width:0;
+    height:0;
+    line-height:0;
+    visibility: hidden;
+    clear:both;
+
+}
+.float-left{
+    float:left;
+}
+.float-right{
+    float:right;
+}
+
+.divid-line-after{
+    position:relative;
+}
+
+.divid-line-after:after{
+    content: "";
+    display: block;
+    height:15px;
+    width:1px;
+    position:absolute;
+    right:-11px;
+    top:13px;
+    background:#474747;
+}
+
+.ele_menu_dropdown{
+    cursor:pointer;
+}
+
+
+
+
+
+
+/**/
+
+
+
+.wrapper{}
+
+.container{
+    // width:1008px;
+    width:950px;
+    margin:0 auto;
+    @media (max-width:$landscape){
+        box-sizing:border-box;
+        width:100%;
+        padding:10px;
+        background: #93e;
+    }
+    
+}
+
+
+/*icon*/
+[class ^= "icon-"]{
+    display: inline-block;
+    background-image:url(../../images/global/topbar.png);
+    background-repeat: no-repeat;
+    vertical-align:middle;
+}
+.icon-logo{
+    width:90px;
+    height:40px;
+    background-position:0 0;
+}
+.icon-mobile{
+    width:15px;
+    height:19px;
+    background-position:0px -39px;
+}
+.icon-search{
+    width:18px;
+    height:18px;
+    background-position:0 -60px;
+}
+.icon-cart{
+    width:20px;
+    height:20px;
+    background-position: 0 -80px;
+}
+.icon-msg{
+    width:20px;
+    height:20px;
+    background-position:-20px -80px;
+}
+.icon-caret{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #666;
+    vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+@mixin linear-gradient($deg, $form, $to){
+    background-image: -webkit-linear-gradient($deg, $form, $to);
+    background-image: -webkit-linear-gradient($deg, $form, $to);
+    background-image: -webkit-linear-gradient($deg, $form, $to);
+    background-image: linear-gradient($deg, $form, $to);
+}
+
+@mixin transition($para){
+    -webkit-transition:$para;
+    -moz-transition:$para;
+    -o-transition:$para;
+    transition:$para;
+}
+
+@mixin box-sizing($para){
+    -webkit-box-sizing:$para;
+    -moz-box-sizing: $para;
+    -o-box-sizing: $para;
+    box-sizing: $para;
+}
