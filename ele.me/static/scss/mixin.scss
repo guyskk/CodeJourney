@@ -1,7 +1,7 @@
 @mixin linear-gradient($deg, $form, $to){
     background-image: -webkit-linear-gradient($deg, $form, $to);
-    background-image: -webkit-linear-gradient($deg, $form, $to);
-    background-image: -webkit-linear-gradient($deg, $form, $to);
+    background-image: -moz-linear-gradient($deg, $form, $to);
+    background-image: -o-linear-gradient($deg, $form, $to);
     background-image: linear-gradient($deg, $form, $to);
 }
 
@@ -17,4 +17,11 @@
     -moz-box-sizing: $para;
     -o-box-sizing: $para;
     box-sizing: $para;
+}
+
+@mixin box-shadow($para){
+    -webkit-box-shadow:$para;
+    -moz-box-shadow:$para;
+    -o-box-shadow:$para;
+    box-shadow:$para;
 }

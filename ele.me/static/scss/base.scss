@@ -8,12 +8,11 @@
 @media (min-width:1281px) { /* hi-res laptops and desktops */ }
 
 
-$landscape: 641px;
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
     display: block;
 }
-html,body,ul,li{
+html,body,ul,li,p{
     margin:0;
     padding:0;    
 }
@@ -33,7 +32,15 @@ li{
 
 a{
     text-decoration:none;
+    &:link,&:visited{
+        color:#333;
+    }
+    &:hover{
+        color:#08c;
+        text-decoration: underline;
+    }
 }
+
 a, input{
     outline:none;
 }
@@ -41,7 +48,10 @@ a, input{
 
 /*grid*/
 
-
+.col-4{
+    width:20%;
+    float:left;
+}
 
 
 
@@ -71,6 +81,10 @@ a, input{
     float:right;
 }
 
+.ovh{
+    overflow:hidden;
+}
+
 .divid-line-after{
     position:relative;
 }
@@ -85,7 +99,6 @@ a, input{
     top:13px;
     background:#474747;
 }
-
 .ele_menu_dropdown{
     cursor:pointer;
 }
@@ -157,6 +170,67 @@ a, input{
     border-top: 4px solid #666;
     vertical-align: middle;
 }
+
+/* 店铺列表相关 */
+
+.shop-placeholder{
+    width:101%;
+    height:$shop-placehodler-height;
+    border-right:1px solid #ddd;
+    @include box-sizing(border-box);
+}
+
+/* 添加收藏 */
+
+.add-favor{
+    height:92px;
+    background-image:url(../../images/global/bg.gif);
+    background-repeat: no-repeat;
+    background-position:-112px -94px;
+    &:hover{
+        cursor:pointer;
+        background-position:-303px -94px;
+    }
+}
+
+/* 单个店铺 */
+.shop-single{
+    padding:10px;
+    >a{
+        display: block;
+    }
+
+    .shop-info{
+        height:46px;
+        background:orange;
+        color:#333;
+    }
+
+    .shop-info-name{
+        font-size:1.5em;
+    }
+    .shop-info-status{
+        font-size:1.2em;
+        color:#666;
+        margin-top:14px;
+    }
+    .shop-info-logo{
+        float:left;
+        width:42px;
+        height:42px;
+        border:1px solid #ddd;
+        margin:0 10px 10px 0;
+        padding:1px;
+    }
+
+
+
+    .sale-info{
+
+    }
+
+}
+
 
 
 
