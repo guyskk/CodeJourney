@@ -70,6 +70,7 @@
             <div class="banner">
                 <img src="http://fuss10.elemecdn.com/2/3b/3da2f96008313bb9833ad79767c44png.png" alt="">
             </div>
+            <!-- 我的收藏 -->
             <div class="panel" id="my_collect">
                 <div class="panel-header clearfix">
                     <div class="panel-title float-left">我的收藏</div>
@@ -106,11 +107,12 @@
                     
                 </div>
             </div>
-            <div class="panel" id="my_collect">
+            <!-- 品牌馆 -->
+            <div class="panel" id="">
                 <div class="panel-header clearfix">
-                    <div class="panel-title">
-                        
-                    </div>
+                    
+                    <div class="panel-title float-left">品牌馆</div>
+                    <a href="" class="setting float-right">更多</a>
                 </div>
                 <div class="panel-body clearfix ovh">
                     <div class="col-4">
@@ -119,13 +121,31 @@
                                 <a href="#" class="shop-info-logo">
                                     <img src="static/images/shop-1.png" alt="店铺名称" />
                                 </a>
-                                <p class="shop-info-name">
-                                    <a href="#">店铺名称店</a>
-                                </p>
-                                <p class="shop-info-status">打烊了</p>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
                             </div>
                             <div class="sale-info">
-                                
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -134,19 +154,834 @@
                     
                 </div>
             </div>
-            <div class="panel" id="my_collect">
+            
+            <!-- 热门餐厅 -->
+
+            <div class="panel" id="">
                 <div class="panel-header clearfix">
-                    <div class="panel-title">我的收藏</div> 
+                    <ul class="filter-shop">
+                        <li><span><input type="radio" name="filter" id="filter-hot"> <label for="filter-hot">热门餐厅</label></span></li>
+                        <li><span><input type="radio" name="filter" id="filter-opening"> <label for="filter-opening">营业中</label></span></li>
+                        <li><span><input type="radio" name="filter" id="filter-online_payment"> <label for="filter-online_payment">在线支付</label></span></li>
+                        <li><span>口味<i class="icon-caret"></i></span></li>
+                        <li><span>起送价<i class="icon-caret"></i></span></li>
+                    </ul>
                 </div>
                 <div class="panel-body clearfix ovh">
-                    
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time busy">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time busy">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-footer">
                     
                 </div>
             </div>
+
+            <div class="geoplace-activities justify_fix">
+                <span><img src="static/images/global/hot-act.gif" alt=""></span>
+                <span><img src="static/images/global/hot-act.gif" alt=""></span>
+                <span><img src="static/images/global/hot-act.gif" alt=""></span>
+                <span><img src="static/images/global/hot-act.gif" alt=""></span>
+                <span><img src="static/images/global/hot-act.gif" alt=""></span>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title float-left">附近团购</div>
+                </div>
+                <div class="panel-body clearfix ovh">
+                    <div class="col-4">
+                        <div class="shop-placeholder group-nearby">
+                            <div class="group-info">
+                                <a href=""><img src="static/images/global/thumb.jpg" alt=""></a>
+                                <p class="group-name">斗牛士</p>
+                                <p>
+                                    <span class="now-price">¥85</span>
+                                    <span class="old-price">¥135</span>
+                                </p>
+                            </div>
+                            <div class="group-sale">
+                                <span class="count">123456人购买</span>
+                                <span class="book-now">立刻订购</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder group-nearby">
+                            <div class="group-info">
+                                <a href=""><img src="static/images/global/thumb.jpg" alt=""></a>
+                                <p class="group-name">斗牛士</p>
+                                <p>
+                                    <span class="now-price">¥85</span>
+                                    <span class="old-price">¥135</span>
+                                </p>
+                            </div>
+                            <div class="group-sale">
+                                <span class="count">123456人购买</span>
+                                <span class="book-now">立刻订购</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder group-nearby">
+                            <div class="group-info">
+                                <a href=""><img src="static/images/global/thumb.jpg" alt=""></a>
+                                <p class="group-name">斗牛士</p>
+                                <p>
+                                    <span class="now-price">¥85</span>
+                                    <span class="old-price">¥135</span>
+                                </p>
+                            </div>
+                            <div class="group-sale">
+                                <span class="count">123456人购买</span>
+                                <span class="book-now">立刻订购</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder group-nearby">
+                            <div class="group-info">
+                                <a href=""><img src="static/images/global/thumb.jpg" alt=""></a>
+                                <p class="group-name">斗牛士</p>
+                                <p>
+                                    <span class="now-price">¥85</span>
+                                    <span class="old-price">¥135</span>
+                                </p>
+                            </div>
+                            <div class="group-sale">
+                                <span class="count">123456人购买</span>
+                                <span class="book-now">立刻订购</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder group-nearby">
+                            <div class="group-info">
+                                <a href=""><img src="static/images/global/thumb.jpg" alt=""></a>
+                                <p class="group-name">斗牛士</p>
+                                <p>
+                                    <span class="now-price">¥85</span>
+                                    <span class="old-price">¥135</span>
+                                </p>
+                            </div>
+                            <div class="group-sale">
+                                <span class="count">123456人购买</span>
+                                <span class="book-now">立刻订购</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 更多餐厅 -->
+
+            <div class="panel" id="">
+                <div class="panel-header clearfix">
+                    <div class="panel-title float-left">更多餐厅</div>
+                </div>
+                <div class="panel-body clearfix ovh">
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <span class="favor-icon"></span>
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single">
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-type">西式</span>
+                                    <!-- <span class="info-status">接受预定</sapn> -->
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="rating-stars r0"></span>
+                                        <span class="rating-number">0订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="shop-placeholder shop-single closed">
+                            <div class="shop-info">
+                                <a href="#" class="shop-info-logo">
+                                    <img src="static/images/shop-1.png" alt="店铺名称" />
+                                </a>
+                                <div class="shop-info-detail">
+                                    <p class="info-name">
+                                        <a href="#">店铺名称店</a>
+                                    </p>
+                                    <span class="info-status-label closed">休息中</span>
+                                </div>
+                                
+                            </div>
+                            <div class="sale-info">
+                                <div class="deliver-time">
+                                    57分钟
+                                </div>
+                                <div class="deliver-info">
+                                    <div class="deliver-ratings">
+                                        <span class="deliver-status closed">太忙暂不接受新订单</span>
+                                    </div>
+                                    <div class="deliver-service-para">
+                                        <span class="service-icon deliver-fee"></span>
+                                        <span class="service-icon recoup"></span>
+                                        <span class="service-icon invoice"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    
+                </div>
+            </div>
+
         </div>
-        <footer class="footer"></footer>
+        <footer class="footer">
+            <ul class="footer-links">
+                <li><a href="#">我要开店</a></li>
+                <li><a href="#">联系我们</a></li>
+                <li><a href="#">服务条款和协议</a></li>
+                <li><a href="#">站点地图</a></li>
+                <li><a href="#">加入我们</a></li>
+            </ul>
+            <p class="site-copyright">Copyright ©2008-2014 ele.me, All Rights Reserved. </p>
+            <div class="footer-cert">
+                <a href="">
+                    <i class="cert-icp-icon"></i>
+                    <span>
+                        沪ICP备 </br>
+                        09007032
+                    </span>
+                </a>
+                <a href="">
+                    <i class="cert-aic-icon"></i>
+                    <span>
+                        上海工商行政管理
+                    </span>
+                </a>
+            </div>
+        </footer>
 
     </div>
 </body>

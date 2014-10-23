@@ -1,0 +1,119 @@
+/*reset*/
+
+@media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px) { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px) { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */}
+@media (min-width:961px) { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+    display: block;
+}
+div, p, td, th, li {
+    word-break: break-all;
+}
+html,body,ul,li,p,input{
+    margin:0;
+    padding:0;    
+}
+html,body{
+    width:100%;
+}
+img{
+    border:none;
+}
+body{
+    font-size:12px;
+    background: #BEDAE8;
+    font-family: "Helvetica Neue",Arial,"Microsoft Yahei",sans-serif;
+}
+
+li{
+    list-style-type:none;
+}
+
+a{
+    text-decoration:none;
+    &:link,&:visited{
+        color:#333;
+    }
+    &:hover{
+        color:#08c;
+        text-decoration: underline;
+    }
+}
+
+a, input{
+    outline:none;
+}
+
+.dib{
+    display: inline-block;   
+}
+.ver-align-middle{
+    vertical-align: middle;
+}
+
+/*grid*/
+
+.col-4{
+    width:20%;
+    float:left;
+}
+
+
+
+
+
+
+
+
+
+
+
+/**/
+.clearfix:after{
+    content:".";
+    display: block;
+    width:0;
+    height:0;
+    line-height:0;
+    visibility: hidden;
+    clear:both;
+
+}
+.float-left{
+    float:left;
+}
+.float-right{
+    float:right;
+}
+
+.ovh{
+    overflow:hidden;
+}
+.justify_fix:after{
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+}
+.divid-line-after{
+    position:relative;
+}
+
+.divid-line-after:after{
+    content: "";
+    display: block;
+    height:15px;
+    width:1px;
+    position:absolute;
+    right:-11px;
+    top:13px;
+    background:#474747;
+}
+.ele_menu_dropdown{
+    cursor:pointer;
+}

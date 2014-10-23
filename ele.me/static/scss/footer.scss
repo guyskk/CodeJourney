@@ -1,0 +1,60 @@
+.footer{
+    width:100%;
+    font-size:13px;
+    color:#666;
+    padding:18px 0;
+}
+.footer-links{
+    margin:14px;
+    text-align: center;
+    font-size:0;
+    li{
+        font-size:14px;
+        display: inline-block;
+        padding:0 14px;
+        & + li{
+            border-left: 1px solid #777;
+        }
+    }
+}
+.site-copyright{
+    text-align: center;
+    margin:14px;
+}
+.footer-cert{
+    text-align:center;
+    position:relative;
+    &:after{
+        content: "";
+        height:100%;
+        width:1px;
+        background:#bbb;
+        position:absolute;
+        top:0;
+        left:50%;
+    }
+    a{
+        display: inline-block;
+        vertical-align: top;
+        margin:0 16px;
+    }
+    span{
+        display: inline-block;
+        text-align: left;
+        width:60px;
+        vertical-align: top;
+    }
+    .cert-icp-icon,.cert-aic-icon{
+        display: inline-block;
+        vertical-align: top;
+        width:32px;
+        height:32px;
+        background:url(../../images/global/global-sprites.png) no-repeat;
+    }
+    .cert-icp-icon{
+        background-position:0 0;
+    }
+    .cert-aic-icon{
+        background-position:-40px 0;   
+    }
+}

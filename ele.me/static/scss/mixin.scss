@@ -25,3 +25,10 @@
     -o-box-shadow:$para;
     box-shadow:$para;
 }
+
+
+@mixin autohideword{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

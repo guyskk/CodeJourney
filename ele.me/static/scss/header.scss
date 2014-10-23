@@ -78,7 +78,7 @@ header{
         padding:0 8px;
         line-height:$header-height;
         @include transition(all 0.2s ease-in 0s);
-        &:link{
+        &:link,&:visited{
             color:#ccc;
         }
         &:hover{
