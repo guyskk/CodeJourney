@@ -1,7 +1,4 @@
 @charset "UTF-8";
-/* for media queries */
-/*  */
-/* global variable */
 /*reset*/
 @media (min-width: 320px) {
   /* smartphones, iPhone, portrait 480x320 phones */ }
@@ -59,6 +56,7 @@ a, input {
 /*grid*/
 .col-4 {
   width: 20%;
+  min-width: 186px;
   float: left; }
 
 /**/
@@ -104,14 +102,13 @@ a, input {
   cursor: pointer; }
 
 .container {
-  width: 950px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 950px;
+  width: 100%;
   margin: 0 auto; }
-  @media (max-width: 641px) {
-    .container {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 10px;
-      background: #93e; } }
 
 .rating-stars {
   display: inline-block;
@@ -567,5 +564,34 @@ header {
     background-position: 0 0; }
   .footer-cert .cert-aic-icon {
     background-position: -40px 0; }
+
+/* 尝试一下媒体查询 */
+@media (max-width: 641px) {
+  header {
+    height: auto; }
+
+  .site-head {
+    width: 100%; }
+    .site-head .site-search {
+      width: 300px; }
+
+  .site-nav {
+    float: none;
+    display: inline-block; }
+
+  .banner {
+    display: none; }
+
+  .container {
+    width: 100%;
+    padding: 10px; }
+
+  .col-4 {
+    width: 50%; }
+
+  .add-favor {
+    background-position: -95px -94px; }
+    .add-favor:hover {
+      background-position: -286px -94px; } }
 
 /*# sourceMappingURL=ele.me.0.1.0.css.map */

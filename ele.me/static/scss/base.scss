@@ -1,18 +1,13 @@
 @charset "utf-8";
+$shop-placehodler-height:92px;
 
-.wrapper{}
 
 .container{
     // width:1008px;
-    width:950px;
+    @include box-sizing(border-box);
+    max-width:950px;
+    width:100%;
     margin:0 auto;
-    @media (max-width:$landscape){
-        box-sizing:border-box;
-        width:100%;
-        padding:10px;
-        background: #93e;
-    }
-    
 }
 .rating-stars{
     display: inline-block;

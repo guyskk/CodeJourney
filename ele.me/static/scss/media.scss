@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* 尝试一下媒体查询 */
+
+$landscape: 641px;
+
+@media (max-width:$landscape){
+    header{
+        height:auto;
+    }
+    .site-head{
+        width:100%;
+        .site-search{
+            width:300px;
+        }
+    }
+    .site-nav{
+        float:none;
+        display: inline-block;
+    }
+    .banner{
+        display: none;
+    }
+    .container{
+        width:100%;
+        padding:10px;
+    }
+    .col-4{
+        width:50%;
+    }
+    .add-favor{
+        background-position: -95px -94px;
+        &:hover{
+            background-position: -286px -94px;
+        }
+    }
+
+}
