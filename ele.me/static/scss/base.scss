@@ -1,7 +1,6 @@
 @charset "utf-8";
 $shop-placehodler-height:92px;
 
-
 .container{
     // width:1008px;
     @include box-sizing(border-box);
@@ -13,7 +12,7 @@ $shop-placehodler-height:92px;
     display: inline-block;
     width: 61px;
     height: 14px;
-    background: url(../../images/global/bg.png)  no-repeat -1px -193px;
+    background: url(../../images/global/bg.gif)  no-repeat -1px -193px;
     @for $i from 0 through 10{
         &.r#{$i}{
             background-position:-1px -333px+($i * 15);
@@ -25,7 +24,6 @@ $shop-placehodler-height:92px;
     display: inline-block;
     vertical-align: top;
 }
-
 .service-icon{
     display: block;
     width: 15px;
@@ -132,7 +130,7 @@ $shop-placehodler-height:92px;
 /* 添加收藏 */
 .add-favor{
     height:92px;
-    background-image:url(../../images/global/bg.png);
+    background-image:url(../../images/global/bg.gif);
     background-repeat: no-repeat;
     background-position:-112px -94px;
     &:hover{
@@ -316,4 +314,18 @@ $shop-placehodler-height:92px;
 }
 
 
-
+#background{
+    width:100%;
+    height:100%;
+    background:#C0DEED;
+    position:fixed;
+    z-index:-10;
+}
+/*  云朵和月亮的效果 方法类似*/
+.sun {
+    position: absolute;
+    left: 0px;
+    width: 445px;
+    height: 356px;
+    background: transparent url("http://static10.elemecdn.com/images/forward/background/clouds.png") no-repeat -660px -350px;
+}

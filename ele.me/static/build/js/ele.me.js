@@ -60,10 +60,10 @@
 })(window);
 
 
+
 (function() {
 
     // input
-
     function inputToggle() {
         var search_input = document.getElementById("search_input"),
             parent = search_input.parentNode;
@@ -103,7 +103,6 @@
             if (!listContainer.style.top) {
                 listContainer.style.top = 0;
             }
-
             count++;
             console.log(listContainer.style.top);
             console.log(-height * length / 2);
@@ -117,26 +116,6 @@
         };
 
         var timer = setTimeout(running, 3000);
-
-
-        // 绑定鼠标点击
-
-        // dot.onclick=function(e){
-        //     var e = window.event || e;
-        //     var target = e.target || e.srcElement;
-        //     if(target.tagName.toLowerCase() == "li"){
-        //         clearTimeout(timer);
-        //         count = parseInt(target.innerHTML-1, 10);
-        //         ele.animate(listContainer, {
-        //             "top": -height * count
-        //         }, 1000,function(){
-        //             var timer = setTimeout(running, 3000);
-        //         });
-        //         console.log(-height * parseInt(target.innerHTML-1, 10));
-        //     }
-        // };
-
-
     }
 
 
