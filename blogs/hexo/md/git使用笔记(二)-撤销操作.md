@@ -1,5 +1,5 @@
-title: git 使用笔记(二)  
-tags: [git, 笔记]  
+title: Git 使用笔记(二)-撤销操作 
+tags: [Git, 笔记]  
 date: 2014-07-22 21:09  
 ---
 

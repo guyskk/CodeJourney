@@ -1,5 +1,6 @@
 title: (译)Node.js的 EventEmitter 教程
-date: 2014-05-05 21:23
+date: 2014-05-05 21:23  
+category: Node.js
 tags: [译文,Node.js]
 
 ---

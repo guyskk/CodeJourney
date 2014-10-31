@@ -1,6 +1,6 @@
-title: git 使用笔记(一)  
+title: Git 使用笔记(一)-入门级的操作
 date: 2014-07-16 21:09  
-tags: [git, 笔记]  
+tags: [Git, 笔记]  
 ---
 
 

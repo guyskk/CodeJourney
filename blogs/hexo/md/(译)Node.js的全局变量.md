@@ -1,5 +1,6 @@
 title: (译)Node.js的全局变量    
 date: 2014-04-28 19:36
+category: Node.js
 tags: [译文,Node.js]
 ---
 >原文标题：Global Variables in Node.js  

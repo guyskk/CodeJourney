@@ -1,6 +1,6 @@
 title: 我的响应式web开发实践笔记-Media Queries 初探
 date: 2014-10-10 12:30
-category: ["前端", "笔记"]
+category: ["前端", "笔记", "响应式"]
 tags: ["CSS", "移动web开发"]
 ---
 
