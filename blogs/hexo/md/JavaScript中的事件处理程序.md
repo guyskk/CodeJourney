@@ -2,6 +2,7 @@ title: JavaScript中的事件处理程序
 category: 前端
 date: 2014-04-06 19:40
 tags: JavaScript
+
 ---
 
 JavaScript和HTML之间的交互是通过事件实现的。事件，就是文档或者浏览器窗口中发生的一些特定的交互瞬间。可以使用事件处理程序来预订事件，以便在事件发生的时候执行响应的代码。这种观察者模式的模型，使得JavaScript代码与HTML和CSS代码之间形成了松散耦合。

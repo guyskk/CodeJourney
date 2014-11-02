@@ -2,6 +2,7 @@ title: sass基本语法
 category: 前端
 date: 2014-03-10 20:20
 tags: [CSS , sass]
+
 ---
 
 **[sass](http://sass-lang.com/)**是一种基于ruby语言开发的CSS预处理器。它可以使用变量，嵌套，混入，继承，运算，函数等编程语言具有的特性进行CSS的开发，使得CSS的开发变得简单粗暴清晰可维护。  

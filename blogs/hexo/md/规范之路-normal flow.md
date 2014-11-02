@@ -1,7 +1,8 @@
 title: 规范之路-Normal Flow
 date: 2014-10-02 20:39
-category: 前端
+category: 重构
 tags: ["CSS", "笔记"]
+
 ---
 
 ##Normal Flow

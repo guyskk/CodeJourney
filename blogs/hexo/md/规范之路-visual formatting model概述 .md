@@ -1,6 +1,8 @@
 title: 规范之路-visual formatting model 概述
+category: 重构
 date: 2014-08-21 20:39
 tags: [CSS, 笔记]
+
 ---
 
 ##[视觉格式化模型](http://www.w3.org/TR/CSS21/visuren.html)

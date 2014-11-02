@@ -1,9 +1,9 @@
 title: CSS元素居中对齐大法  
 date: 2014-09-30 20:34  
-category: ["前端","重构"]  
-tag: ["译文","CSS","笔记"]  
+category: ["前端"]  
+tags: ["译文","CSS","笔记"]
 
----  
+---
 
 >原文标题：Centering in CSS: A Complete Guide  
  原文链接：[http://css-tricks.com/centering-css-complete-guide/](http://css-tricks.com/centering-css-complete-guide/)  

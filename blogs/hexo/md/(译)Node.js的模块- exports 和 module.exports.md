@@ -2,6 +2,7 @@ title: (译)Node.js的模块-exports和module.exports
 date: 2014-04-26 19:45
 category: Node.js
 tags: [译文,Node.js]
+
 ---
 
 >原文标题：Node.js Module – exports vs module.exports   

@@ -1,7 +1,8 @@
 title: Node.js入门-Node.js中的模块
-date: 2014-04-25 19:40
 category: Node.js
+date: 2014-04-25 19:40
 tags: Node.js
+
 ---
 
 之前简单的了解了 Node.js 。对 Node.js  有一个简单的认识。接下来查看了 API 文档中模块有关的知识点，参照《Node.js 开发指南》，并做笔记。
