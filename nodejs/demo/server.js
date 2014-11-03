@@ -2,29 +2,53 @@ var http =require("http"),
     path = require("path"),
     fs = require("fs");
 
-var html = "<!doctype html>" +
-            "<html><head><title>Hello world</title></head>" +
-            "<body><h1>Hello, world!</h1></body></html>";
+var extensions = {
+    ".html": "text/html",
+    ".css": "text/css",
+    ".js": "application/javascript",
+    ".png": "image/png",
+    ".gif": "image/gif",
+    ".jpg": "image/jpeg"
+}
+
 
 http.createServer(function(req, res){
 
-    var filename = path.basename(req.url),
+    var filename = path.basename(req.url) || "index.html",
         ext = path.extname(filename),
+        dir = path.dirname(req.url).substring(1),
         localPath = __dirname + "/public/";
-
-    if(ext == "html"){
-        localPath += filename;
-        path.exists(localPath, function(exists){
+        
+    if(extensions[ext]){
+        localPath += (dir ? dir + "/" : "") + filename;
+        fs.exists(localPath, function(exists){
             if(exists){
-                getFile(localPath, res);
+                getFile(localPath, extensions[ext], res);
             }else{
                 res.writeHead(404);
-                res.end();
+                res.end("Page is missing!!");
             }
-        });   
+        });
     }
-    
-}).listen(1337, "127.0.0.1");
+
+}).listen(1234, "127.0.0.1");
+
+
+function getFile(path, mimeType, res){
+    fs.readFile(path, function(err, contents){
+        if(!err){
+            res.writeHead({
+                "Content-Type":mimeType,
+                "Content-Length": contents.length
+            });
+            res.end(contents);
+        }else{
+            res.writeHead(500);
+            res.end("Server is missing!");
+        }
+    });
+}
+
 
 console.log("Server is running at: 127.0.0.1");
 
