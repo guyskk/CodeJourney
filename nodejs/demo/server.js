@@ -1,5 +1,6 @@
 var http =require("http"),
     path = require("path"),
+    query = require("querystring"),
     fs = require("fs");
 
 var extensions = {
@@ -13,6 +14,12 @@ var extensions = {
 
 
 http.createServer(function(req, res){
+
+    var qs = querystring.parse(req.url.split("?")[1]),
+        // property names are the same as in the querystring
+        userName = qs.firstName + " " + qs.lastName;
+
+    console.log(useName);
 
     var filename = path.basename(req.url) || "index.html",
         ext = path.extname(filename),
