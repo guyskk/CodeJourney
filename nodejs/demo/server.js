@@ -81,8 +81,6 @@ app.use('/edit', function(req, res){
         lastName: "req.body.lastName"
     };
 
-    console.log("username");
-    console.log(req.body);
     var template = "",
         html;
 
@@ -102,6 +100,7 @@ app.use('/edit', function(req, res){
 
 app.use("/api/users/edit", function(req, res){
     if(req.method == "POST"){
+        console.log(req);
         if (!req.body){
             res.writeHead(400);
             res.end("Server is missing!");
