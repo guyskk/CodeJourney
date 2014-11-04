@@ -63,11 +63,10 @@ var app = connect();
 
 var bodyParser = require("body-parser");
 
-// create application/json parser
-var jsonParser = bodyParser.json();
+app.use(bodyParser.urlencoded({ extended: false }))
 
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+// parse application/json
+app.use(bodyParser.json())
 
 
 var mu = require("mu2");
@@ -75,10 +74,8 @@ mu.root = __dirname + "/public/";
 
 app.use('/edit', function(req, res){
     var userName = {
-        // firstName: req.body.firstName,
-        // lastName: req.body.lastName
-        firstName: "req.body.firstName",
-        lastName: "req.body.lastName"
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
     };
 
     var template = "",
@@ -99,15 +96,28 @@ app.use('/edit', function(req, res){
 });
 
 app.use("/api/users/edit", function(req, res){
+    res.writeHead({
+        "Content-Type":"text/html"
+    });
     if(req.method == "POST"){
         console.log(req);
         if (!req.body){
             res.writeHead(400);
             res.end("Server is missing!");
         }
+        var resultfile = __dirname + "/public/result.html";
+        fs.exists(resultfile, function(exists){
+            if(exists){
+                getFile(resultfile, extensions["html"], res);
+            }else{
+                res.writeHead(404);
+                res.end("Page is missing!!");
+            }
+        });
     }
 
     if(req.method == "GET"){
+
         res.writeHead(200);
         res.end("Hey! Don't visit this page !");   
     }
