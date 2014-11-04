@@ -1,7 +1,10 @@
-var http =require("http"),
+var http = require("http"),
+    util = require("util"),
     path = require("path"),
     querystring = require("querystring"),
-    fs = require("fs");
+    stream = require('stream');
+    fs = require("fs"),
+    connect = require("connect");
 
 var extensions = {
     ".html": "text/html",
@@ -20,42 +23,103 @@ function isEmpty(obj){
     return true;
 }
 
-http.createServer(function(req, res){
+// http.createServer(function(req, res){
 
-    var qs = querystring.parse(req.url.split("?")[1]);
+//     var qs = querystring.parse(req.url.split("?")[1]);
 
-        // property names are the same as in the querystring
-        // userName = qs.firstName + " " + qs.lastName;
+//         // property names are the same as in the querystring
+//         // userName = qs.firstName + " " + qs.lastName;
 
 
-    var filename = path.basename(req.url) || "index.html",
-        ext = path.extname(filename),
-        dir = path.dirname(req.url).substring(1),
-        localPath = __dirname + "/public/";
+//     var filename = path.basename(req.url) || "index.html",
+//         ext = path.extname(filename),
+//         dir = path.dirname(req.url).substring(1),
+//         localPath = __dirname + "/public/";
 
-    if(!isEmpty(qs)){
-        userName = qs.username;
-        html = "<!doctype html>" +
-                "<html><head><title>Hello " + userName + "</title></head>" +
-                "<body><h1>Hello, " + userName + "!</h1></body></html>";
+//     if(!isEmpty(qs)){
+//         userName = qs.username;
+//         html = "<!doctype html>" +
+//                 "<html><head><title>Hello " + userName + "</title></head>" +
+//                 "<body><h1>Hello, " + userName + "!</h1></body></html>";
+//         res.end(html);
+//     }
+//     if(extensions[ext]){
+//         console.log("file");
+//         localPath += (dir ? dir + "/" : "") + filename;
+//         fs.exists(localPath, function(exists){
+//             if(exists){
+//                 getFile(localPath, extensions[ext], res);
+//             }else{
+//                 res.writeHead(404);
+//                 res.end("Page is missing!!");
+//             }
+//         });
+//     }
+
+
+// }).listen(1234, "127.0.0.1");
+
+var app = connect();
+
+var bodyParser = require("body-parser");
+app.use(bodyParser.json());
+
+
+var mu = require("mu2");
+mu.root = __dirname + "/public/";
+
+// app.use(function(req, res){
+//     var userName = {
+//         firstName: req.body.firstName,
+//         lastName: req.body.lastName
+//     },
+//     // create and open the stream
+//     tmplFile = fs.createReadStream(
+//         __dirname + "/public/edit.html",
+//         {encoding: "utf8"}
+//     ),
+//     template = "",
+//     html;
+    
+//     tmplFile.on("data", function(data) {
+//         template += data;
+//     });
+//     tmplFile.on("end", function() {
+//         // render the template with the userName object as data
+//         html = mustache.to_html(template, userName);
+//         res.end(html);
+//     });
+// });
+
+
+app.use(function(req, res){
+
+
+    var userName = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+    };
+
+    var template = "",
+        html;
+
+    // return stream
+    var readable = mu.compileAndRender('edit.html', userName);
+    
+    readable.pipe(res);
+    readable.on("data", function(data) {
+        template += data;
+        console.log(">>>>>templates");
+    });
+    readable.on("end", function() {
+    // render the template with the userName object as data
+        html = mu.renderText("123ewr4", userName);
         res.end(html);
-    }
-    if(extensions[ext]){
-        console.log("file");
-        localPath += (dir ? dir + "/" : "") + filename;
-        fs.exists(localPath, function(exists){
-            if(exists){
-                getFile(localPath, extensions[ext], res);
-            }else{
-                res.writeHead(404);
-                res.end("Page is missing!!");
-            }
-        });
-    }
+    });
 
+});
 
-}).listen(1234, "127.0.0.1");
-
+http.createServer(app).listen(3000);
 
 function getFile(path, mimeType, res){
     fs.readFile(path, function(err, contents){

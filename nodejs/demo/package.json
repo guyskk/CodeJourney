@@ -4,8 +4,10 @@
     "description":"my test node.js application",
     "version":"0.0.1",
     "dependencies":{
-        "connect":"1.8.x",
-        "express":"2.5.x"
+        "connect":"*",
+        "express":"*",
+        "body-parser":"*",
+        "mu2":"*"
     },
     "main":"server.js"
 }
