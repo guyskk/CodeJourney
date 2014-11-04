@@ -62,48 +62,30 @@ function isEmpty(obj){
 var app = connect();
 
 var bodyParser = require("body-parser");
-app.use(bodyParser.json());
+
+// create application/json parser
+var jsonParser = bodyParser.json();
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
 var mu = require("mu2");
 mu.root = __dirname + "/public/";
 
-// app.use(function(req, res){
-//     var userName = {
-//         firstName: req.body.firstName,
-//         lastName: req.body.lastName
-//     },
-//     // create and open the stream
-//     tmplFile = fs.createReadStream(
-//         __dirname + "/public/edit.html",
-//         {encoding: "utf8"}
-//     ),
-//     template = "",
-//     html;
-    
-//     tmplFile.on("data", function(data) {
-//         template += data;
-//     });
-//     tmplFile.on("end", function() {
-//         // render the template with the userName object as data
-//         html = mustache.to_html(template, userName);
-//         res.end(html);
-//     });
-// });
-
-
-app.use(function(req, res){
-
-
+app.use('/edit', function(req, res){
     var userName = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
+        // firstName: req.body.firstName,
+        // lastName: req.body.lastName
+        firstName: "req.body.firstName",
+        lastName: "req.body.lastName"
     };
 
+    console.log("username");
+    console.log(req.body);
     var template = "",
         html;
 
-    // return stream
     var readable = mu.compileAndRender('edit.html', userName);
     
     readable.pipe(res);
@@ -116,7 +98,20 @@ app.use(function(req, res){
         html = mu.renderText("123ewr4", userName);
         res.end(html);
     });
+});
 
+app.use("/api/users/edit", function(req, res){
+    if(req.method == "POST"){
+        if (!req.body){
+            res.writeHead(400);
+            res.end("Server is missing!");
+        }
+    }
+
+    if(req.method == "GET"){
+        res.writeHead(200);
+        res.end("Hey! Don't visit this page !");   
+    }
 });
 
 http.createServer(app).listen(3000);
