@@ -2,9 +2,8 @@ var http = require("http"),
     util = require("util"),
     path = require("path"),
     querystring = require("querystring"),
-    requirejs = reqiure("requirejs"),
-    stream = require('stream');
-fs = require("fs"),
+    stream = require('stream'),
+    fs = require("fs"),
     connect = require("connect");
 
 var extensions = {
@@ -69,6 +68,11 @@ app.use(bodyParser.urlencoded({
     // parse application/json
 app.use(bodyParser.json())
 
+var requirejs = require("requirejs");
+
+requirejs.config({
+    nodeRequire: require;
+});
 
 var mu = require("mu2");
 mu.root = __dirname + "/public/";
@@ -98,7 +102,6 @@ app.use("/api/users/edit", function(req, res) {
             lastname: req.body.lastName
         };
 
-        console.log(userName);
         var readable = mu.compileAndRender('result.html', userName);
         readable.pipe(res);
     }
