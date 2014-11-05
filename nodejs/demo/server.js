@@ -71,7 +71,7 @@ app.use(bodyParser.json())
 var requirejs = require("requirejs");
 
 requirejs.config({
-    nodeRequire: require;
+    nodeRequire: require
 });
 
 var mu = require("mu2");
@@ -83,6 +83,7 @@ app.use('/edit', function(req, res) {
         pagetitle: "edit your profile",
         pageheader: "This page is perpare for everyone!",
     };
+
     var readable = mu.compileAndRender('edit.html', view);
     readable.pipe(res);
 });
@@ -116,10 +117,61 @@ app.use("/api/users/edit", function(req, res) {
 
 // use connect-route
 
+var Route = require("connect-route");
+var parentTmpl;
+app.use(Route(function(router) {
+
+    router.get('/', function(req, res, next) {
+        res.end('index');
+    });
+
+    router.get('/home', function(req, res, next) {
+        res.end('home');
+    });
+
+    router.get('/home/:id', function(req, res, next) {
+        res.end('home ' + req.params.id);
+    });
+    router.get("/show/:tmpl/:firstName/:lastName", function(req, res) {
+        var userName = {
+            firstName: req.params.firstName,
+            lastName: req.params.lastName
+        };
+        // once the parent template is loaded, render the page
+        requirejs(["text!templates/parent.html"], function(_parentTmpl) {
+            parentTmpl = _parentTmpl;
+            render(res, req.params.tmpl + ".html", userName);
+        });
+    });
+
+    router.post('/home', function(req, res, next) {
+        res.end('POST to home');
+    });
+
+}));
 
 
 
 http.createServer(app).listen(3000);
+
+function render(res, filename, data, style, script, callback) {
+    // load the template and return control to another function or send the response
+    requirejs(["text!templates/" + filename], function(tmpl) {
+        if (callback) {
+            callback(res, tmpl, data, style, script);
+        } else {
+            // render parent template with page template as a child
+            var html = mu.render(parentTmpl, {content: data}, {
+                    content: tmpl,
+                    stylesheets: style || "",
+                    scripts: script || ""
+                }
+            );
+            html.pipe(res);
+        }
+    });
+}
+
 
 function getFile(path, mimeType, res) {
     fs.readFile(path, function(err, contents) {
