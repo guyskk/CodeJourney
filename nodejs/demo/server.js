@@ -64,7 +64,6 @@ var app = connect();
 var bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({ extended: false }))
-
 // parse application/json
 app.use(bodyParser.json())
 
@@ -73,47 +72,40 @@ var mu = require("mu2");
 mu.root = __dirname + "/public/";
 
 app.use('/edit', function(req, res){
-    var userName = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
+    // var userName = {
+    //     firstName: req.body.firstName,
+    //     lastName: req.body.lastName
+    // };
+
+    var view={
+        pagetitle:"edit your profile",
+        pageheader:"This page is perpare for everyone!",
     };
 
-    var template = "",
-        html;
-
-    var readable = mu.compileAndRender('edit.html', userName);
+    var readable = mu.compileAndRender('edit.html', view);
     
     readable.pipe(res);
-    readable.on("data", function(data) {
-        template += data;
-        console.log(">>>>>templates");
-    });
-    readable.on("end", function() {
-    // render the template with the userName object as data
-        html = mu.renderText("123ewr4", userName);
-        res.end(html);
-    });
+
 });
 
 app.use("/api/users/edit", function(req, res){
+    mu.clearCache();
     res.writeHead({
         "Content-Type":"text/html"
     });
     if(req.method == "POST"){
-        console.log(req);
         if (!req.body){
             res.writeHead(400);
             res.end("Server is missing!");
         }
-        var resultfile = __dirname + "/public/result.html";
-        fs.exists(resultfile, function(exists){
-            if(exists){
-                getFile(resultfile, extensions["html"], res);
-            }else{
-                res.writeHead(404);
-                res.end("Page is missing!!");
-            }
-        });
+    var userName = {
+        firstname: req.body.firstName,
+        lastname: req.body.lastName
+    };
+
+    console.log(userName);
+    var readable = mu.compileAndRender('result.html', userName);
+    readable.pipe(res);
     }
 
     if(req.method == "GET"){
