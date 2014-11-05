@@ -3,7 +3,7 @@ var http = require("http"),
     path = require("path"),
     querystring = require("querystring"),
     stream = require('stream');
-    fs = require("fs"),
+fs = require("fs"),
     connect = require("connect");
 
 var extensions = {
@@ -15,9 +15,8 @@ var extensions = {
     ".jpg": "image/jpeg"
 }
 
-function isEmpty(obj){
-    for (var name in obj) 
-    {
+function isEmpty(obj) {
+    for (var name in obj) {
         return false;
     }
     return true;
@@ -63,69 +62,64 @@ var app = connect();
 
 var bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
+app.use(bodyParser.urlencoded({
+        extended: false
+    }))
+    // parse application/json
 app.use(bodyParser.json())
 
 
 var mu = require("mu2");
 mu.root = __dirname + "/public/";
 
-app.use('/edit', function(req, res){
-    // var userName = {
-    //     firstName: req.body.firstName,
-    //     lastName: req.body.lastName
-    // };
+app.use('/edit', function(req, res) {
 
-    var view={
-        pagetitle:"edit your profile",
-        pageheader:"This page is perpare for everyone!",
+    var view = {
+        pagetitle: "edit your profile",
+        pageheader: "This page is perpare for everyone!",
     };
-
     var readable = mu.compileAndRender('edit.html', view);
-    
     readable.pipe(res);
-
 });
 
-app.use("/api/users/edit", function(req, res){
+app.use("/api/users/edit", function(req, res) {
     mu.clearCache();
     res.writeHead({
-        "Content-Type":"text/html"
+        "Content-Type": "text/html"
     });
-    if(req.method == "POST"){
-        if (!req.body){
+    if (req.method == "POST") {
+        if (!req.body) {
             res.writeHead(400);
             res.end("Server is missing!");
         }
-    var userName = {
-        firstname: req.body.firstName,
-        lastname: req.body.lastName
-    };
+        var userName = {
+            firstname: req.body.firstName,
+            lastname: req.body.lastName
+        };
 
-    console.log(userName);
-    var readable = mu.compileAndRender('result.html', userName);
-    readable.pipe(res);
+        console.log(userName);
+        var readable = mu.compileAndRender('result.html', userName);
+        readable.pipe(res);
     }
 
-    if(req.method == "GET"){
+    if (req.method == "GET") {
 
         res.writeHead(200);
-        res.end("Hey! Don't visit this page !");   
+        res.end("Hey! Don't visit this page !");
     }
 });
 
 http.createServer(app).listen(3000);
 
-function getFile(path, mimeType, res){
-    fs.readFile(path, function(err, contents){
-        if(!err){
+function getFile(path, mimeType, res) {
+    fs.readFile(path, function(err, contents) {
+        if (!err) {
             res.writeHead({
-                "Content-Type":mimeType,
+                "Content-Type": mimeType,
                 "Content-Length": contents.length
             });
             res.end(contents);
-        }else{
+        } else {
             res.writeHead(500);
             res.end("Server is missing!");
         }
@@ -134,4 +128,3 @@ function getFile(path, mimeType, res){
 
 
 console.log("Server is running at: 127.0.0.1");
-
