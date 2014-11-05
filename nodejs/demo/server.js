@@ -2,6 +2,7 @@ var http = require("http"),
     util = require("util"),
     path = require("path"),
     querystring = require("querystring"),
+    requirejs = reqiure("requirejs"),
     stream = require('stream');
 fs = require("fs"),
     connect = require("connect");

@@ -7,7 +7,8 @@
         "connect":"*",
         "express":"*",
         "body-parser":"*",
-        "mu2":"*"
+        "mu2":"*",
+        "requirejs":"*"
     },
     "main":"server.js"
 }
