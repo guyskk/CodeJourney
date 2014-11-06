@@ -149,7 +149,7 @@ app.use(Route(function(router) {
                 img:row.post_url,
                 type:row.type
             };
-            var readable = mu.compileAndRender('result.html', movie);
+            var readable = mu.compileAndRender('movie.html', movie);
             readable.pipe(res);
         });
 
