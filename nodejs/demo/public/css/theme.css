@@ -1,0 +1,3 @@
+h1 { color: #{{main}}; }
+h2 { color: #{{secondary}}; }
+input { border-style: {{border}}; border-radius: {{corners}}px; }
