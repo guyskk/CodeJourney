@@ -9,7 +9,8 @@
         "express":"*",
         "body-parser":"*",
         "mu2":"*",
-        "requirejs":"*"
+        "requirejs":"*",
+        "sqlite3":"*"
     },
     "main":"server.js"
 }

@@ -68,14 +68,25 @@ app.use(bodyParser.urlencoded({
     // parse application/json
 app.use(bodyParser.json())
 
+
+
+
 var requirejs = require("requirejs");
 
 requirejs.config({
     nodeRequire: require
 });
 
+// sqlite3
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('./db/douban.rdb');
+
+// mustache
 var mu = require("mu2");
 mu.root = __dirname + "/public/";
+
+
+
 
 app.use('/edit', function(req, res) {
 
@@ -86,8 +97,11 @@ app.use('/edit', function(req, res) {
 
     var readable = mu.compileAndRender('edit.html', view);
     readable.pipe(res);
+
+
 });
 
+  
 app.use("/api/users/edit", function(req, res) {
     mu.clearCache();
     res.writeHead({
@@ -116,13 +130,29 @@ app.use("/api/users/edit", function(req, res) {
 
 
 // use connect-route
-
 var Route = require("connect-route");
 var parentTmpl;
+
 app.use(Route(function(router) {
 
     router.get('/', function(req, res, next) {
         res.end('index');
+    });
+
+    router.get('/movie', function(req, res, next){
+        var html = "";
+        var search = db.each("select * from MOVIE", function(err, row){
+            console.log(row);
+            var movie={
+                name:row.name,
+                href:row.href,
+                img:row.post_url,
+                type:row.type
+            };
+            var readable = mu.compileAndRender('result.html', movie);
+            readable.pipe(res);
+        });
+
     });
 
     router.get('/home', function(req, res, next) {
@@ -132,6 +162,7 @@ app.use(Route(function(router) {
     router.get('/home/:id', function(req, res, next) {
         res.end('home ' + req.params.id);
     });
+
     router.get("/show/:tmpl/:firstName/:lastName", function(req, res) {
         var userName = {
             firstName: req.params.firstName,
@@ -148,7 +179,31 @@ app.use(Route(function(router) {
         res.end('POST to home');
     });
 
+    router.post("/theme", function(req, res, next) {
+        var theme = {
+            main: req.body.mainColor,
+            secondary: req.body.secondaryColor,
+            border: req.body.borderStyle,
+            corners: req.body.borderRadius
+        };
+        // load and render the CSS template
+        requirejs(["text!public/css/theme.css"], function(tmpl) {
+            var css = mu.compileAndRender(tmpl, theme);
+            res.writeHead(200, {
+                "Content-Type": "text/css",
+                "Content-Length": css.length
+            });
+            css.pipe(res);
+        });
+    });
+
+
 }));
+
+
+
+
+
 
 
 
@@ -167,6 +222,7 @@ function render(res, filename, data, style, script, callback) {
                     scripts: script || ""
                 }
             );
+            console.log(html);
             html.pipe(res);
         }
     });
@@ -187,6 +243,9 @@ function getFile(path, mimeType, res) {
         }
     });
 }
+
+
+
 
 
 console.log("Server is running at: 127.0.0.1");
