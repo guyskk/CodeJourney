@@ -79,7 +79,13 @@ requirejs.config({
 
 // sqlite3
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('./db/douban.rdb');
+var db = new sqlite3.Database('./db/douban.rdb', function(err){
+    console.log(err);
+    if(err === null){
+        console.log("open successfully");    
+    }
+    
+});
 
 // mustache
 var mu = require("mu2");
@@ -152,6 +158,7 @@ app.use(Route(function(router) {
             var readable = mu.compileAndRender('movie.html', movie);
             readable.pipe(res);
         });
+        res.end("movie");
 
     });
 
