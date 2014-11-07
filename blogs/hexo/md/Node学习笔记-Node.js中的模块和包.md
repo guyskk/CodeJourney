@@ -1,7 +1,7 @@
-title: Node.js入门-Node.js中的模块
+title: Node学习笔记-Node.js中的模块
 category: Node.js
 date: 2014-04-25 19:40
-tags: Node.js
+tags: [笔记, Node.js]
 
 ---
 
