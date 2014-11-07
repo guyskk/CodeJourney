@@ -1,8 +1,11 @@
 var fs = require("fs"),
     filename = process.argv[2];
 
+console.log(process.argv);
+
 if(!filename){
     console.log('A file to watch must be specified!');
+    return false;
 }
 
 fs.watch(filename, function(){
@@ -10,3 +13,5 @@ fs.watch(filename, function(){
 });
 
 console.log("Now watching " + filename + " for changes...");
+
+
