@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    html,
+    body {
+        height: 100%;
+    }
+    canvas {
+        display: block;
+    }
+    .control-bar {
+        position: absolute;
+        left: 4px;
+        bottom: 4px;
+    }
+    .btn-primary {
+        color: #fff;
+        background-color: #428bca;
+        border-color: #357ebd;
+    }
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="control-bar">
+        <button type='button' class="btn btn-primary" id="control-btn-point">添加新的坐标</button>
+    </div>
+    <canvas id="canvas"></canvas>
+
+    <script src="http://lib.sinaapp.com/js/jquery/1.6/jquery.min.js"></script>
+    <script src="bezier.js"></script>
+</body>
+
+</html>
