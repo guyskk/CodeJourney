@@ -1,6 +1,6 @@
 var publisher = {
     subscribers: {
-        ang: []
+        any: []
     },
     subscribe: function(fn, type){
         type = type || 'any'
@@ -66,8 +66,32 @@ var joe = {
     }
 };
 
+// 注册订阅者
 paper.subscribe(joe.drinkCoffee);
+// 在monthly事件上注册joe.sundayPreNap
 paper.subscribe(joe.sundayPreNap, 'monthly');
 
-console.log(paper.subscribers);
-paper.daily();
+// paper.daily();
+// paper.monthly();
+
+makePublisher(joe);
+
+joe.tweet = function(msg){
+    this.publish(msg);
+};
+joe.tweetHate = function(msg){
+    this.publish(msg, 'hate');
+}
+
+paper.readTweets = function(tweet){
+    console.log('User post a new tweet!');
+}
+paper.readTweetsHate = function(tweet){
+    console.log('Call big meeting! Someone ' + tweet);
+};
+
+joe.subscribe(paper.readTweetsHate, 'hate');
+joe.subscribe(paper.readTweets);
+
+joe.tweet('This is my first tweet today!');
+joe.tweetHate('I Hate the paper today!!');
