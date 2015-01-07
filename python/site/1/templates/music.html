@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music</title>
+    <script src=""></script>
+    <script>
+    function jsonplink1416362907705(response){
+       console.log(response); 
+    }
+    window.onload=function(){
+        var url = "http://music.baidu.com/data/music/fmlink?songIds=7163630,8708597,7147596,410170,720568,1779790,1090700,8698477,14707798,39246697&type=mp3&rate=128&callback=jsonplink1416362907705&_=1416362692458";
+        var header = document.getElementsByTagName("head")[0];
+        header.innerHTML += '<script src="'+url+'"></'+'script>';
+        jsonplink1416362907705();
+    }
+    </script>
+</head>
+<body>
+
+    <audio autoplay="autoplay" controls="controls">  
+       <source src="http://yinyueshiting.baidu.com/data2/music/43011292/7181780244800128.mp3?xcode=145089fef1c6de250ec1a37e020706c95cfc928e56a269cb" />  
+    </audio> 
+
+</body>
+</html>

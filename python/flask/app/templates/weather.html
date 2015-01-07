@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    {% if data.area %}
+    <script>
+        window.q = '{{ data.area }}';
+    </script>
+    {% endif %}
+    <script>
+
+        (function(){
+            // var xhr = null;
+            if(XMLHttpRequest){
+                createXhr = function(){
+                    return new XMLHttpRequest();
+                }
+            }else{
+                createXhr = function(){
+                    return new ActiveXObject('Microsoft.XMLHTTP');
+                }
+            }
+        })();
+
+        // createXhr();
+        var xhr = createXhr();
+        console.log(xhr);
+        var url = 'http://api.worldweatheronline.com/free/v2/weather.ashx?q='+window.q+'&format=json&num_of_days=5&key=1976d41dcf204ea0a480f5b5d8def';
+        xhr.open('GET', url, true);
+        xhr.send(null);
+        xhr.onreadystatechange = function(){
+            var ready = xhr.readyState;
+            if (ready == 4){
+                var status = xhr.status;
+                // console.log(xhr);
+                console.log(status);
+                if (status >= 200 && status < 300){
+                    document.write(xhr.responseText);
+                }
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

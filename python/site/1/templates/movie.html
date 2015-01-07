@@ -1,0 +1,24 @@
+$def with (movie)
+
+$var title: 电影 
+
+<div class="movies">
+$for item in movie:
+    <dl>
+        <dt>
+            <a href="$item['href']" alt="$item['name']" target="_blank">$item['name']</a>
+        </dt>
+        <dd>
+            <a href="$item['href']">
+			    <img src="$item['post_url']" alt="$item['href']">
+			</a>
+        </dd>
+        <dd>
+            <p>
+				<span>类型 : </span> 
+                $ type = item['type']
+                <span>$type</span>
+            </p>
+        </dd>
+    </dl>
+</div>

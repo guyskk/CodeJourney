@@ -1,0 +1,7 @@
+<h1>This is Index of My Flask Project</h1>
+
+{% if current_user.is_authenticated() %}
+    {{ current_user.name }}
+{% else %}
+    Stranger
+{% endif %}!

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>纸糊日报</title>
+    <link rel="stylesheet" href="..\static\build\css\global\base.css" media="all">
+    <link rel="stylesheet" href="..\static\build\css\daily.css" media="all">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul class="daily-nav">
+                <li><a href="#news_lastest">最新消息</a></li>
+                <li><a href="#news_hot">热门消息</a></li>
+                <li><a href="#news_history">历史消息</a></li>
+                <li><a href="#news_channel">栏目预览</a></li>
+            </ul>
+        </nav>    
+    </header>
+    <div class="container daily">
+
+        <div class="main">
+<!--             <div class="top-stories-container">
+                <ul id="top_stories">
+                </ul>
+            </div> -->
+            <h2>今天是：{{date}}</h2>
+            <ul id="stories_list">
+            </ul>
+        </div>
+        <p id="target">!</p>
+    </div>
+    <script id="template" type="x-tmpl-mustache">
+        <p>{{date}}</p>
+
+        {{#stories}}
+            <li>
+                <div class="daily-item">
+                    <a href="{{share_url}}">{{title}}</a>
+                    <img src="{{images}}" alt="{{title}}">
+                </div>
+            </li>
+        {{/stories}}
+    </script>
+    <script src="..\static\lib\mustache.js"></script>
+    <script src="..\static\src\daily.js"></script>
+</body>
+</html>
+
