@@ -7,13 +7,28 @@ $(document).ready(function() {
 
 (function(global) {
     global.ctx = $("#canvas").get(0).getContext("2d");
-    global.ToolKits = {};
-    global.ToolKits.convertHextoRGB = function(hex) {
-
-    }
+    global.pointList = [];
 })(window);
 
-function DeCasteljauBezier(points, density, step) {
+ToolKits = {};
+ToolKits.convertHextoRGB = function(hex) {
+
+};
+
+ToolKits.getPoints = function() {
+    var canvas = $("#canvas").get(0);
+    console.log("canvas.offsetLeft");
+    console.log(canvas.offsetLeft);
+    console.log("canvas.offsetTop");
+    console.log(canvas.offsetTop);
+    var list = window.pointList;
+    canvas.onclick=function(event){
+        list.push(new Point(event.clientX-canvas.offsetLeft, event.clientY-canvas.offsetTop));
+        console.log(", " + event.clientY);
+    };
+};
+
+ToolKits.DeCasteljauBezier = function(points, density, step) {
     var pow = Math.pow;
     //if (points.length < 3) return null;
     console.time('bezier');
@@ -69,11 +84,11 @@ function DeCasteljauBezier(points, density, step) {
     results2.push(dest);
     //console.log(results.length, results2.length);
     console.timeEnd('bezier');
-    console.log(results2);
+    // console.log(results2);
     return results2;
 }
 
-function drawLine(points, color) {
+ToolKits.drawLine = function(points, color) {
     if (!points) {
         return false;
     }
@@ -81,6 +96,7 @@ function drawLine(points, color) {
     if (color) {
         ctx.strokeStyle();
     }
+    // ctx.strokeStyle = "rgb(255, 0, 0)";
     for (var i = 0, len = points.length - 1; i < len; i++) {
         ctx.beginPath();
         ctx.moveTo(points[i].x, points[i].y);
@@ -91,22 +107,27 @@ function drawLine(points, color) {
 
 }
 
+function getPoints(x, y) {
+
+}
+
 function Point(x, y) {
     this.x = x;
     this.y = y;
 }
 $(document).ready(function() {
-
-    
-
     var list = [];
-    list.push(new Point(20, 40));
-    list.push(new Point(200, 240));
-    list.push(new Point(400, 120));
-    list.push(new Point(180, 400));
-    list.push(new Point(300, 500));
-    list.push(new Point(80, 600));
-    drawLine(list);
-    var result = DeCasteljauBezier(list, 20);
-    drawLine(result);
+    ToolKits.getPoints();
+    list.push(new Point(25,175));
+    list.push(new Point(60,80));
+    list.push(new Point(150,30));
+    list.push(new Point(170,150));
+    // list.push(new Point(180, 400));
+    // list.push(new Point(300, 500));
+    // list.push(new Point(80, 600));
+    $("#control-btn-draw").get(0).onclick=function(){
+        ToolKits.drawLine(pointList);
+        var result = ToolKits.DeCasteljauBezier(pointList, 1);
+        ToolKits.drawLine(result);
+    }
 });
