@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 (function(global) {
     global.ctx = $("#canvas").get(0).getContext("2d");
-    global.pointList = [];
+    global.POINTLIST = [];
 })(window);
 
 ToolKits = {};
@@ -16,16 +16,7 @@ ToolKits.convertHextoRGB = function(hex) {
 };
 
 ToolKits.getPoints = function() {
-    var canvas = $("#canvas").get(0);
-    console.log("canvas.offsetLeft");
-    console.log(canvas.offsetLeft);
-    console.log("canvas.offsetTop");
-    console.log(canvas.offsetTop);
-    var list = window.pointList;
-    canvas.onclick=function(event){
-        list.push(new Point(event.clientX-canvas.offsetLeft, event.clientY-canvas.offsetTop));
-        console.log(", " + event.clientY);
-    };
+
 };
 
 ToolKits.DeCasteljauBezier = function(points, density, step) {
@@ -94,7 +85,7 @@ ToolKits.drawLine = function(points, color) {
     }
     ctx = window.ctx;
     if (color) {
-        ctx.strokeStyle();
+        ctx.strokeStyle = color;
     }
     // ctx.strokeStyle = "rgb(255, 0, 0)";
     for (var i = 0, len = points.length - 1; i < len; i++) {
@@ -116,18 +107,31 @@ function Point(x, y) {
     this.y = y;
 }
 $(document).ready(function() {
-    var list = [];
-    ToolKits.getPoints();
-    list.push(new Point(25,175));
-    list.push(new Point(60,80));
-    list.push(new Point(150,30));
-    list.push(new Point(170,150));
-    // list.push(new Point(180, 400));
-    // list.push(new Point(300, 500));
-    // list.push(new Point(80, 600));
-    $("#control-btn-draw").get(0).onclick=function(){
-        ToolKits.drawLine(pointList);
-        var result = ToolKits.DeCasteljauBezier(pointList, 1);
-        ToolKits.drawLine(result);
+
+    var canvas = $("#canvas").get(0);
+    canvas.onclick = function(event) {
+        var point = new Point(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        POINTLIST.push(point);
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 4, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+        ctx.fill();
+    };
+
+    $("#control-btn-draw").get(0).onclick = function() {
+        ToolKits.drawLine(POINTLIST, 'silver');
+        if(POINTLIST.length < 2){
+            alert("多搞几个点噻！");
+        }
+        var result = ToolKits.DeCasteljauBezier(POINTLIST, 1);
+        ToolKits.drawLine(result, 'orange');
+        window.POINTLIST = [];
+    }
+    $("#control-btn-clean").get(0).onclick = function() {
+        var canvas = $("#canvas").get(0);
+        window.POINTLIST = [];
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     }
 });
