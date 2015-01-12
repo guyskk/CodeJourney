@@ -87,7 +87,6 @@ ToolKits.drawLine = function(points, color) {
     if (color) {
         ctx.strokeStyle = color;
     }
-    // ctx.strokeStyle = "rgb(255, 0, 0)";
     for (var i = 0, len = points.length - 1; i < len; i++) {
         ctx.beginPath();
         ctx.moveTo(points[i].x, points[i].y);
@@ -120,7 +119,7 @@ $(document).ready(function() {
     };
 
     $("#control-btn-draw").get(0).onclick = function() {
-        ToolKits.drawLine(POINTLIST, 'silver');
+        ToolKits.drawLine(POINTLIST, 'rgba(238, 238, 238, 0.5)');
         if(POINTLIST.length < 2){
             alert("多搞几个点噻！");
         }
