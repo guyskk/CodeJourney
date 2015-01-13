@@ -11,13 +11,6 @@ $(document).ready(function() {
 })(window);
 
 ToolKits = {};
-ToolKits.convertHextoRGB = function(hex) {
-
-};
-
-ToolKits.getPoints = function() {
-
-};
 
 ToolKits.DeCasteljauBezier = function(points, density, step) {
     var pow = Math.pow;
@@ -97,16 +90,12 @@ ToolKits.drawLine = function(points, color) {
 
 }
 
-function getPoints(x, y) {
-
-}
-
 function Point(x, y) {
     this.x = x;
     this.y = y;
 }
-$(document).ready(function() {
 
+$(document).ready(function() {
     var canvas = $("#canvas").get(0);
     canvas.onclick = function(event) {
         var point = new Point(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
