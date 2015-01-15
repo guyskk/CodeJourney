@@ -1,21 +1,19 @@
-// set canvas size
-$(document).ready(function() {
-    var canvas = $("#canvas").get(0);
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
 
 (function(global) {
-    global.ctx = $("#canvas").get(0).getContext("2d");
+    global.ctx = document.getElementById("canvas").getContext("2d");
     global.POINTLIST = [];
 })(window);
 
 ToolKits = {};
 
 ToolKits.DeCasteljauBezier = function(points, density, step) {
+    // 记录时间
+    var start = new Date(); 
     var pow = Math.pow;
-    //if (points.length < 3) return null;
+    // 如果点的个少于三个，退出函数
+    if (points.length < 3) return null;
     console.time('bezier');
+    // 复制传递的数组参数
     var ps = points.map(function(p) {
             return {
                 x: p.x,
@@ -25,8 +23,11 @@ ToolKits.DeCasteljauBezier = function(points, density, step) {
         results = [],
         len = ps.length,
         epsilon = 0.00001;
-    density = density || 20; // 密度，决定了采样精度（曲线平滑程度）
-    step = step || 0.00001; // bezier递推步长
+    // 密度，决定了采样精度（曲线平滑程度）
+    density = density || 20;
+    // bezier递推步长 
+    step = step || 0.00001; 
+    // 最后一个坐标点
     var dest = {
         x: points[points.length - 1].x,
         y: points[points.length - 1].y
@@ -66,9 +67,11 @@ ToolKits.DeCasteljauBezier = function(points, density, step) {
         }
     }
     results2.push(dest);
-    //console.log(results.length, results2.length);
     console.timeEnd('bezier');
-    // console.log(results2);
+
+    var end = new Date();
+    time = (end.getTime() - start.getTime()) + 'ms';
+    document.getElementById('timestap').innerHTML = '算法所用时间：' + time;
     return results2;
 }
 
@@ -95,8 +98,12 @@ function Point(x, y) {
     this.y = y;
 }
 
-$(document).ready(function() {
-    var canvas = $("#canvas").get(0);
+window.onload=function(){
+// set canvas size
+    var canvas = document.getElementById("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // 绑定鼠标事件：添加坐标点
     canvas.onclick = function(event) {
         var point = new Point(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
         POINTLIST.push(point);
@@ -106,20 +113,22 @@ $(document).ready(function() {
         ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
         ctx.fill();
     };
-
-    $("#control-btn-draw").get(0).onclick = function() {
+    var drawBtn =document.getElementById('control-btn-draw');
+    drawBtn.onclick = function() {
         ToolKits.drawLine(POINTLIST, 'rgba(238, 238, 238, 0.5)');
         if(POINTLIST.length < 2){
             alert("多搞几个点噻！");
         }
         var result = ToolKits.DeCasteljauBezier(POINTLIST, 1);
+        
         ToolKits.drawLine(result, 'orange');
         window.POINTLIST = [];
     }
-    $("#control-btn-clean").get(0).onclick = function() {
+    var cleanBtn = document.getElementById('control-btn-clean');
+    cleanBtn.onclick = function() {
         var canvas = $("#canvas").get(0);
         window.POINTLIST = [];
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     }
-});
+};
