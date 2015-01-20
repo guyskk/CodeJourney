@@ -1,4 +1,3 @@
-
 (function(global) {
     global.ctx = document.getElementById("canvas").getContext("2d");
     global.POINTLIST = [];
@@ -68,7 +67,6 @@ ToolKits.DeCasteljauBezier = function(points, density, step) {
     }
     results2.push(dest);
     console.timeEnd('bezier');
-
     var end = new Date();
     time = (end.getTime() - start.getTime()) + 'ms';
     document.getElementById('timestap').innerHTML = '算法所用时间：' + time;
@@ -92,12 +90,11 @@ ToolKits.drawLine = function(points, color) {
     }
 
 }
-
+// 坐标点的构造函数
 function Point(x, y) {
     this.x = x;
     this.y = y;
 }
-
 window.onload=function(){
 // set canvas size
     var canvas = document.getElementById("canvas");
