@@ -6,9 +6,9 @@ var http = require('http');
 var fs = require('fs');
 var cheerio = require('cheerio');
 
+var result = [];
 function parseData(data, callback){
     var $ = cheerio.load(data, {decodeEntities: false});
-    var result = [];
     var list = $('#content_left .result.c-container');
     list.each(function(i, elem){
         var _this = $(this);
@@ -21,8 +21,9 @@ function parseData(data, callback){
             date: _this.find('.g').html().match(/\d{4}-\d{2}-\d{2}/gi)
         });
     });
-
-    callback(JSON.stringify(result));
+    if(callback){
+        callback(JSON.stringify(result));
+    }
 }
 
 function saveFile(data){
@@ -71,7 +72,7 @@ Spider.prototype.nextUrl = function () {
 
 var mylittlespider = new Spider('吉林民族教育', 76);
 var timer = null;
-var url_list = [];
+
 timer = setInterval(function () {
     var url = mylittlespider.nextUrl();
     if(!url){
@@ -80,9 +81,10 @@ timer = setInterval(function () {
     download(url, function (data) {
         if(mylittlespider.page > mylittlespider.max){
             clearInterval(timer);
+            saveFile(JSON.stringify(result));
         }
         if (data) {
-            parseData(data, saveFile);
+            parseData(data);
         }else{
             console.log("error");
         }
