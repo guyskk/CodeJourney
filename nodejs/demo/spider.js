@@ -6,15 +6,34 @@ var http = require('http');
 var fs = require('fs');
 var cheerio = require('cheerio');
 
-function parseData(data){
-    var $ = cheerio.load(data);
-    var container = $('#content_left');
-    console.log(container.html());
+function parseData(data, callback){
+    var $ = cheerio.load(data, {decodeEntities: false});
+    var result = [];
+    var list = $('#content_left .result.c-container');
+    list.each(function(i, elem){
+        var _this = $(this);
+        if(!_this.find('.c-abstract').html()){
+            return false;
+        }
+        result.push({
+            title: _this.find('.t a').html().replace(/<.*?>/gi, ''),
+            content: _this.find('.c-abstract').html().replace(/<.*?>/gi, ''),
+            date: _this.find('.g').html().match(/\d{4}-\d{2}-\d{2}/gi)
+        });
+    });
+
+    callback(JSON.stringify(result));
+}
+
+function saveFile(data){
+    fs.appendFileSync('json.txt', data, {'encoding': 'utf-8'});
 }
 
 function download(url, callback) {
     var req = http.get(url, function (res) {
+        console.log(url);
         var data = '';
+        res.setEncoding('utf-8');
         res.on('data', function (chunk) {
             data += chunk;
         });
@@ -40,7 +59,7 @@ Spider.prototype.nextUrl = function () {
         console.log('Page is not exist!');
         return false;
     }
-    if (this.page > 10) {
+    if (this.page > this.max) {
         console.log('Page Maxium!');
         return false;
     }
@@ -50,31 +69,22 @@ Spider.prototype.nextUrl = function () {
 };
 
 
-Spider.prototype.getKeyWord = function(){
-    return this.keyword;
-};
-
-var mylittlespider = new Spider('吉林教育', 10);
+var mylittlespider = new Spider('吉林民族教育', 76);
 var timer = null;
-
+var url_list = [];
 timer = setInterval(function () {
     var url = mylittlespider.nextUrl();
-    var keyword = mylittlespider.getKeyWord();
+    if(!url){
+        return false;
+    }
     download(url, function (data) {
-        console.log(url);
-        //parseData(data);
         if(mylittlespider.page > mylittlespider.max){
             clearInterval(timer);
         }
         if (data) {
-            fs.writeFile(keyword + mylittlespider.page + '.html', data, function (err) {
-                if (err) {
-                    console.log(err.message);
-                    return false;
-                }
-                console.log('It\'s saved! 第' + mylittlespider.page + '页的搜索结果');
-            });
+            parseData(data, saveFile);
+        }else{
+            console.log("error");
         }
-        else console.log("error");
     });
 }, 1000);
