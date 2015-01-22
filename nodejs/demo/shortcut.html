@@ -12,7 +12,7 @@
         var fso = new ActiveXObject("Scripting.FileSystemObject");
         var shell = new ActiveXObject("WScript.Shell");
         //获取桌面本地桌面地址
-        var tagFolder = shell.SpecialFolders("Desktop/short");
+        var tagFolder = shell.SpecialFolders("Desktop") + '/short';
         if (!fso.FolderExists(tagFolder)) {
             fso.CreateFolder(tagFolder);
         }
@@ -28,14 +28,13 @@
             link.Save();
         }
     }
-    createShortcut();
     var url_list = [];
     var url = 'http://www.baidu.com/s?&tn=96514610_hao_pg&ie=utf-8&rsv_pq=c457b3bb00036f10&rsv_t=1d70YI4TOrmopAwqFhgVmKO3HmiX1vR8fpAfTT5%2BCTg%2FrBcJcZIzWJDLI%2BukGJB583N4rEJt&f=8&rsv_bp=1&wd=吉林民族教育&oq=吉林民族教育&pn=';
-    for(var i =1; i<=75; i++){
+    for (var i = 0; i <= 75; i++) {
         var strap = url + i + '0';
         url_list.push(strap);
         document.body.innerHTML += (url + i + '0');
-        createShortcut('吉林民族教育' + i, strap);
+        createShortcut('吉林民族教育' + (i + 1), strap);
     }
 
 </script>
