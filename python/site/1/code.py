@@ -13,13 +13,6 @@ from web.contrib.template import render_jinja
 
 from views import zhihudaily
 
-# 引入自己的子程序
-# import sys
-# sys.path.append('./application/daily')
-# sys.path.append('./application/weibo')
-# import daily
-
-
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6)Gecko/20091201 Firefox/3.5.6'}
 
 urls = (

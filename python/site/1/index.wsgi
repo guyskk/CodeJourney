@@ -2,50 +2,41 @@
 # -*- coding: utf-8 -*-
 
 import os
-import web
 import urllib2
 import urllib
 import re
 import time
-
 import json
 
-# 引入自己的子程序
-import sys
-sys.path.append('./application/daily')
-sys.path.append('./application/weibo')
-import daily
-import weibo
+import web
+from web.contrib.template import render_jinja
+
+from views import zhihudaily
 
 
-
-# variables
-# imagePath = './static/images'
-# APIPaths = api.APIPaths
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6)Gecko/20091201 Firefox/3.5.6'}
 
 urls = (
     '/(.*)/', 'Redirect',
     '/', 'Index',
-    '/movie', 'Movie',
-    '/daily', daily.app,
-    '/weibo', weibo.app
-
+    '/movie/', 'Movie',
+    '/daily', zhihudaily.app
 )
 
 app_root = os.path.dirname(__file__)
 templates_root = os.path.join(app_root, 'templates')
-render = web.template.render(templates_root)
+# render = web.template.render(templates_root)
+render = render_jinja('templates', encoding='utf-8')
+
 
 # Routers
-
 
 class Redirect:
     def __init__(self):
         pass
 
     def GET(self, path):
-         web.seeother('/' + path)
+        web.seeother('/' + path)
 
 class Index:
     def __init__(self):
@@ -53,8 +44,7 @@ class Index:
 
     def GET(self):
         title = 'Web实践 | 张小伦爱学习|'
-        render = web.template.render(templates_root, base='base')
-        return render.index(title)
+        return render.index()
 
 
 class About:
