@@ -1,24 +1,21 @@
-$def with (content)
-
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>$content.title</title>
-	<link rel="stylesheet" href="../static/build/css/global/base.css" />
-	$if content.cssfiles:
-		$for f in content.cssfiles.split():
-			<link rel="stylesheet" href="$f">
+    <meta charset="UTF-8"/>
+    {% block head %}
+    <link rel="stylesheet" href="/static/build/css/global/base.css"/>
+    {% endblock %}
 </head>
 <body>
-	<div class="wrapper">
-		<div class="container">
-			$:content
-		</div>
-		<footer>
-			<p>这是一个我正在做的demo合集站点，希望借此提高自己的技艺，每天都会完善，将学习变成习惯</p>
-			<p>CopyRight@zhanglun</p>
-		</footer>
-	</div>
+<div class="wrapper">
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% block footer %}
+
+    {% endblock %}
+
+</div>
 </body>
 </html>
