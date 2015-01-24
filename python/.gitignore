@@ -1,9 +1,11 @@
-**/*.swp
+﻿**/*.swp
 **/node_modules/**
 **/*.pyc
 **/*.css.map/**
 **/.sass-cache/**
 **/bower_components/**
+**/static/build/**
+**/static/lib/**
 
 .idea/workspace.xml
 **/static/images/pic1.zhimg.com/*
