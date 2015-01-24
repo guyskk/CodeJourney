@@ -1,1 +1,1 @@
-__all__ = ['daily/daily', 'project/project']
+__all__ = ['daily/daily', 'project/project', 'weibo/weibo']

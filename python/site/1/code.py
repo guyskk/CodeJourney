@@ -11,9 +11,12 @@ import time
 import json
 
 # 引入自己的子程序
-from application import daily
-# 学校的项目
-from application import project
+import sys
+sys.path.append('./application/daily')
+sys.path.append('./application/weibo')
+import daily
+import weibo
+
 
 
 # variables
@@ -24,11 +27,9 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9
 urls = (
     '/(.*)/', 'Redirect',
     '/', 'Index',
-    '/about', 'About',
     '/movie', 'Movie',
-    '/project', project.app,
     '/daily', daily.app,
-    '/music', 'Music',
+    '/weibo', weibo.app
 
 )
 

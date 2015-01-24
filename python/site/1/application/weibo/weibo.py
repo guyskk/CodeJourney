@@ -14,89 +14,16 @@ templates_root = os.path.join(app_root, 'templates')
 render = web.template.render(templates_root)
 
 
-urls = (
+urls=(
     # daily route
-    '', 'Daily',
-    # zhihu API
-    '/api/save_image', 'SaveImage',
-    '/api/start_image', 'APIStartImage',
-    '/api/news_latest', 'APINewsLatest',
-    '/api/news_hot', 'APINewsHot',
-    '/api/news_sections', 'APINewsSections'
+    '', 'Weibo',
 )
-
-# variable
-imagePath = './static/images'
-APIPaths = {
-    'start_image': 'http://news-at.zhihu.com/api/3/start-image/1080*1776',
-    'news_latest': 'http://news-at.zhihu.com/api/3/news/latest',
-    'news_hot': 'http://news-at.zhihu.com/api/3/news/hot',
-    'news_sections': 'http://news-at.zhihu.com/api/3/sections'
-}
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6)Gecko/20091201 Firefox/3.5.6'}
 
-
 app = web.application(urls, locals())
 
-# methods
-
-def mkdir(path):
-    # 去除首位空格
-    path = path.strip()
-    # 去除尾部 \ 符号
-    path = path.rstrip("\\")
-
-    # 判断路径是否存在
-    # 存在     True
-    # 不存在   False
-    isexists = os.path.exists(path)
-    # 判断结果
-    if not isexists:
-        # 如果不存在则创建目录
-        print path+ u' 创建成功'
-        # 创建目录操作函数
-        os.makedirs(path)
-        return True
-    else:
-        # 如果目录存在则不创建，并提示目录已存在
-        print path+ u' 目录已存在'
-        return False
-
-
-def saveimagetostorage(url):
-    # 去掉 ‘http://’
-    file_path = url[6:]
-
-    dir_path = re.match(r'/\w+(\.\w+){0,}\/', file_path).group(0)
-    # 获取文件名
-    file_name = file_path[len(dir_path):]
-    print file_name
-    # 文件目录
-    save_path = imagePath + dir_path
-
-    if 'SERVER_SOFTWARE' in os.environ:
-        # import sae
-        from sae.storage import Bucket
-        bucket = Bucket("zhihudaily")
-        # 存取一个文件到bucket中
-        fr = urllib.urlopen(url)
-        stream = fr.read()
-        bucket.put_object(dir_path[1:]+file_name, stream)
-        print dir_path[1:]+file_name
-        return bucket
-
-    else:
-        mkdir(save_path)
-        print file_path
-        print '>>>>'
-        print url
-        urllib.urlretrieve(url, imagePath + file_path)
-        return "LocalHost"
-
-
-
-class Daily:
+class Weibo:
     def __init__(self):
         pass
 

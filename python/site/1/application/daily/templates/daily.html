@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>纸糊日报</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
     <link rel="stylesheet" href="..\static\build\css\global\base.css" media="all">
     <link rel="stylesheet" href="..\static\build\css\daily.css" media="all">
 </head>
@@ -37,8 +38,8 @@
         {{#stories}}
             <li>
                 <div class="daily-item">
-                    <a href="{{share_url}}">{{title}}</a>
                     <img src="{{images}}" alt="{{title}}">
+                    <a href="http://daily.zhihu.com/story/{{id}}">{{title}}</a>
                 </div>
             </li>
         {{/stories}}

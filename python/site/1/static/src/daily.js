@@ -105,13 +105,12 @@
             var img_url = response.img;
             img.onload = function() {
                 console.log(response.img);
-                document.body.style.backgroundImage = 'url("' + img_url + '")';
+//                document.body.style.backgroundImage = 'url("' + img_url + '")';
             };
             img.src = img_url;
 
         });
     }
-
 
 })(window);
 
@@ -124,11 +123,11 @@
             JSON_stories = response.stories,
             JSON_date = response.date;
 
+        console.log(JSON_top);
+
         var template = document.getElementById('template').innerHTML;
         Mustache.parse(template);   // optional, speeds up future uses
-        console.log(response);
-        var rendered = Mustache.render(template,response);
-        document.getElementById('stories_list').innerHTML=rendered;
+        document.getElementById('stories_list').innerHTML=Mustache.render(template, response);
     }
 
     window.onload = function() {
