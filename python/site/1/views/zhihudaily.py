@@ -50,7 +50,7 @@ def mkdir(path):
     # 判断结果
     if not isexists:
         # 如果不存在则创建目录
-        print path+ u' 创建成功'
+        print path + u' 创建成功'
         # 创建目录操作函数
         os.makedirs(path)
         return True
@@ -136,7 +136,8 @@ class APINewsHot:
         # to json
         news_hot = json.dumps(news_hot, encoding='utf-8')
         # replace image url
-        news_hot = news_hot.replace('"thumbnail":["http://','"images": ["http://pureloser-zhihudaily.stor.sinaapp.com/')
+        news_hot = news_hot.replace('"thumbnail": "http://','"thumbnail": '
+                                                           '"http://pureloser-zhihudaily.stor.sinaapp.com/')
         return news_hot
 
 

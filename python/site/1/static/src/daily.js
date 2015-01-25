@@ -1,14 +1,13 @@
-(function(obj) {
-    obj.isRight = function() {
+(function (obj) {
+    obj.isRight = function () {
         console.log("isRight!");
     };
-    obj.isFunction = function(para) {
+    obj.isFunction = function (para) {
         return Object.prototype.toString.call(para) == '[object Function]';
     };
 
-
     var PubSub = {
-        subscribe: function(ev, callback) {
+        subscribe: function (ev, callback) {
             // 创建 _callbacks 对象，除非它已经存在了
             var calls = this._callbacks || (this._callbacks = {});
             // 针对给定的事件key创建一个数组，除非这个数组已经存在
@@ -17,7 +16,7 @@
             return this;
         },
 
-        publish: function() {
+        publish: function () {
             // 将arguments对象转换成真正的数组
             var args = Array.prototype.slice.call(arguments, 0);
 
@@ -46,7 +45,7 @@
 
 })(window);
 
-(function(obj) {
+(function (obj) {
 
     var APIPaths = {
         "newsLatest": "/daily/api/news_latest",
@@ -56,18 +55,17 @@
     };
 
     obj.daily = {};
-    var D = daily = obj.daily;
 
-    D.getJSON = getJSON;
-    D.getNewsLatest = getNewsLatest;
-    D.getNewsHot = getNewsHot;
-    D.getStartImage = getStartImage;
+    obj.daily.getJSON = getJSON;
+    obj.daily.getNewsLastest = getNewsLastest;
+    obj.daily.getNewsHot = getNewsHot;
+    obj.daily.getStartImage = getStartImage;
 
     function getJSON(url, success, fail, always) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.send(null);
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.status == 200 && xhr.readyState == 4) {
                 var response = JSON.parse(xhr.responseText);
                 if (isFunction(success)) {
@@ -81,17 +79,19 @@
         };
     }
 
-    function getNewsLatest(callback) {
+    function getNewsLastest(callback) {
         var url = APIPaths.newsLatest;
-        getJSON(url, function(response) {
+        getJSON(url, function (response) {
             console.log("success! new latest");
-            callback(response);
+            if (callback) {
+                callback(response);
+            }
         });
     }
 
     function getNewsHot(callback) {
         var url = APIPaths.newsHot;
-        getJSON(url, function(response) {
+        getJSON(url, function (response) {
             console.log("success! new hot");
             callback(response);
         });
@@ -99,12 +99,11 @@
 
     function getStartImage() {
         var url = APIPaths.startImage;
-        getJSON(url, function(response) {
+        getJSON(url, function (response) {
             console.log("success! start image");
             var img = new Image();
             var img_url = response.img;
-            img.onload = function() {
-                console.log(response.img);
+            img.onload = function () {
 //                document.body.style.backgroundImage = 'url("' + img_url + '")';
             };
             img.src = img_url;
@@ -115,44 +114,55 @@
 })(window);
 
 
-(function(window) {
+(function (window) {
 
-    function loadTemplate(response) {
-        // spread data
-        var JSON_top = response.top_stories,
-            JSON_stories = response.stories,
-            JSON_date = response.date;
+    function updateNewsLastest(response) {
+//        var top_stories = response['top_stories'],
+//            stories = response['stories'],
+//            date = response['date'];
+        var tmpl_top = _.template($("#tmpl-stories").html());
+        $("#stories_list").html(tmpl_top(response));
 
-        console.log(JSON_top);
-
-        var template = document.getElementById('template').innerHTML;
-        Mustache.parse(template);   // optional, speeds up future uses
-        document.getElementById('stories_list').innerHTML=Mustache.render(template, response);
     }
 
-    window.onload = function() {
-        // daily.getNewsLatest(updateNewList);
-        daily.getNewsLatest(loadTemplate);
-        // daily.getNewsHot(updateNewList);
+    function updateNewsHot(response) {
+        console.log(response);
+        var tmpl_recent = _.template($('#tmpl-hot').html());
+        $("#stories_list").html(tmpl_recent(response));
+    }
+
+    window.onload = function () {
+        daily.getNewsLastest(updateNewsLastest);
+//        daily.getNewsHot(updateNewsHot);
         daily.getStartImage();
 
     };
 
-    window.onhashchange = function() {
+    window.onhashchange = function () {
         // alert(window.location.hash);
-        PubSub.publish("changehash");
+        var hash = window.location.hash;
+        switch (hash) {
+            case '#news_lastest':
+                PubSub.publish('show_lastest_news');
+                break;
+            case '#news_hot':
+                PubSub.publish('show_hot_news');
+                break;
+            default :
+                console.log('???');
+                break;
+        }
+//        PubSub.publish("changehash");
 
-    }
+    };
     // 使用方法
-    PubSub.subscribe("wem", function() {
-        console.log("Wem!");
+    PubSub.subscribe("show_lastest_news", function () {
+        daily.getNewsLastest(updateNewsLastest);
     });
-    PubSub.subscribe("changehash", function() {
-        console.log(window.location.hash);
+    PubSub.subscribe("show_hot_news", function () {
+        daily.getNewsHot(updateNewsHot);
     });
-    PubSub.publish("wem");
-
-
-
+    PubSub.subscribe('changehash', function () {
+    })
 
 })(window);

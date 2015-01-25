@@ -10,13 +10,8 @@ header {
   background: #fff;
   position:fixed;
   z-index:999;
-//  -webkit-box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
-//  -moz-box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
-//  -o-box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
-//  box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
   @include box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.5));
 }
-
 .daily-nav {
   width: 80%;
   margin: 0 auto;
@@ -115,6 +110,7 @@ header {
   font-size: 16px;
   padding: 0;
   margin: 0 auto;
+
   li {
     overflow: hidden;
     margin:4px;
@@ -144,4 +140,25 @@ header {
       font-size:16px;
     }
   }
+}
+
+
+#spa{
+  position: absolute;
+  top:8px;
+  left:8px;
+  bottom:8px;
+  right:8px;
+  border-radius:8px 8px 0 8px;
+  background-color:#fff;
+}
+.spa-slider {
+  position:absolute;
+  bottom:0;
+  right:2px;
+  width:300px;
+  height:16px;
+  cursor:pointer;
+  border-radius: 8px 0 0 0;
+  background:#f00;
 }
