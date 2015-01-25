@@ -1,0 +1,19 @@
+{
+  "name": "1",
+  "version": "0.0.0",
+  "homepage": "https://github.com/zhanglun/CodeJourney",
+  "authors": [
+    "zhanglun <zhanglun1410@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
