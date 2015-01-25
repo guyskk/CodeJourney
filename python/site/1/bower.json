@@ -5,9 +5,6 @@
   "authors": [
     "zhanglun <zhanglun1410@gmail.com>"
   ],
-  "moduleType": [
-    "node"
-  ],
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -15,5 +12,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "private": true,
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.3"
+  }
 }
