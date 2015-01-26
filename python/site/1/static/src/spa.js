@@ -1,64 +1,96 @@
 /**
  * Created by CrispElite on 2015/1/25 0025.
  */
+(function() {
+    var go = function() {
+        console.log('go');
+    };
+    var go2 = function() {
+        console.log("go2");
+    };
+    var obj = {};
+    _.extend(obj, Backbone.Events);
+    obj.bind('alert', go);
+    obj.bind('alert', go2);
+    obj.trigger('alert', 'Mother Fucker!');
+    obj.unbind('alert', go);
+    obj.trigger('alert', 'Mother Fucker!');
+})();
 
-// Module /spa/
-// Provides chat slider capability
-var spa = (function ($) {
-    // Module scope variables
-    // Set constants
-    var configMap = {
-            extended_height: 434,
-            extended_title: 'Click to retract',
-            retracted_height: 16,
-            retracted_title: 'Click to extend',
-            template_html: '<div class="spa-slider">fasdfd<\/div>'
+(function() {
+    var Sidebar = Backbone.Model.extend({
+        promptColor: function() {
+            var cssColor = prompt('请输入一个CSS颜色值：');
+            this.set({
+                color: cssColor
+            });
+        }
+    });
+    window.sidebar = new Sidebar();
+    sidebar.bind('change:color', function(model, color) {
+        $('#sidebar').css({
+            background: color
+        });
+    });
+    sidebar.set({
+        color: 'white'
+    });
+
+    $("#theme-btn").on('click', function() {
+        sidebar.promptColor();
+    });
+    var Person = Backbone.Model.extend({
+        defaults: {
+            name: "Fetus",
+            age: 0,
+            child: ''
         },
-    // Declare all other module scope variables
-        $chatSlider, toggleSlider, onClickSlider, initModule;
-
-    // DOM method /toggleSlider/
-    // alternates slider height
-    toggleSlider = function () {
-        var slider_height = $chatSlider.height();
-        if (slider_height === configMap.retracted_height) {
-            $chatSlider
-                .animate({ height: configMap.extended_height })
-                .attr('title', configMap.extended_title);
-            return true;
+        initialize: function(){
+            console.log("Welcome to thsi world!!");
+            this.on("change:name", function(model){
+                var name = model.get('name');
+                console.log('Changed my name to ' + name);
+            });
+        },
+        adopt: function(newChildName){
+            this.set({child: newChildName});
         }
-        // retract slider if fully extended
-        else if (slider_height === configMap.extended_height) {
-            $chatSlider
-                .animate({ height: configMap.retracted_height })
-                .attr('title', configMap.retracted_title);
-            return true;
-        }
-        // do not take action if slider is in transition
-        return false;
-    };
-    // Event handler /onClickSlider/
-    // receives click event and calls toggleSlider
-    onClickSlider = function (event) {
-        toggleSlider();
-        return false;
-    };
-    // Public method /initModule/
-    // sets initial state and provides feature
-    initModule = function ($container) {
-// render HTML
-        $container.html(configMap.template_html);
-        $chatSlider = $container.find('.spa-slider');
-        // initialize slider height and title
-        // bind the user click event to the event handler
-        $chatSlider
-            .attr('title', configMap.retracted_title)
-            .click(onClickSlider);
-        return true;
-    };
-    return { initModule: initModule };
-}(jQuery));
+    });
 
-$(document).ready(function () {
-    spa.initModule($('#spa'));
-});
+    var person = new Person;
+    person.set({name: "Thomas", age: 27, child: 'Ryan'});
+    person.adopt('John Resig');
+    console.log(person.get('child'));
+
+    var UserModel = Backbone.Model.extend({
+        urlRoot: '/user',
+        defaults: {
+            name: '',
+            email: ''
+        }
+    });
+    var user = new UserModel();
+    var userDetails = {
+        name: 'Thomas',
+        email: 'thomasalwyndavis@gmail.com'
+    };
+
+    user.save(userDetails, {
+        success: function(user){
+            alert(user.toJSON()); 
+        } 
+    });
+
+    var user = new UserModel({
+        id: 1,
+        name: 'Thomas',
+        email: 'thomasalwyndavis@gmail.com'
+    });
+
+    user.destroy({
+        success: function(){
+            alert('Destroyed!');
+        }
+    });
+
+})();
