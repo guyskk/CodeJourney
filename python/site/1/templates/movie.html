@@ -1,24 +1,13 @@
-$def with (movie)
+{% extends "base.html"%}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<h1>Hello, Backbone.js</h1>
+<script src="../static/build/vendor/jquery/dist/jquery.js"></script>
+<script src="../static/build/vendor/underscore/underscore.js"></script>
+<script src="../static/build/vendor/backbone/backbone.js"></script>
+<script src="../static/src/spa.js"></script>
+{% endblock %}
 
-$var title: 电影 
 
-<div class="movies">
-$for item in movie:
-    <dl>
-        <dt>
-            <a href="$item['href']" alt="$item['name']" target="_blank">$item['name']</a>
-        </dt>
-        <dd>
-            <a href="$item['href']">
-			    <img src="$item['post_url']" alt="$item['href']">
-			</a>
-        </dd>
-        <dd>
-            <p>
-				<span>类型 : </span> 
-                $ type = item['type']
-                <span>$type</span>
-            </p>
-        </dd>
-    </dl>
-</div>
