@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Music</title>
+    <link rel="stylesheet" href="../static/build/css/global/base.css"/>
+    <link rel="stylesheet" href="../static/build/css/music.css"/>
+</head>
+<body>
+<h1>Music!</h1>
+
+<div id="playerlist">
+    <ul>
+        {% if data.songlist %}
+        {% for item in data.songlist %}
+        <li>{{ item }}</li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+<script src="../static/src/music.js"></script>
+</body>
+</html>
