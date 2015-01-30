@@ -62,6 +62,14 @@
     person.adopt('John Resig');
     console.log(person.get('child'));
 
+    var attr = person.toJSON();
+    console.log("attr");
+    console.log(attr);
+    var attr2 = person.attributes;
+    console.log("attr2");
+    console.log(attr2);
+
+
     var UserModel = Backbone.Model.extend({
         urlRoot: '/user',
         defaults: {
@@ -81,16 +89,55 @@
         } 
     });
 
-    var user = new UserModel({
+    // var user = new UserModel({
+    //     id: 1,
+    //     name: 'Thomas',
+    //     email: 'thomasalwyndavis@gmail.com'
+    // });
+
+    // user.destroy({
+    //     success: function(){
+    //         alert('Destroyed!');
+    //     }
+    // });
+
+    var uer = new UserModel({id: 123});
+
+    user.fetch({
+        success: function(user){
+            console.log(user.toJSON());
+        }
+    });
+
+        var user = new UserModel({
         id: 1,
         name: 'Thomas',
         email: 'thomasalwyndavis@gmail.com'
     });
 
-    user.destroy({
-        success: function(){
-            alert('Destroyed!');
+    // Let's change the name and update the server
+    // Because there is `id` present, Backbone.js will fire
+    // PUT /user/1 with a payload of `{name: 'Davis', email: 'thomasalwyndavis@gmail.com'}`
+    user.save({name: 'Davis'}, {
+        success: function (model) {
+            alert(user.toJSON());
         }
     });
+
+function Line(){
+    this.z = 20;
+    this.go = Point;
+}
+
+
+function Point(x,y) {
+        this.x = x;
+        this.y = y;
+        console.log(this);
+}
+var line1 = new Line();
+
+console.log(line1);
+line1.go(10, 1000);
 
 })();

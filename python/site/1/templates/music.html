@@ -9,15 +9,19 @@
 <body>
 <h1>Music!</h1>
 
-<div id="playerlist">
-    <ul>
+<p>
+    <input type="range" name="volumeRange" id="adjustVol" min="0" max="100" value="50"/>
+</p>
+<div id="">
+    <ul id="songList">
         {% if data.songlist %}
         {% for item in data.songlist %}
-        <li>{{ item }}</li>
+        <li title="{{ item }}">{{ item }}</li>
         {% endfor %}
         {% endif %}
     </ul>
 </div>
+<script src="../static/build/vendor/jquery/dist/jquery.js"></script>
 <script src="../static/src/music.js"></script>
 </body>
 </html>

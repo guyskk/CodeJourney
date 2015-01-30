@@ -12,15 +12,17 @@ import web
 from web.contrib.template import render_jinja
 
 from views import zhihudaily
+from views import music
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6)Gecko/20091201 Firefox/3.5.6'}
 
 urls = (
-#    '/(.*)/', 'Redirect',
+    '/(.*)/', 'Redirect',
     '/', 'Index',
     '/movie', 'Movie',
     '/user', 'User',
-    '/daily', zhihudaily.app
+    '/daily', zhihudaily.app,
+    '/music', music.app
 )
 
 app_root = os.path.dirname(__file__)

@@ -9,3 +9,7 @@ import time
 import json
 import re
 import os
+
+
+from web.contrib.template import render_jinja
+render = render_jinja('./templates', encoding='UTF-8')

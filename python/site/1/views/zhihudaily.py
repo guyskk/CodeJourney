@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-
 from __init__ import *
-
-# app_root = os.path.dirname(__file__)
-# templates_root = os.path.join(app_root, 'templates')
-
-from web.contrib.template import render_jinja
-render = render_jinja('./templates', encoding='UTF-8')
 
 urls = (
     # daily route
