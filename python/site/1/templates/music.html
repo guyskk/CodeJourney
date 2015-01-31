@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="../static/build/css/music.css"/>
 </head>
 <body>
-<h1>Music!</h1>
 
-<p>
-    <input type="range" name="volumeRange" id="adjustVol" min="0" max="100" value="50"/>
-</p>
-<div id="">
+<div class="container">
+    <h1>Music!</h1>
+    <p>
+        <input type="range" name="volumeRange" id="adjustVol" min="0" max="100" value="50"/>
+    </p>
     <ul id="songList">
         {% if data.songlist %}
         {% for item in data.songlist %}
@@ -21,6 +21,9 @@
         {% endif %}
     </ul>
 </div>
+
+<canvas id="canvas"></canvas>
+
 <script src="../static/build/vendor/jquery/dist/jquery.js"></script>
 <script src="../static/src/music.js"></script>
 </body>
