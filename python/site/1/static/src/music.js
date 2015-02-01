@@ -14,10 +14,22 @@
 //})();
 
 var app = (function ($) {
-    var _files, _context, _analyser, _ctx, _source, _gainNode, _pannerNode, _init, _loadMusic, _playMusic, _visualizer, _initCanvas;
+    var _files, _context, _analyser, _ctx, _source, _gainNode, _Util, _init, _loadMusic, _playMusic, _visualizer, _initCanvas;
     var SIZE = 128;
+    var _W, _H;
+    _Util = (function () {
+        var _getRandomInt = function (min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        };
+        return {
+            getRandomInt: _getRandomInt
+        }
+    })();
+
     _init = function () {
         var onListItemClickListener, onPlayButtonClickListener, onVolumeChangeListener, initalizeUi;
+        _W = $(window).width();
+        _H = $(window).height();
         _context = new (window.AudioContext || window.webkitAudioContext )();
 
         _source = null;
@@ -189,12 +201,40 @@ var app = (function ($) {
         requestAnimationFrame = window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame;
-        function draw(points) {
-            _ctx.clearRect(0, 0, $(window).width(), $(window).height());
-            var w = $(window).width() / SIZE;
+
+        function getDots() {
+            var getRandom = app.Util.getRandomInt;
+            var Dots = [];
             for (var i = 0; i < SIZE; i++) {
-                var h = points[i] / 256 * $(window).height();
-                _ctx.fillRect(w * i * 1.2, $(window).height() - h, w, h);
+                var x = getRandom(0, _W),
+                    y = getRandom(0, _H),
+                    color = 'rgba(' + getRandom(0, 255) + ',' + getRandom(0, 255) + "," + getRandom(0, 255) + ", 0.5)";
+                Dots.push({
+                    x: x,
+                    y: y,
+                    color: color
+                });
+            }
+            return Dots;
+        }
+
+           var Dots = getDots();
+        function draw(points) {
+            _ctx.clearRect(0, 0, _W, _H);
+            var w = _W / SIZE;
+            for (var i = 0; i < SIZE; i++) {
+                var h = points[i] / 256 * _H;
+//                _ctx.fillRect(w * i * 1.2, $(window).height() - h, w, h);
+                var o = Dots[i],
+                    radius = points[i] /256 *50;
+                _ctx.beginPath();
+                _ctx.arc(o.x, o.y, radius, 0, Math.PI * 2, true);
+                var g = _ctx.createRadialGradient(o.x, o.y,0, o.x, o.y, radius);
+                g.addColorStop(0, '#FFF');
+                g.addColorStop(1, o.color);
+                _ctx.fillStyle = g;
+                _ctx.fill();
+//                _ctx.stroke();
             }
         }
 
@@ -210,7 +250,8 @@ var app = (function ($) {
         init: _init,
         loadMusic: _loadMusic,
         playMusic: _playMusic,
-        visualizer: _visualizer
+        visualizer: _visualizer,
+        Util: _Util
     }
 })(jQuery);
 
