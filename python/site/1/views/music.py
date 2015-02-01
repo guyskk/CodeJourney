@@ -25,7 +25,7 @@ class Music:
         pass
 
     def GET(self):
-        readFiles(media_path)
+        readfiles(media_path)
         data = {}
         data['songlist'] = readfiles(media_path)
         return render.music(data=data)

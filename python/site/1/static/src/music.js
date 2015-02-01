@@ -1,151 +1,219 @@
 /**
  * Created by CrispElite on 2015/1/29 0029.
  */
-(function (global) {
-    global.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-    var context = new AudioContext(),
-        gainNode = context[context.createGain ? 'createGain' : 'createGainNode']();
-    gainNode.connect(context.destination);
+//
+//(function () {
+//    Music.stop = function () {
+//        this.source[this.source.stop ? 'stop' : 'noteOff'](0);
+//    };
+//    Music.pause = function () {
+//        this.playing ? this.stop() : this.play();
+//        this.playing = !this.playing;
+//    };
+//})();
 
+var app = (function ($) {
+    var _files, _context, _analyser, _ctx, _source, _gainNode, _pannerNode, _init, _loadMusic, _playMusic, _visualizer, _initCanvas;
     var SIZE = 128;
-    var analyser = context.createAnalyser();
-    analyser.fftSize =  SIZE * 2;
-    analyser.connect(gainNode);
+    _init = function () {
+        var onListItemClickListener, onPlayButtonClickListener, onVolumeChangeListener, initalizeUi;
+        _context = new (window.AudioContext || window.webkitAudioContext )();
 
+        _source = null;
+        _analyser = _context.createAnalyser();
+        _analyser.fftSize = SIZE * 2;
+        _gainNode = _context[_context.createGain ? 'createGain' : 'createGainNode']();
+        _analyser.connect(_gainNode);
+        _gainNode.connect(_context.destination);
 
-    function initCanvas() {
-        var canvas = $('#canvas')[0],
-            ctx = canvas.getContext('2d');
+        onListItemClickListener = function (name, url) {
+            var a, file;
+//            a = $(this);
+            file = {
+                name: name,
+                uri: url
+            };
+            console.log('loadmusic');
+            app.loadMusic(file, function () {
+                console.log('loadmusic callback');
+                app.playMusic(name);
+                app.visualizer();
+            });
+        };
+
+        onPlayButtonClickListener = function () {
+            var url, file;
+
+            url = $('#external').val();
+
+            file = {
+                name: 'external',
+                uri: url
+            };
+
+            app.loadSound(file, function () {
+                app.playSound('external');
+            });
+        };
+
+        onVolumeChangeListener = function () {
+            _gainNode.gain.value = parseInt(this.value, 10) / 100;
+        };
+
+        initalizeUi = (function () {
+
+            var songListContainer = $('#songList'),
+                songListArray = $('li', songListContainer);
+
+            songListContainer.on('click', function (e) {
+
+                var target = e.target;
+                if (target.tagName.toLowerCase() !== 'li') {
+                    return false;
+                }
+                songListArray.removeClass('selected');
+                $(target).addClass('selected');
+
+                var name = $(target).attr('title');
+                var uri = '/static/media/' + name;
+                onListItemClickListener(name, uri);
+            });
+            $('#adjustVol')[0].oninput = onVolumeChangeListener;
+        })();
+        _initCanvas();
+    };
+
+    _initCanvas = function () {
+        var canvas = $('#canvas')[0];
+        _ctx = canvas.getContext('2d');
 
         canvas.width = $(window).width();
         canvas.height = $(window).height();
 
-        var line = ctx.createLinearGradient(0, 0, 0, $(window).height()/4 * 3);
+        var line = _ctx.createLinearGradient(0, 0, 0, $(window).height() / 4 * 3);
         line.addColorStop(0, 'red');
         line.addColorStop(0.5, 'yellow');
         line.addColorStop(1, 'green');
-        ctx.fillStyle = line;
-        window.ctx = ctx;
-        return ctx;
-    }
+        _ctx.fillStyle = line;
+    };
 
+    _loadMusic = function (file, successCallback, errorCallback) {
+        var xhr,
+            isLoaded,
+            onRequestLoad,
+            onDecodeAudioDataSuccess,
+            onDecodeAudioDataError,
+            doXHRRequest;
 
-    function loadMusic(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        xhr.responseType = 'arraybuffer';
+        _files = _files || [];
 
-        xhr.onload = function () {
-            var data = xhr.response;
-            if (Object.prototype.toString.call(callback) === '[object Function]') {
-                callback(data);
-            }
+        successCallback = successCallback || function successCallback() {
         };
-        xhr.send();
-    }
+        errorCallback = errorCallback || function errorCallback(msg) {
+            alert(msg);
+        };
 
-    function playMusic(buffer) {
-        var source = context.createBufferSource();
+        isLoaded = false;
+        $.each(_files, function isFileAlreadyLoaded(i) {
+            if (_files[i].name === file.name) {
+                isLoaded = true;
+                return false;
+            }
+        });
 
-        source.buffer = buffer;
-        source.connect(analyser);
+        onDecodeAudioDataSuccess = function (buffer) {
+            if (!buffer) {
+                errorCallback('Error decoding file ' + file.uri + ' data.');
+                return;
+            }
 
-        source[source.start ? 'start' : 'noteOn'](0);
+            _files.push({
+                name: file.name,
+                uri: file.uri,
+                buffer: buffer
+            });
+            successCallback();
+        };
 
-    }
+        onDecodeAudioDataError = function (error) {
+            errorCallback('Error decoding file ' + file.uri + ' data.' + error);
+        };
 
-//    visualizer();
-    function adjustVolume(percent) {
-        gainNode.gain.value = percent * percent;
-    }
+        onRequestLoad = function () {
+            _context.decodeAudioData(xhr.response, onDecodeAudioDataSuccess, onDecodeAudioDataError);
+        };
+        onRequestError = function () {
+            errorCallback('XHR error when loading file ' + file.uri + '.');
+        };
 
-    function visualizer() {
-        var arr = new Uint8Array(analyser.frequencyBinCount);
-        console.log(arr);
-        analyser.getByteFrequencyData(arr);
+        doXHRRequest = function () {
+            xhr = new XMLHttpRequest();
+            xhr.open('GET', file.uri, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = onRequestLoad;
+            xhr.onerror = onRequestError;
+            xhr.send();
+        };
+        if (isLoaded) {
+            successCallback();
+        } else {
+            doXHRRequest();
+        }
+    };
+
+    _playMusic = function (name) {
+        if (_source && _source.playbackState === _source.PLAYING_STATE) {
+            _source[_source.stop ? 'stop' : 'noteOff'](0); // stop()
+            _source = null;
+        }
+
+        $.each(_files, function (i, file) {
+            if (file.name === name) {
+                /* Create SourceNode and add buffer to it. */
+                _source = _context.createBufferSource();
+                _source.buffer = file.buffer;
+                /* Connect the SourceNode to the next node in the routing graph
+                 * which is the PannerNode and play the sound. */
+                _source.connect(_analyser);
+                _source[_source.start ? 'start' : 'noteOn'](0); // start()
+
+                return false;
+            }
+        });
+    };
+
+    _visualizer = function () {
+        var arr = new Uint8Array(_analyser.frequencyBinCount);
+        _analyser.getByteFrequencyData(arr);
         requestAnimationFrame = window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame;
+        function draw(points) {
+            _ctx.clearRect(0, 0, $(window).width(), $(window).height());
+            var w = $(window).width() / SIZE;
+            for (var i = 0; i < SIZE; i++) {
+                var h = points[i] / 256 * $(window).height();
+                _ctx.fillRect(w * i * 1.2, $(window).height() - h, w, h);
+            }
+        }
 
         function go() {
-            analyser.getByteFrequencyData(arr);
-//            console.log(arr);
+            _analyser.getByteFrequencyData(arr);
             draw(arr);
             requestAnimationFrame(go);
         }
 
         requestAnimationFrame(go);
+    };
+    return {
+        init: _init,
+        loadMusic: _loadMusic,
+        playMusic: _playMusic,
+        visualizer: _visualizer
     }
-    function draw(arr){
-        ctx.clearRect(0, 0, $(window).width(), $(window).height());
-        var w = $(window).width() / SIZE;
-        for (var i = 0; i < SIZE; i++){
-            var h = arr[i] /256 * $(window).height();
-            ctx.fillRect(w * i * 1.2, $(window).height()-h, w , h);
-        }
-    }
+})(jQuery);
 
-    $(document).ready(function () {
-        var ctx = initCanvas();
-        var songListContainer = $('#songList'),
-            songListArray = $('li', songListContainer);
-
-        songListContainer.on('click', function (e) {
-
-            var $target = $(e.target);
-            songListArray.removeClass('selected');
-            $target.addClass('selected');
-
-            var url = '/static/media/' + $target.attr('title');
-
-            loadMusic(url, function (data) {
-                context.decodeAudioData(data, function (buffer) {
-                    playMusic(buffer);
-                    visualizer();
-                }, function (err) {
-                    console.log(err);
-                });
-            });
-
-        });
-
-        $('#adjustVol')[0].oninput = function () {
-            adjustVolume(this.value / this.max);
-        };
-
-    });
-})(window);
-
-
-(function () {
-
-    var Music = function (buffer) {
-        this.buffer = buffer;
-    };
-
-    Music.play = function () {
-        this.gainNode = context[context.createGain ? 'createGain' : 'createGainNode']();
-        var source = context.createBufferSource();
-        source.buffer = this.buffer;
-        source.connect(analyser);
-//        source.connect(this.gainNode);
-        this.gainNode.connect(context.destination);
-        source[source.start ? 'start' : 'noteOn'](0);
-        this.source = source;
-    };
-    Music.adjustVolume = function (value) {
-        var fraction = parseInt(value) / 100;
-        this.gainNode.gain.value = fraction * fraction;
-    };
-
-    Music.stop = function () {
-        this.source[this.source.stop ? 'stop' : 'noteOff'](0);
-    };
-
-    Music.pause = function () {
-        this.playing ? this.stop() : this.play();
-        this.playing = !this.playing;
-    };
-
-})();
+window.onload = function () {
+    app.init();
+};
