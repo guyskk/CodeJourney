@@ -2,16 +2,6 @@
  * Created by CrispElite on 2015/1/29 0029.
  */
 
-//
-//(function () {
-//    Music.stop = function () {
-//        this.source[this.source.stop ? 'stop' : 'noteOff'](0);
-//    };
-//    Music.pause = function () {
-//        this.playing ? this.stop() : this.play();
-//        this.playing = !this.playing;
-//    };
-//})();
 
 var app = (function ($) {
     var _files, _context, _analyser, _ctx, _source, _gainNode, _Util, _init, _loadMusic, _playMusic, _visualizer, _initCanvas;
@@ -20,6 +10,10 @@ var app = (function ($) {
     _Util = (function () {
         var _getRandomInt = function (min, max) {
             return Math.floor(Math.random() * (max - min) + min);
+        };
+
+        var beforeLoaded = function(){
+
         };
         return {
             getRandomInt: _getRandomInt
@@ -135,6 +129,7 @@ var app = (function ($) {
         });
 
         onDecodeAudioDataSuccess = function (buffer) {
+            $('#layer').fadeOut();
             if (!buffer) {
                 errorCallback('Error decoding file ' + file.uri + ' data.');
                 return;
@@ -218,23 +213,29 @@ var app = (function ($) {
             return Dots;
         }
 
-           var Dots = getDots();
+        var Dots = getDots();
+
+        drawType = 'column';
         function draw(points) {
             _ctx.clearRect(0, 0, _W, _H);
-            var w = _W / SIZE;
-            for (var i = 0; i < SIZE; i++) {
-                var h = points[i] / 256 * _H;
-//                _ctx.fillRect(w * i * 1.2, $(window).height() - h, w, h);
-                var o = Dots[i],
-                    radius = points[i] /256 *50;
-                _ctx.beginPath();
-                _ctx.arc(o.x, o.y, radius, 0, Math.PI * 2, true);
-                var g = _ctx.createRadialGradient(o.x, o.y,0, o.x, o.y, radius);
-                g.addColorStop(0, '#FFF');
-                g.addColorStop(1, o.color);
-                _ctx.fillStyle = g;
-                _ctx.fill();
-//                _ctx.stroke();
+            if (drawType == 'column') {
+                var w = _W / SIZE;
+                for (var i = 0; i < SIZE; i++) {
+                    var h = points[i] / 256 * _H;
+                    _ctx.fillRect(w * i * 1.2, $(window).height() - h, w, h);
+                }
+            } else if (drawType == 'dot') {
+                for (var i = 0; i < SIZE; i++) {
+                    var o = Dots[i],
+                        radius = points[i] / 256 * 50;
+                    _ctx.beginPath();
+                    _ctx.arc(o.x, o.y, radius, 0, Math.PI * 2, true);
+                    var g = _ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, radius);
+                    g.addColorStop(0, '#FFF');
+                    g.addColorStop(1, o.color);
+                    _ctx.fillStyle = g;
+                    _ctx.fill();
+                }
             }
         }
 
@@ -257,4 +258,5 @@ var app = (function ($) {
 
 window.onload = function () {
     app.init();
+    $('#songList').find('li').eq(0).trigger('click');
 };

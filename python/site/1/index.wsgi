@@ -12,21 +12,23 @@ import web
 from web.contrib.template import render_jinja
 
 from views import zhihudaily
-
+from views import music
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6)Gecko/20091201 Firefox/3.5.6'}
 
 urls = (
     '/(.*)/', 'Redirect',
     '/', 'Index',
-    '/movie/', 'Movie',
-    '/daily', zhihudaily.app
+    '/movie', 'Movie',
+    '/user', 'User',
+    '/daily', zhihudaily.app,
+    '/music', music.app
 )
 
 app_root = os.path.dirname(__file__)
 templates_root = os.path.join(app_root, 'templates')
-# render = web.template.render(templates_root)
 render = render_jinja('templates', encoding='utf-8')
+
 
 
 # Routers
@@ -47,50 +49,30 @@ class Index:
         return render.index()
 
 
-class About:
-    def __init__(self):
-        pass
-
-    def GET(self):
-        name = 'About'
-        return render.about(name)
-
-
 class Movie:
     def __init__(self):
         pass
 
     def GET(self):
-        db = web.database(dbn="sqlite", db="./db/douban.rdb")
-        # Select all entries from table 'mytable'
-        movies = []
-        entries = db.select('MOVIE')
-        print entries   # Iter Better
-        for name in entries:
-            print name  # Storage
-            movies.append(dict(name))  # after dict(), name -> dict and movies is list
 
-        return render.movie(movies)
+        return render.movie()
 
 
 class User:
     def __init__(self):
         pass
 
-    def GET(self, name):
-        i = web.input(name=None)
-        return render.users(i.name)
-
-class Music:
-    def __init__(self):
-        pass
-
     def GET(self):
-        return render.music()
+        return 'Hello, user!'
+
+    def POST(self):
+        return 'Hey, man!'
+
 
 
 
 app = web.application(urls, globals())
+
 if __name__ == "__main__":
     app.run()
 elif 'SERVER_SOFTWARE' in os.environ:
