@@ -6,10 +6,15 @@ import urllib2
 import urllib
 import re
 import time
+# import json_util
 import json
-
+import datetime
 import web
 from web.contrib.template import render_jinja
+
+from pymongo import MongoClient
+
+client = MongoClient('mongodb://localhost', 27017)
 
 from views import zhihudaily
 from views import music
@@ -20,7 +25,8 @@ urls = (
     '/(.*)/', 'Redirect',
     '/', 'Index',
     '/movie', 'Movie',
-    '/user', 'User',
+    '/user', 'UserList',
+    '/u/(.+)', 'User',
     '/daily', zhihudaily.app,
     '/music', music.app
 )
@@ -29,8 +35,6 @@ app_root = os.path.dirname(__file__)
 templates_root = os.path.join(app_root, 'templates')
 render = render_jinja('templates', encoding='utf-8')
 
-
-
 # Routers
 
 class Redirect:
@@ -38,7 +42,8 @@ class Redirect:
         pass
 
     def GET(self, path):
-         web.seeother('/' + path)
+        web.seeother('/' + path)
+
 
 class Index:
     def __init__(self):
@@ -54,7 +59,6 @@ class Movie:
         pass
 
     def GET(self):
-
         return render.movie()
 
 
@@ -62,13 +66,45 @@ class User:
     def __init__(self):
         pass
 
-    def GET(self):
-        return 'Hello, user!'
+    def GET(self, userid):
+        data = {'userid': userid}
+        return render.user(data=data)
 
     def POST(self):
-        return 'Hey, man!'
+        pass
 
 
+class UserList:
+    def __init__(self):
+        pass
+
+    def GET(self):
+        db = client['bone']
+        alluserobj = db.Users.find()
+        result = []
+        print datetime.datetime.utcnow()
+        print str(datetime.datetime.utcnow())
+
+        for item in alluserobj:
+            item['_id'] = str(item['_id'])
+            result.append(item)
+
+        return json.dumps(result)
+
+    def POST(self):
+
+        db = client['bone']
+        # data = dict(web.data())
+        user = json.loads(web.data())
+        user['createtime'] = str(datetime.datetime.now())
+        users_collection = db.Users
+        check = db.Users.find_one({'name': user[u'name']})
+
+        if check is None:
+            user_id = users_collection.insert(user)
+            return 'Hey, man! %s, your id: %s' % (user[u'name'], user_id)
+        else:
+            return "already existed!"
 
 
 app = web.application(urls, globals())
@@ -77,5 +113,6 @@ if __name__ == "__main__":
     app.run()
 elif 'SERVER_SOFTWARE' in os.environ:
     import sae
+
     application = sae.create_wsgi_app(app.wsgifunc())
 
