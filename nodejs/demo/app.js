@@ -23,8 +23,7 @@ function travel(dir, callback){
     });
 }
 
-
-travel('E:/user', function(pathname){
+travel('E:\Code', function(pathname){
     console.log(pathname);
 });
 
