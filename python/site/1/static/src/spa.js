@@ -1,11 +1,11 @@
 /**
  * Created by CrispElite on 2015/1/25 0025.
  */
-(function() {
-    var go = function() {
+(function () {
+    var go = function () {
         console.log('go');
     };
-    var go2 = function() {
+    var go2 = function () {
         console.log("go2");
     };
     var obj = {};
@@ -17,9 +17,9 @@
     obj.trigger('alert', 'Mother Fucker!');
 })();
 
-(function() {
+(function () {
     var Sidebar = Backbone.Model.extend({
-        promptColor: function() {
+        promptColor: function () {
             var cssColor = prompt('请输入一个CSS颜色值：');
             this.set({
                 color: cssColor
@@ -27,7 +27,7 @@
         }
     });
     window.sidebar = new Sidebar();
-    sidebar.bind('change:color', function(model, color) {
+    sidebar.bind('change:color', function (model, color) {
         $('#sidebar').css({
             background: color
         });
@@ -36,108 +36,106 @@
         color: 'white'
     });
 
-    $("#theme-btn").on('click', function() {
+    $("#theme-btn").on('click', function () {
         sidebar.promptColor();
     });
-    var Person = Backbone.Model.extend({
-        defaults: {
-            name: "Fetus",
-            age: 0,
-            child: ''
-        },
-        initialize: function(){
-            console.log("Welcome to thsi world!!");
-            this.on("change:name", function(model){
-                var name = model.get('name');
-                console.log('Changed my name to ' + name);
+
+    var Man = Backbone.Model.extend({
+        url: '/user',
+        initialize: function () {
+            console.log('Hey, you create me!');
+            this.bind('change:name', function () {
+                var name = this.get('name');
+                console.log('you change the name as:' + name);
+            });
+            this.bind('error', function (model, error) {
+                console.log(error);
             });
         },
-        adopt: function(newChildName){
-            this.set({child: newChildName});
+        default: {
+            name: '张伦',
+            age: '21'
+        },
+        validate: function (attributes) {
+            if (attributes.name == '') {
+                return "name 不能为空！"
+            }
+        },
+        aboutMe: function () {
+            return 'My name is' + this.get('name') + ', I am ' + this.get('age') + " years old.";
         }
     });
 
-    var person = new Person;
-    person.set({name: "Thomas", age: 27, child: 'Ryan'});
-    person.adopt('John Resig');
-    console.log(person.get('child'));
-
-    var attr = person.toJSON();
-    console.log("attr");
-    console.log(attr);
-    var attr2 = person.attributes;
-    console.log("attr2");
-    console.log(attr2);
+    var man = new Man();
+    man.set({name: 'CrispElite', age: 21});
+    man.save();
 
 
-    var UserModel = Backbone.Model.extend({
-        urlRoot: '/user',
-        defaults: {
-            name: '',
-            email: ''
-        }
-    });
-    var user = new UserModel();
-    var userDetails = {
-        name: 'Thomas',
-        email: 'thomasalwyndavis@gmail.com'
-    };
-
-    user.save(userDetails, {
-        success: function(user){
-            alert(user.toJSON()); 
-        } 
-    });
-
-    // var user = new UserModel({
-    //     id: 1,
-    //     name: 'Thomas',
-    //     email: 'thomasalwyndavis@gmail.com'
-    // });
-
-    // user.destroy({
-    //     success: function(){
-    //         alert('Destroyed!');
-    //     }
-    // });
-
-    var uer = new UserModel({id: 123});
-
-    user.fetch({
-        success: function(user){
-            console.log(user.toJSON());
+    var man1 = new Man;
+    man1.fetch({url: '/user/'});
+    man1.fetch();
+    man1.fetch({
+        url: '/user/',
+        success: function (model, response) {
+            console.log('success');
+            console.log(model.get('0')['name']);
+        },
+        error: function () {
+            console.error(error);
         }
     });
 
-        var user = new UserModel({
-        id: 1,
-        name: 'Thomas',
-        email: 'thomasalwyndavis@gmail.com'
-    });
 
-    // Let's change the name and update the server
-    // Because there is `id` present, Backbone.js will fire
-    // PUT /user/1 with a payload of `{name: 'Davis', email: 'thomasalwyndavis@gmail.com'}`
-    user.save({name: 'Davis'}, {
-        success: function (model) {
-            alert(user.toJSON());
+    var Book = Backbone.Model.extend({
+        default: {
+            title: 'default'
+        },
+        initialize: function () {
+            console.log('Hey, you create me!');
         }
     });
 
-function Line(){
-    this.z = 20;
-    this.go = Point;
-}
+    var BookShelf = Backbone.Collection.extend({
+        model: Book
+    });
 
+    var book1 = new Book({title: 'book1'});
+    var book2 = new Book({title: 'book2'});
+    var book3 = new Book({title: 'book3'});
 
-function Point(x,y) {
-        this.x = x;
-        this.y = y;
-        console.log(this);
-}
-var line1 = new Line();
+    var bookShelf = new BookShelf;
 
-console.log(line1);
-line1.go(10, 1000);
+    bookShelf.add(book1);
+    bookShelf.add(book2);
+    bookShelf.add(book3);
+    bookShelf.remove(book3);
+
+    bookShelf.each(function (book) {
+        console.log(book.get('title'));
+    });
+
 
 })();
+$(document).ready(function () {
+
+    var SearchView = Backbone.View.extend({
+        initialize: function () {
+            alert('Alerts suck!');
+            this.render();
+        },
+        render: function () {
+            var template = _.template($("#search_template").html(), {});
+            this.$el.html(template);
+        },
+        events: {
+          "click input[type=button]": 'doSearch'
+        },
+        doSearch: function(){
+            alert("Search for " + $("#search_input").val());
+        }
+    });
+
+    var search_view = new SearchView({
+        el: $("#search_container")
+    });
+});
