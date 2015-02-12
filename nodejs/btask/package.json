@@ -1,0 +1,22 @@
+{
+  "name": "btask",
+  "version": "1.0.0",
+  "description": "SAP base on Backbone.js",
+  "main": "index.js",
+  "scripts": {
+    "grunt": "node_modules/.bin/grunt"
+  },
+  "author": "zhanglun1410@mgmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.3.4",
+    "requirejs": "^2.1.16",
+    "serve-static": "^1.8.1"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "chai": "latest",
+    "grunt": "latest",
+    "grunt-exec": "latest"
+  }
+}
