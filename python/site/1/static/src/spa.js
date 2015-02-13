@@ -86,41 +86,13 @@
     });
 
 
-    var Book = Backbone.Model.extend({
-        default: {
-            title: 'default'
-        },
-        initialize: function () {
-            console.log('Hey, you create me!');
-        }
-    });
-
-    var BookShelf = Backbone.Collection.extend({
-        model: Book
-    });
-
-    var book1 = new Book({title: 'book1'});
-    var book2 = new Book({title: 'book2'});
-    var book3 = new Book({title: 'book3'});
-
-    var bookShelf = new BookShelf;
-
-    bookShelf.add(book1);
-    bookShelf.add(book2);
-    bookShelf.add(book3);
-    bookShelf.remove(book3);
-
-    bookShelf.each(function (book) {
-        console.log(book.get('title'));
-    });
-
-
 })();
+
 $(document).ready(function () {
 
     var SearchView = Backbone.View.extend({
         initialize: function () {
-            alert('Alerts suck!');
+            console.log('Alerts suck!');
             this.render();
         },
         render: function () {
@@ -166,6 +138,7 @@ $(document).ready(function () {
 
 
     var Song = Backbone.Model.extend({
+
         default: {
             name: 'Not specified',
             artist: 'Not specified'
@@ -176,13 +149,29 @@ $(document).ready(function () {
     });
 
     var Album = Backbone.Collection.extend({
-        model: Song
+        model: Song,
+        url: '/songs'
     });
 
     var song1 = new Song({name: "How Bizarre", artist: "OMC"});
     var song2 = new Song({name: "Sexual Healing", artist: "Marvin Gaye"});
     var myAlbum = new Album([song1, song2]);
     console.log(myAlbum.models[0].get("name"));
+
+    myAlbum.fetch({
+      success: function(collection, response, options){
+        collection.each(function(item){
+          console.log(item.get('name'));
+        });
+      },
+      error: function(collection, response, options){
+        console.log('error');
+        console.dir(response);
+      }
+    });
+
+
+    myAlbum.create([song1, song2]);
 
 
 });

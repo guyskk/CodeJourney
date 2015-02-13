@@ -24,10 +24,13 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9
 urls = (
     '/(.*)/', 'Redirect',
     '/', 'Index',
+
     '/movie', 'Movie',
     '/user', 'UserList',
     '/u/(.+)', 'User',
     '/hello-demo', 'HelloDemo',
+    '/songs', 'Song',
+
     '/daily', zhihudaily.app,
     '/music', music.app
 )
@@ -60,6 +63,26 @@ class HelloDemo:
 
     def GET(self):
         return render.hellodemo()
+
+class Song:
+    def __init__(self):
+        pass
+
+
+    def GET(self):
+        return '[{"name": "Shake", "artist": "zhanglun"}]'
+
+
+    def POST(self):
+        # db = client['bone']
+        # SongList = db.Song
+
+        # SongList.insert()
+
+        data = web.data()
+        print data
+        return data
+
 
 class Movie:
     def __init__(self):
