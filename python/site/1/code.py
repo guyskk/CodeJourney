@@ -27,6 +27,7 @@ urls = (
     '/movie', 'Movie',
     '/user', 'UserList',
     '/u/(.+)', 'User',
+    '/hello-demo', 'HelloDemo',
     '/daily', zhihudaily.app,
     '/music', music.app
 )
@@ -53,6 +54,12 @@ class Index:
         title = 'Web实践 | 张小伦爱学习|'
         return render.index()
 
+class HelloDemo:
+    def __init__(self):
+        pass
+
+    def GET(self):
+        return render.hellodemo()
 
 class Movie:
     def __init__(self):
@@ -115,4 +122,3 @@ elif 'SERVER_SOFTWARE' in os.environ:
     import sae
 
     application = sae.create_wsgi_app(app.wsgifunc())
-

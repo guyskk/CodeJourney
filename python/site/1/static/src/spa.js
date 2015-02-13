@@ -128,9 +128,9 @@ $(document).ready(function () {
             this.$el.html(template);
         },
         events: {
-          "click input[type=button]": 'doSearch'
+            "click input[type=button]": 'doSearch'
         },
-        doSearch: function(){
+        doSearch: function () {
             alert("Search for " + $("#search_input").val());
         }
     });
@@ -138,4 +138,51 @@ $(document).ready(function () {
     var search_view = new SearchView({
         el: $("#search_container")
     });
+
+    var AppRouter = Backbone.Router.extend({
+        routes: {
+//            "*actions": "defaultRoute",
+            "posts/:id": "getPost",
+            "download/*path": "downloadFiles",
+            ":route/:action": "loadView"
+        }
+    });
+
+    var app_router = new AppRouter();
+    app_router.on("route:defaultRoute", function (actions) {
+        console.log(actions);
+    });
+    app_router.on("route:getPost", function (id) {
+        console.log(id);
+    });
+    app_router.on("route:downloadFiles", function (path) {
+        console.log(path);
+    });
+    app_router.on("route:loadView", function (route, action) {
+        console.log(route + "___" + action);
+    });
+
+    Backbone.history.start();
+
+
+    var Song = Backbone.Model.extend({
+        default: {
+            name: 'Not specified',
+            artist: 'Not specified'
+        },
+        initialize: function () {
+            console.log("Music is the answer!");
+        }
+    });
+
+    var Album = Backbone.Collection.extend({
+        model: Song
+    });
+
+    var song1 = new Song({name: "How Bizarre", artist: "OMC"});
+    var song2 = new Song({name: "Sexual Healing", artist: "Marvin Gaye"});
+    var myAlbum = new Album([song1, song2]);
+    console.log(myAlbum.models[0].get("name"));
+
+
 });
