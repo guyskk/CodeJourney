@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
     <title>Music</title>
-    <link rel="stylesheet" href="../static/build/css/global/base.css"/>
-    <link rel="stylesheet" href="../static/build/css/music.css"/>
+    <link rel="stylesheet" href="../static/build/css/global/base.css" />
+    <link rel="stylesheet" href="../static/build/css/music.css" />
 </head>
+
 <body>
-<div id="layer">
-    <div class="loading">
-        <div class="loading-title">Loading.....</div>
+    <div id="layer">
+        <div class="loading">
+            <div class="loading-title">Loading.....</div>
+        </div>
     </div>
-</div>
-<div class="container">
-    <h1>Music!</h1>
-    <p>
-        <input type="range" name="volumeRange" id="adjustVol" min="0" max="100" value="50"/>
-    </p>
-    <ul id="songList">
-        {% if data.songlist %}
-        {% for item in data.songlist %}
-        <li title="{{ item }}">{{ item }}</li>
-        {% endfor %}
-        {% endif %}
-    </ul>
-</div>
+    <div class="container">
+        <h1>Music!</h1>
+        <p>
+            <input type="range" name="volumeRange" id="adjustVol" min="0" max="100" value="50" />
+        </p>
+        <ul id="songList">
+            {% if data.songlist %} {% for item in data.songlist %}
+            <li title="{{ item }}">{{ item }}</li>
+            {% endfor %} {% endif %}
+        </ul>
+    </div>
 
-<canvas id="canvas"></canvas>
+    <canvas id="canvas"></canvas>
 
-<script src="../static/build/vendor/jquery/dist/jquery.js"></script>
-<script src="../static/src/music.js"></script>
+    <script src="../static/build/vendor/jquery/dist/jquery.js"></script>
+    <script src="../static/src/music.js"></script>
 </body>
+
 </html>

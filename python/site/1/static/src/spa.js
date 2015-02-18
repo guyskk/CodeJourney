@@ -52,7 +52,7 @@
                 console.log(error);
             });
         },
-        default: {
+        defaults: {
             name: '张伦',
             age: '21'
         },
