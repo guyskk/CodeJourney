@@ -6,18 +6,18 @@ import urllib2
 import urllib
 import re
 import time
-# import json_util
+
+from bson import json_util, ObjectId
 import json
+
 import datetime
 import web
 from web.contrib.template import render_jinja
 
 from pymongo import MongoClient
-
 client = MongoClient('mongodb://localhost', 27017)
 
-from views import zhihudaily
-from views import music
+from views import zhihudaily, music, todo
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6)Gecko/20091201 Firefox/3.5.6'}
 
@@ -30,7 +30,7 @@ urls = (
     '/u/(.+)', 'User',
     '/hello-demo', 'HelloDemo',
     '/songs', 'Song',
-
+    '/todo', todo.app,
     '/daily', zhihudaily.app,
     '/music', music.app
 )
@@ -63,6 +63,8 @@ class HelloDemo:
 
     def GET(self):
         return render.hellodemo()
+
+
 
 class Song:
     def __init__(self):
