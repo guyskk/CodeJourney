@@ -198,8 +198,13 @@ $(function() {
                 });
                 new_item.save();
                 this.input.val('');
+                this.addOne();
             }
         },
+
+        renderNewTodo: function(){
+
+        }
 
         clearCompleted: function() {
             _.invoke(Todos.done(), 'destroy');
