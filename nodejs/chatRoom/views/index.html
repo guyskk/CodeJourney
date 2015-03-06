@@ -1,37 +1,12 @@
-<html ng-app="myApp">
+<!doctype html>
+<html ng-app='myApp'>
 	<head>
 	<title>title</title>
-	<script type="text/javascript" src="js/angular.min.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/common.js"></script>
 	</head>
 	<body>
-
-		<input type="text"  ng-model='name' placeholder='Enter your name '/>
-		<h1>Hello, {{ name }}</h1>
-
-<!-- 		<div ng-controller="PlayerController">
-		  <button ng-click="play()" class="button" ng-show="!playing">Play</button>
-		  <button ng-click="stop()" class="button alert" ng-show="playing">Stop</button>
-		  Playing audio: <b>{{ playing }}</b>
-		</div>
-
-		<div ng-controller = "ClockController">
-			<p>{{ clock }}</p>
-		</div>
-
-		<div ng-controller='CounterController'>
-			<button ng-click='add(1)'>Add one</button>
-			<button ng-click='subtract(1)'>Subtract</button>
-			<p>{{ counter }}</p>
-		</div> -->
-
-<!-- 		<div ng-controller='ParentController'>
-			<div ng-controller='ChildController'>
-				<button ng-click='sayHello()' value="asfdf">fasdf</button>
-			</div>
-			{{ person }}
-		</div>
- -->
-
+		<input ng-model="name" type="text" placeholder="Your name">
+		<h1>Hello {{ name }}</h1>
 	</body>
 <html>
