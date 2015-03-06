@@ -2,13 +2,13 @@ var express = require('express'),
 	http = require('http'),
 	route = require('./routes'),
 	path = require('path'),
-	swig = require('swig');
+	ejs = require('ejs');
 
 
 var app = express();
 app.set('port', (process.env.PORT || 5000));
 
-app.engine('html', swig.renderFile);
+app.engine('.html', ejs.__express);
 app.set('views', path.join(__dirname , 'views'));
 app.set('view engine', 'html');
 
