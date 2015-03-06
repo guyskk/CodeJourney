@@ -4,8 +4,8 @@ var mainBowerFiles = require('main-bower-files');
 
 var paths = {
     bowerFiles: './bower_components',
-    scss: './static/assets/scss/**/*.scss',
-    build: './static/build/'
+    scss: './public/assets/scss/**/*.scss',
+    build: './public/build/'
 };
 
 gulp.task('sass', function () {
@@ -15,11 +15,11 @@ gulp.task('sass', function () {
 });
 
 gulp.task('bower', function(){
-    return gulp.src(mainBowerFiles(), {base: paths.bowerFiles})
-        .pipe(gulp.dest('static/build/vendor'));
+    gulp.src(mainBowerFiles(), {base: paths.bowerFiles})
+        .pipe(gulp.dest('./public/build/vendor'));
 });
 
 gulp.task('default', function(){
-   gulp.watch('static/assets/scss/**/*.scss', ['sass']);
+   gulp.watch('public/assets/scss/**/*.scss', ['sass']);
     gulp.watch(paths.bowerFiles, ['bower'])
 });

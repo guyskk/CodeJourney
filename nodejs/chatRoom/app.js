@@ -1,8 +1,7 @@
 var express = require('express'),
-	http = require('http'),
-	route = require('./routes'),
-	path = require('path'),
-	ejs = require('ejs');
+    route = require('./routes'),
+    path = require('path'),
+    ejs = require('ejs');
 
 
 var app = express();
@@ -22,14 +21,10 @@ route(app);
 
 // 开发模式
 if ('development' == app.get('env')) {
-	app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
-
-// 路径解析
-// app.get('/', route.index);
-// app.get('/users', user.list);
 
 // 启动及端口
 app.listen(app.get('port'), function(){
-	console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });
