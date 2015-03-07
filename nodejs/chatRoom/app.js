@@ -1,16 +1,16 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var route = require('./routes');
-var path = require('path');
-var ejs = require('ejs');
+var express = require('express'),
+    route = require('./routes'),
+    path = require('path'),
+    ejs = require('ejs');
 
-route(app);
+// connect
 
-app.engine('.html', ejs.__express);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
+var errorHandler = require('errorHandler');
 
+
+var app = express(),
+    http = require('http').Server(app),
+    io = require('socket.io')(http);
 
 io.on('connection', function(socket){
   console.log('a user connected');
@@ -18,10 +18,24 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
 });
-
 app.set('port', (process.env.PORT || 5000));
 
-// 启动及端口
-app.listen(app.get('port'), function(){
+app.engine('.html', ejs.__express);
+app.set('views', path.join(__dirname , 'views'));
+app.set('view engine', 'html');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+//route
+route(app);
+
+// 开发模式
+if ('development' == app.get('env')) {
+    app.use(errorHandler());
+}
+
+// 启动及端口 监听http 而不是app
+http.listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
 });
+
