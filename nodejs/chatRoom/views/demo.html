@@ -1,4 +1,4 @@
-<html ng-app="Sorgo">
+<html ng-app="demo">
     <head>
     <title>title</title>
 
@@ -14,16 +14,12 @@
       </style>
     </head>
     <body>
-        <ul id="messages"></ul>
-        <form action="" ng-controller='msgController'>
-            <input id="m" autocomplete="off" ng-model='msg'/>
-            <button type="button" ng-click='send()'>Send</button>
-        </form> 
-
+        <div ng-controller='EmailController'>
+            <input type="text" ng-model='to' type='email' placeholder='Recipient' />
+            <textarea name="" id="" cols="120" rows="40" ng-model='emailBody'></textarea>
+            <pre>{{ previewText }}</pre>
+        </div>
         <script type="text/javascript" src="lib/angular.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src='js/socket.js'></script>
-        <script type="text/javascript" src="js/common.js"></script>
-
+        <script type="text/javascript" src="js/demo.js"></script>
     </body>
-<html>
+<html>  

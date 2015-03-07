@@ -12,12 +12,9 @@ var app = express(),
     http = require('http').Server(app),
     io = require('socket.io')(http);
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
+var sorgosocket = require('./sorgosocket')(io);
+sorgosocket.init();
+
 app.set('port', (process.env.PORT || 5000));
 
 app.engine('.html', ejs.__express);
@@ -38,4 +35,6 @@ if ('development' == app.get('env')) {
 http.listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+
 
