@@ -3,17 +3,24 @@ var express = require('express'),
     path = require('path'),
     ejs = require('ejs');
 
+// connect
 
-var app = express();
+var errorHandler = require('errorHandler');
+
+
+var app = express(),
+    http = require('http').Server(app),
+    io = require('socket.io')(http);
+
+var sorgosocket = require('./sorgosocket')(io);
+sorgosocket.init();
+
 app.set('port', (process.env.PORT || 5000));
 
 app.engine('.html', ejs.__express);
 app.set('views', path.join(__dirname , 'views'));
 app.set('view engine', 'html');
 
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //route
@@ -21,10 +28,13 @@ route(app);
 
 // 开发模式
 if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
+    app.use(errorHandler());
 }
 
-// 启动及端口
-app.listen(app.get('port'), function(){
+// 启动及端口 监听http 而不是app
+http.listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+
