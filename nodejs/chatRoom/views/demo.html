@@ -2,16 +2,6 @@
     <head>
     <title>title</title>
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font: 13px Helvetica, Arial; }
-        form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-        form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-        #messages { list-style-type: none; margin: 0; padding: 0; }
-        #messages li { padding: 5px 10px; }
-        #messages li:nth-child(odd) { background: #eee; }
-      </style>
     </head>
     <body>
         <div ng-controller='EmailController'>
@@ -19,7 +9,31 @@
             <textarea name="" id="" cols="120" rows="40" ng-model='emailBody'></textarea>
             <pre>{{ previewText }}</pre>
             <p>{{ 1234 | currency: 'A' }}</p>
+
+        <div my-directive my-url="zhanglun.github.io" name="{{name}}" ></div>
         </div>
+        <!-- <input type="text" ng-model='name'> -->
+
+
+        <!-- <input type="text" ng-model='myUrl'>
+        <div ng-directive></div> -->
+        <div ng-controller="ParentController">
+            {{ someValue }}
+            <button type="button" ng-click="someAction()">Parent</button>
+            <div ng-controller="ChildController">
+                {{someValue}}
+                <button type="button" ng-click="someAction()">Child</button>
+            </div>
+        </div>
+        <div ng-if="2+2==4">2+2 === 6 ?</div>
+
+    <div ng-init="myProperty='wo,dsfdsafsdfdsgeqwtgfvsdvc'">
+        Surrounding scope: {{ myProperty }}
+        <div new-inherit-scope-directive my-property="zhanglun lallalall发生决定发俩决定谁"></div>
+        <div new-directive></div>
+    </div>
+
+
         <script type="text/javascript" src="lib/angular.min.js"></script>
         <script type="text/javascript" src="js/demo.js"></script>
     </body>
