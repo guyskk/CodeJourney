@@ -1,9 +1,4 @@
-var app = angular.module('demo', []);
-
-app.run(function($rootScope){
-    $rootScope.rootProperty = 'Root Scope';
-});
-
+var app = angular.module('demo', ['demo.services']);
 
 app.controller('EmailController', ['$scope', '$interpolate', function($scope, $interpolate){
     $scope.$watch('emailBody', function(body){
@@ -55,3 +50,47 @@ app.directive('newInheritScopeDirective', function(){
         scope: true   
     }
 });
+
+var appService = angular.module('demo.services', []);
+appService.factory('githubService', ['$http', function($http){
+    var githubUrl = 'http://api/github.com';
+    var runUserRequest = function(username, path){
+        return $http({
+            method: 'JSONP',
+            url: githubUrl + '/users/' + username + '/' + path + '?callback=JSON_CALLBACK'
+        });
+    };
+
+    return {
+        events: function(username){
+            return runUserRequest(username, 'events');
+        }
+    }
+
+}]);
+
+appService.factory('alertService', [function(){
+    return {
+        alert: function(){
+            alert("alertService: alert ");
+        }
+    }
+}]);
+
+app.controller('ServiceController', ['$scope', '$timeout', 'githubService', 'alertService', function($scope, $timeout, githubService, alertService){
+    alertService.alert();
+    $scope.$watch('username', function(newUsername){
+        if(newUsername){
+            if(timeout){
+                $timeout.cancel(timeout);
+            }
+            var timeout = $timeout(function(){
+                githubService.events(newUsername)
+                .success(function(data, status, headers){
+                    $scope.events = data.data;
+                });
+            }, 1000);
+        }
+    });
+}]);
+

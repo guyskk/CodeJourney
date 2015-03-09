@@ -27,11 +27,24 @@
         </div>
         <div ng-if="2+2==4">2+2 === 6 ?</div>
 
-    <div ng-init="myProperty='wo,dsfdsafsdfdsgeqwtgfvsdvc'">
+    <div ng-init="myProperty='wo, this is cool!'">
         Surrounding scope: {{ myProperty }}
         <div new-inherit-scope-directive my-property="zhanglun lallalall发生决定发俩决定谁"></div>
         <div new-directive></div>
     </div>
+
+    <div ng-controller="ServiceController">
+        <label for="githubUsername">Type in a Github username</label>
+        <input type="text" ng-model="username" placeholder="Enter a Github username" />
+        <p>{{username}}</p>
+        <ul>
+            <li ng-repeat="event in events">
+                {{event.actor.login}} {{event.repo.name}}
+            </li>
+        </ul>
+    </div>
+
+
 
 
         <script type="text/javascript" src="lib/angular.min.js"></script>
