@@ -12,16 +12,17 @@ var app = express(),
     http = require('http').Server(app),
     io = require('socket.io')(http);
 
-var sorgosocket = require('./sorgosocket')(io);
-sorgosocket.init();
+var socketService = require('./services/socket.service')(io);
+
+socketService.init();
+
 
 app.set('port', (process.env.PORT || 5000));
 
 app.engine('.html', ejs.__express);
 app.set('views', path.join(__dirname , 'views'));
 app.set('view engine', 'html');
-
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'static')));
 
 //route
 route(app);
