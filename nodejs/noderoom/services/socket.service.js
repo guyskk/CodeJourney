@@ -1,9 +1,8 @@
 module.exports = function(io){
     var sorgoscoket = {};
-    var ss = sorgoscoket;
     var message = [];
-    
-    ss.init = function(){
+
+    sorgoscoket.init = function(){
         io.on('connection', function(socket){
           console.log('a user connected');
           socket.emit('hi', {word: 'hello!!'});
@@ -20,6 +19,6 @@ module.exports = function(io){
     };
 
     return {
-        init: ss.init
+        init: sorgoscoket.init
     };
 };

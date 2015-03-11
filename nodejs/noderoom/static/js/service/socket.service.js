@@ -1,13 +1,24 @@
-(function(global){
+app.factory('socket', function($rootScope){
     var socket = io();
-    global.socket = socket;
-    socket.on('connected', function(){
-        console.log('Chatroom connected!');
-    });
-    socket.on('get msg', function(){
-        console.log('!!!!!!get!');
-    });
-    socket.on('hi', function(msg){
-        console.log(msg.word);
-    });
-})(window);
+    return {
+        on: function(eventName, callback) {
+          socket.on(eventName, function() {
+            var args = arguments;
+            $rootScope.$apply(function() {
+              callback.apply(socket, args)
+            })
+          })
+        },
+        emit: function(eventName, data, callback) {
+          socket.emit(eventName, data, function() {
+            var args = arguments;
+            $rootScope.$apply(function() {
+              if (callback) {
+                callback.apply(socket, args)
+              }
+            })
+          })
+        }
+    }
+});
+

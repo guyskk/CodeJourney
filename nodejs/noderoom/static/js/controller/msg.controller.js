@@ -1,9 +1,11 @@
-var app = angular.module('Sorgo', []);
-
-app.controller('msgController', ['$scope', function($scope){
-    $scope.send = function(){
-        console.log('send!' + $scope.msg);
-        console.log(socket);
-        socket.emit('send msg', $scope.msg);
+app.controller('MsgController', ['$scope', 'socket', function($scope, socket){
+    $scope.newMsg = '';
+    $scope.createMsg = function(){
+        if($scope.newMsg == ''){
+            return false;
+        }
+        console.log('sending!');
+        socket.emit('createMsg', $scope.newMsg);
+        $scope.newMsg = '';
     }
 }]);
