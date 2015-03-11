@@ -15,10 +15,12 @@
     </head>
     <body>
     <div ng-controller="HallController">
-        <ul id="messages" ng-repeat="item in messages"></ul>
+        <ul id="messages">
+            <li ng-repeat="item in messages">{{item}}</li>
+        </ul>
     </div>
     <div ng-controller="RoomController">
-        <ul id="messages" ></ul>
+        <!--<ul id="messages" ></ul>-->
     </div>
     <div ng-controller="MsgController">
         <form action="" x>

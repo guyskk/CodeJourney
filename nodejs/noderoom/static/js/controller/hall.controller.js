@@ -7,11 +7,15 @@ app.controller('HallController', ['$scope', 'socket', function($scope, socket){
     });
 
     socket.emit('getAllMessages');
+
     socket.on('allMessage', function (msg) {
-        $scope.messages = messages
-    })
+        console.log('allMessage');
+        $scope.messages = msg;
+    });
+
     socket.on('messageAdded', function (msg) {
-        $scope.messages.push(msg)
-    })
+        console.log('messageAdded');
+        $scope.messages.push(msg);
+    });
 
 }]);
