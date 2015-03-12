@@ -7,7 +7,7 @@
         },
         "description": "作业部落出品的在线",
         "icons": {
-        "180": "logo.png"
+        "128": "logo.png"
     },
     "name": "Cmd Markdown",
     "manifest_version": 2,
