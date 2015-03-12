@@ -1,0 +1,15 @@
+{
+    "app": {
+        "launch": {
+            "web_url": "https://www.zybuluo.com/mdeditor"
+        },
+            "urls": [ "https://www.zybuluo.com/mdeditor" ]
+        },
+        "description": "作业部落出品的在线",
+        "icons": {
+        "180": "logo.png"
+    },
+    "name": "Cmd Markdown",
+    "manifest_version": 2,
+    "version": "1.0"
+}
