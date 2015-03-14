@@ -15,8 +15,9 @@
     </head>
     <body>
     <div ng-controller="HallController">
+        <p>{{i}}</p>
         <ul id="messages">
-            <li ng-repeat="item in messages">{{item}}</li>
+            <li ng-repeat="item in messages track by $index">{{item}}</li>
         </ul>
     </div>
     <div ng-controller="RoomController">
@@ -25,7 +26,7 @@
     <div ng-controller="MsgController">
         <form action="" x>
             <input id="m" autocomplete="off" ng-model='newMsg'/>
-            <button type="button" ng-click='createMsg()'>Send</button>
+            <button type="button" ng-click='createMsg()' >Send</button>
         </form> 
     </div>
 

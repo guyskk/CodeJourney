@@ -12,12 +12,14 @@ module.exports = function (io) {
             socket.on('getAllMessages', function(){
                 console.log('getAllmessage');
                 console.log(message);
-                socket.emit('allMessage', message);
+                socket.emit('allMessages', message);
             });
 
             socket.on('createMsg', function(msg){
-                console.log('createMessage');
+                console.log('-----');
+                console.log(msg);
                 message.push(msg);
+                console.log(message);
                 socket.emit('messageAdded', message);
             });
 
