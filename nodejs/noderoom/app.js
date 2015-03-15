@@ -1,7 +1,8 @@
 var express = require('express'),
     route = require('./routes'),
     path = require('path'),
-    ejs = require('ejs');
+    ejs = require('ejs'),
+    jade = require('jade');
 
 // connect
 
@@ -17,11 +18,12 @@ var socketService = require('./services/socket.service')(io);
 socketService.init();
 
 
+/** @namespace process.env.PORT */
 app.set('port', (process.env.PORT || 5000));
 
-app.engine('.html', ejs.__express);
+//app.engine('.html', jade.__express);
 app.set('views', path.join(__dirname , 'views'));
-app.set('view engine', 'html');
+app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, 'static')));
 
 //route

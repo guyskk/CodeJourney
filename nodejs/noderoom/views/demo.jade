@@ -1,0 +1,37 @@
+html(ng-app='demo')
+    head
+        title title
+    body
+        div(ng-controller='EmailController')
+            input(type='text', ng-model='to', placeholder='Recipient')
+            textarea(name='', id='', cols='120', rows='40', ng-model='emailBody')
+            pre.
+                \n{{ previewText }}
+            p {{ 1234 | currency: 'A' }}
+            div(my-directive='', my-url='zhanglun.github.io', name='{{name}}')
+        // <input type="text" ng-model='name'>
+        //
+          <input type="text" ng-model='myUrl'>
+          <div ng-directive></div>
+        div(ng-controller='ParentController')
+            | {{ someValue }}
+            button(type='button', ng-click='someAction()') Parent
+            div(ng-controller='ChildController')
+                | {{someValue}}
+                button(type='button', ng-click='someAction()') Child
+        div(ng-if='2+2==4') 2+2 === 6 ?
+        div(ng-init="myProperty='wo, this is cool!'")
+            | Surrounding scope: {{ myProperty }}
+            div(new-inherit-scope-directive='', my-property='zhanglun lallalall发生决定发俩决定谁')
+            div(new-directive='')
+        div(ng-controller='ServiceController')
+            label(for='githubUsername') Type in a Github username
+            input(type='text', ng-model='username', placeholder='Enter a Github username')
+            p {{username}}
+            ul
+                li(ng-repeat='event in events')
+                    | {{event.actor.login}} {{event.repo.name}}
+        script(type='text/javascript', src='lib/angular.min.js')
+        script(type='text/javascript', src='js/demo.js')
+    html
+

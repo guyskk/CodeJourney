@@ -1,6 +1,6 @@
 // 大厅
+
 app.controller('HallController', ['$scope', 'socket', function($scope, socket){
-    $scope.i = 0;
     $scope.messages = [];
 
     socket.on('connected', function(){
@@ -15,14 +15,8 @@ app.controller('HallController', ['$scope', 'socket', function($scope, socket){
     });
 
     socket.on('messageAdded', function (msg) {
-        console.log('messageAdded');
-        console.log('$scope.message');
-        console.log($scope.messages);
-        console.log('msg');
-        console.log(msg);
         $scope.messages = msg;
         console.log($scope.messages);
-        $scope.i++;
     });
 
 }]);
