@@ -57,7 +57,7 @@
                         success(JSON.parse(xhr.responseText));
                     }
                 }
-            } else if(xhr.status == 422) {
+            } else if(xhr.readyState == 4 && xhr.status == 422) {
                 if (error != null) {
                     error(xhr);
                 }
@@ -65,48 +65,49 @@
         };
     };
     var letterList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-    var initGame = function() {
+    var STOP = false;
+    var sendRequet = function(data, success, error){
         ajax({
             type: 'post',
             url: 'https://strikingly-hangman.herokuapp.com/game/on',
             dataType: 'json',
-            data: {
+            data: data,
+            success: function(res){
+                if(success){
+                    success(res);
+                }
+            },
+            error: function(xhr){
+                if(error){
+                    error(xhr);
+                }
+            }
+        });
+    };
+
+    var initGame = function() {
+        var param = {
                 "playerId": "zhanglun1410@gmail.com",
                 "action": "startGame"
-            },
-            success: function(res) {
-                console.log(res);
-                // res = JSON.parse(res);
-                localStorage.setItem('sessionId', res.sessionId);
-                console.log('nextWord');
-                nextWord();
-            }
+            };
+        sendRequet(param, function(res){
+            console.log(res);
+            localStorage.setItem('sessionId', res.sessionId);
+            console.log('nextWord');
+            nextWord(); 
         });
     };
 
 
     var nextWord = function() {
-        // var i =0;
-        ajax({
-            type: 'post',
-            url: 'https://strikingly-hangman.herokuapp.com/game/on',
-            dataType: 'json',
-            data: {
-                'sessionId': localStorage.getItem('sessionId'),
-                'action': 'nextWord'
-            },
-            success: function(res) {
-                // res = JSON.parse(res);
-                console.log(res);
-                var word = res.data.word;
-                if (/[A-Z]/.test(word)) {
-                    nextWord();
-                } else {
-                    makeGuess(0);
-                }
-                console.log(word);
-            }
+        var param = {
+            'sessionId': localStorage.getItem('sessionId'),
+            'action': 'nextWord'
+        };
+        sendRequet(param, function(res){
+            var word = res.data.word;
+            console.log(word);
+            makeGuess(0);
         });
     };
 
@@ -115,35 +116,34 @@
         if (char == undefined) {
             return false;
         }
-        ajax({
-            type: 'post',
-            url: 'https://strikingly-hangman.herokuapp.com/game/on',
-            dataType: 'json',
-            data: {
-                'sessionId': localStorage.getItem('sessionId'),
-                'action': 'guessWord',
-                'guess': letterList[char]
-            },
-            success: function(res) {
-                var word = res.data.word;
-                console.log('current_word------%s', localStorage.getItem('current_word'));
-                console.log('new word------%s', word);
-                if (localStorage.getItem('current_word') == word) {
-                    char += 1;
-                    makeGuess(char);
-                } else {
-                    localStorage.setItem('current_word', word);
-                    char = 0;
-                    makeGuess(char);
-                };
-                console.log(res);
-            },
-            error: function(res) {
-                // console.log(res);
-                console.log('====422====');
+        var param = {
+            'sessionId': localStorage.getItem('sessionId'),
+            'action': 'guessWord',
+            'guess': letterList[char]
+        };
+        sendRequet(param, function(res) {
+            if(STOP){
+                console.log('stop!!');
+                return false;
+            }
+            var word = res.data.word;
+            console.log('current_word------%s', localStorage.getItem('current_word'));
+            console.log('new word------%s', word);
+            // if (localStorage.getItem('current_word') !== word) {
+            localStorage.setItem('current_word', word);
+            // }
+            if (/^[A-Z]*$/.test(word)) {
+                console.log('猜对了一个！！！恭喜恭喜！！');
                 nextWord();
+            }else{
+                char += 1;
+                makeGuess(char);
             }
 
+        }, function(res) {
+            // console.log(res);
+            console.log('====422====');
+            nextWord();
         });
     };
 
@@ -161,12 +161,16 @@
 
       });
   }
+  window.getResult = getResult;
 
 
     window.addEventListener('load', function() {
-      document.getElementById('go').addEventListener('click', function(){
-        initGame();
-      }, false);
+        document.getElementById('go').addEventListener('click', function(){
+            initGame();
+        }, false);
+        document.getElementById('stop').addEventListener('click', function(){
+            STOP = true;
+        }, false);
 
     }, false);
 
