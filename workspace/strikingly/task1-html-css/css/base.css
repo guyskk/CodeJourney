@@ -1,151 +1,187 @@
 * {
     margin: 0;
-    padding:0;
+    padding: 0;
 }
+
 html {
-    height:100%;
+    height: 100%;
 }
+
 body {
-    font-size:62.5%;
-    height:100%;
-    font-family:'Arimo', sans-serif;
+    font-size: 62.5%;
+    height: 100%;
+    font-family: 'Arimo', sans-serif;
 }
+
 .wrapper {
-    height:100%;
-    padding:1px;
-    background:url(../images/bg.png) left top repeat;
+    height: 100%;
+    padding: 1px;
+    background: url(../images/bg.png) left top repeat;
 }
+
 .account-panel {
-    width:325px;
-    height:440px;
-    margin:10em auto;
+    width: 325px;
+    height: 440px;
+    margin: 10em auto;
     background: #2f363e;
     border: 1px solid #171c20;
-    border-radius:10px;
+    border-radius: 10px;
     box-shadow: 0 20px 20px -18px rgba(0, 0, 0, 0.5);
-    overflow:hidden;
+    overflow: hidden;
 }
 /*avater starts*/
- .avatar-container {
-    height:140px;
-    background:#e7e0ce;
+
+.avatar-container {
+    height: 140px;
+    background: #e7e0ce;
     background: -webkit-linear-gradient(top, #e7decd 20%, #e7e0ce);
     background: -moz-linear-gradient(top, #e7decd 20%, #e7e0ce);
     background: linear-gradient(top, #e7decd 20%, #e7e0ce);
-    position:relative;
+    position: relative;
 }
-.avatar-container::before{
-	content: "";
-	display: block;
-    height:1px;
-    background:#f3efe6;
+
+.avatar-container::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background: #f3efe6;
 }
+
 .profile {
-    width:155px;
-    height:155px;
-    margin:-20px 0 0 -80px;
-    padding:5px;
-    overflow:hidden;
-    background:#e8dfce;
-    border-radius:100%;
+    width: 155px;
+    height: 155px;
+    margin: -20px 0 0 -80px;
+    padding: 5px;
+    overflow: hidden;
+    background: #e8dfce;
+    border-radius: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
 }
+
 .profile img {
-    max-width:100%;
-    border-radius:100%;
+    max-width: 100%;
+    border-radius: 100%;
 }
+
 .profile-shadow {
-    display: block;
-    width:155px;
-    height:155px;
-    border-radius:100%;
+    width: 155px;
+    height: 155px;
+    border-radius: 100%;
     box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
     position: absolute;
+    z-index:1000;
 }
 /*avater ends*/
-
 /*details-container starts*/
- .details-container {
-    padding-top:100px;
+
+.details-container {
+    padding-top: 100px;
 }
-.fullname, .occupation {
-    text-align:center;
-    line-height:24px;
-}
-.fullname {
-    color:#fff;
-    font-size:2em;
-}
+
+.fullname,
 .occupation {
-    color:#525b64;
-    font-size:1.3em;
+    text-align: center;
+    line-height: 24px;
 }
+
+.fullname {
+    color: #fff;
+    font-size: 2em;
+}
+
+.occupation {
+    color: #525b64;
+    font-size: 1.3em;
+}
+
 .follow {
-    padding:28px;
+    padding: 28px;
 }
+
 .follow-btn {
     display: block;
-    width:160px;
-    height:37px;
-    margin:0 auto;
+    width: 160px;
+    height: 37px;
+    margin: 0 auto;
     overflow: hidden;
     border-radius: 5px;
-    border:1px solid #171c22;
-    background:#c44b30;
-    line-height:37px;
-    color:#fff;
+    border: 1px solid #171c22;
+    background: #c44b30;
+    line-height: 37px;
+    color: #fff;
     font-size: 1.3em;
-    font-weight:bold;
+    font-weight: bold;
     text-decoration: none;
-    text-align:center;
-    text-shadow:1px 1px 1px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
+
 .follow-btn::before {
-    content:"";
+    content: "";
     display: block;
-    height:1px;
-    background:#d16e59;
+    height: 1px;
+    background: #d16e59;
 }
 /*details-container ends*/
-
 /*account-status starts*/
- .account-status {
-    overflow:hidden;
-    border-top:1px solid #171a1f;
+
+.account-status {
+    overflow: hidden;
+    border-top: 1px solid #171a1f;
     position: relative;
 }
-.account-status::before{
-	content:"";
-	display: block;
-	width:0;
-	height:60px;
-	border-right:1px solid #161b1f;
-    border-left:1px solid #3e424d;
-	position: absolute;
-	top:0;
-	left:50%;
-}
-.following, .follower {
-    float:left;
-    width:50%;
-    height:55px;
-    line-height: 55px;
-    font-size:1.4em;
-    text-align:center;
-    border-top:1px solid #3e424d;
 
-}
-.following{
-
-}
-.following a, .follower a {
+.account-status::before {
+    content: "";
     display: block;
-    color:#444c57;
+    width: 0;
+    height: 60px;
+    border-right: 1px solid #161b1f;
+    border-left: 1px solid #3e424d;
+    position: absolute;
+    top: 0;
+    left: 50%;
+}
+
+.following,
+.follower {
+    float: left;
+    width: 50%;
+    height: 55px;
+    line-height: 55px;
+    font-size: 1.4em;
+    text-align: center;
+    border-top: 1px solid #3e424d;
+}
+
+.following {}
+
+.following a,
+.follower a {
+    display: block;
+    color: #444c57;
     text-decoration: none;
 }
-.following b, .follower b {
-    color:#191e22;
-    margin-right:0.5em;
+
+.following b,
+.follower b {
+    color: #191e22;
+    margin-right: 0.5em;
+}
+/*glass layer*/
+
+.glass-layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.3;
+    left: -34%;
+    top:-34%;
+    z-index:100;
+    -webkit-transform: rotate(225deg);
+    background: -webkit-linear-gradient(top, transparent 36%, rgba(255, 255, 255, 1));
+    background: -moz-linear-gradient(top, transparent 36%, rgba(255, 255, 255, 1));
+    background: linear-gradient(top, transparent 36%, rgba(255, 255, 255, 1));
 }

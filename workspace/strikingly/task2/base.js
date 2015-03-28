@@ -66,6 +66,7 @@
     };
     var letterList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     var STOP = false;
+    var startPoint = Math.ceil(Math.random() * 10 + 1);
     var sendRequet = function(data, success, error){
         ajax({
             type: 'post',
@@ -80,6 +81,9 @@
             error: function(xhr){
                 if(error){
                     error(xhr);
+                }
+                if(xhr.status == 500){
+                    sendRequet(data, success, error);
                 }
             }
         });
@@ -107,7 +111,7 @@
         sendRequet(param, function(res){
             var word = res.data.word;
             console.log(word);
-            makeGuess(0);
+            makeGuess(startPoint);
         });
     };
 
@@ -116,6 +120,7 @@
         if (char == undefined) {
             return false;
         }
+        char = char % 25;
         var param = {
             'sessionId': localStorage.getItem('sessionId'),
             'action': 'guessWord',
@@ -136,7 +141,7 @@
                 console.log('猜对了一个！！！恭喜恭喜！！');
                 nextWord();
             }else{
-                char += 1;
+                char += 24 % (word.length);
                 makeGuess(char);
             }
 
