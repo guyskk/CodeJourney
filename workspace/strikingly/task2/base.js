@@ -64,9 +64,10 @@
             }
         };
     };
-    var letterList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    var letterList = ['E','T','A','O','I','N','S','H','R','D','L','C','U','M','W','F','G','Y','P','B','V','K','J','X','Q','Z'];
+    var letterList = ['T','A','S','H','W','I','O','B','M','F','C','L','D','P','N','E','G','R','Y','U','V','J','K','Q','Z','X'];
     var STOP = false;
-    var startPoint = Math.ceil(Math.random() * 10 + 1);
+    var startPoint = 0;
     var sendRequet = function(data, success, error){
         ajax({
             type: 'post',
@@ -110,10 +111,13 @@
         };
         sendRequet(param, function(res){
             var word = res.data.word;
-            console.log(word);
+            console.log('word.length: %s', word.length);
             makeGuess(startPoint);
         });
     };
+
+
+    var wordArr = [];
 
     var makeGuess = function(char) {
         console.log(letterList[char]);
@@ -139,15 +143,18 @@
             // }
             if (/^[A-Z]*$/.test(word)) {
                 console.log('猜对了一个！！！恭喜恭喜！！');
+                wordArr = [];
                 nextWord();
             }else{
-                char += 24 % (word.length);
+                char += 1;
                 makeGuess(char);
             }
 
         }, function(res) {
             // console.log(res);
             console.log('====422====');
+            wordArr.push(localStorage.getItem('current_word'))
+            localStorage.setItem('wordArray', wordArr);
             nextWord();
         });
     };
@@ -183,3 +190,11 @@
 
 
 })();
+
+//  出现频率
+// ['e','t','a','o','i','n','s','h','r','d','l','c','u','m','w','f','g','y','p','b','v','k','j','x','q','z',]
+
+// 首字母频率
+
+// ['t','a','s','h','w','i','o','b','m','f','c','l','d','p','n','e','g','r','y','u','v','j','k','q','z','x']
+ 
