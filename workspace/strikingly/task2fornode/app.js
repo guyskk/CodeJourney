@@ -213,45 +213,59 @@ function guessFrequencyLetter(letter) {
         dirtyLetter += (char + '|');
         var word = res.data.word;
         GAMEPARAM.current_word = word;
+        if(res.data.wrongGuessCountOfCurrentWord == 10){
+            console.log('This word you failed!\n');
+            nextWord();
+        }
         if (/^[A-Z]*$/.test(word)) {
             console.log('\n---Congratulations, you got one !---\n');
             nextWord();
             return false;
         } else if (/^\**$/.test(word) || letter < 6) {
             letter += 1;
+            dirtyLetter += (char + '|');
             guessFrequencyLetter(letter);
         } else {
             guessMostLetter(0);
         }
     }, function(err){
         console.log(err);
+        if(err.code == 'ETIMEDOUT'){
+            guessMostLetter(0);
+        }
     });
 }
 
 function guessMostLetter(letter) {
     current_word = GAMEPARAM.current_word;
     // 构建正则表达式
-    var index = [];
-    var reg = new RegExp('[a-z]', 'ig');
-    var patternStr = '';
-    var i = 0;
+    // var index = [];
+    // var reg = new RegExp('[a-z]', 'ig');
+    // var patternStr = '';
+    // var i = 0;
 
-    while (match = reg.exec(current_word)) {
-        index.push(match.index);
-        if (i == 0) {
-            if(match.index - 1 <= 0){
-                match.index = 0;
-            }
-            patternStr = patternStr + '[a-z]{' + (match.index)+ '}' + match[0];
-        } else {
-            patternStr = patternStr + '[a-z]{' + (match.index - 1 - i) + '}' + match[0];
-        }
-        i = match.index;
-        dirtyLetter += match[0] + '|';
-    };
+    // while (match = reg.exec(current_word)) {
+    //     index.push(match.index);
+    //     if (i == 0) {
+    //         if(match.index - 1 <= 0){
+    //             match.index = 0;
+    //         }
+    //         patternStr = patternStr + '[a-z]{' + (match.index)+ '}' + match[0];
+    //     } else {
+    //         patternStr = patternStr + '[a-z]{' + (match.index - 1 - i) + '}' + match[0];
+    //     }
+    //     i = match.index;
+    //     dirtyLetter += match[0] + '|';
+    // };
+    dirtyLetter += Array.prototype.join.call(current_word.replace(/\*/ig, ''),'|');
+    var patternStr = current_word.replace(/\*/ig, '[a-z]{1}');
 
-    var wordLength = current_word.length;
-    patternStr = patternStr + '[a-z]{' + (wordLength - index[index.length - 1] - 1) + '}';
+
+
+
+
+    // var wordLength = current_word.length;
+    // patternStr = patternStr + '[a-z]{' + (wordLength - index[index.length - 1] - 1) + '}';
 
     console.log('current_word: ', current_word);
     console.log(patternStr);
@@ -276,12 +290,11 @@ function guessMostLetter(letter) {
             nextWord();
             return false;
         }else if(word == GAMEPARAM.current_word){
+            dirtyLetter +=  (char + '|');
             letter += 1;
-            console.log('字母没有正确！');
             guessMostLetter(letter);
         }else{
             GAMEPARAM.current_word = word;
-            console.log('-----------!!!!!!!!!!!!!!!!!');
             guessMostLetter(0);
         }
     }, function(err){
