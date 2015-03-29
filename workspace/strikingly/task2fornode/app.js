@@ -1,12 +1,9 @@
 var http = require('http');
 var fs = require('fs');
-// 第三方模块
 var request = require('request');
 
 
-
-
-// initGame();
+// 预设值的变量
 var GAMEPARAM = {
     'SESSIONID': '',
     'current_word': ''
@@ -16,13 +13,12 @@ var firstLetterList = ['T', 'A', 'S', 'H', 'W', 'I', 'O', 'B', 'M', 'F', 'C', 'L
 var frequencyLetterList = ['E', 'T', 'A', 'O', 'I', 'N', 'S', 'H', 'R', 'D', 'L', 'C', 'U', 'M', 'W', 'F', 'G', 'Y', 'P', 'B', 'V', 'K', 'J', 'X', 'Q', 'Z'];
 var normalOrderList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-var mostUseList = [];
+
+var dirtyLetter = '';
 
 
 
-
-
-
+// 发送请求
 function sendRequest(param, success, fail) {
     var options = {
         url: 'http://strikingly-hangman.herokuapp.com/game/on',
@@ -36,13 +32,10 @@ function sendRequest(param, success, fail) {
     };
 
     function handleData(error, response, data) {
-        // console.log('statusCode: %s', response.statusCode);
         if (error) {
-            // console.log(error);
             fail(error);
         }
         if (!error && response.statusCode == 200) {
-            // console.log('----info------\n', data);
             success(data);
         }
     }
@@ -51,7 +44,7 @@ function sendRequest(param, success, fail) {
 
 };
 
-
+// 对象数组根据参数排序
 function sortByKey(name) {
     return function(o, p) {
         var a, b;
@@ -62,15 +55,16 @@ function sortByKey(name) {
                 return 0;
             }
             if (typeof a === typeof b) {
-                return a < b ? -1 : 1;
+                return a < b ? 1 : -1;
             }
-            return typeof a < typeof b ? -1 : 1;
+            return typeof a < typeof b ? 1 : -1;
         } else {
             throw ("error");
         }
     }
 }
 
+// 计算各个字母出现的次数
 function countLetter(str) {
     var result = 0;
     var countArr = new Array(26);
@@ -88,6 +82,7 @@ function countLetter(str) {
     return countArr;
 }
 
+// 开始游戏
 function initGame() {
     console.log('\npalyer authentication...\n');
     var param = {
@@ -100,7 +95,7 @@ function initGame() {
         nextWord();
 
     }, function(err) {
-        console.log('---player authentication failed, trying again...---');
+        console.log('\n---player authentication failed, trying again...---\n');
         initGame();
     });
 }
@@ -119,7 +114,8 @@ function nextWord() {
         GAMEPARAM.current_word = res.data.word;
 
         // guess word
-        makeGuess();
+        dirtyLetter = '';
+        guessFrequencyLetter(0);
 
     }, function(err) {
         console.log('\n---fetch words error!---\n', err);
@@ -128,51 +124,47 @@ function nextWord() {
 }
 
 
-
-function guessFirstLetter(list, letter) {
+function makeGuess(list, letter) {
     var char = list[letter];
-    if (char.index) {
+    // 如果char有index属性，使用正常的字母顺序列表
+    if (char.index !== undefined) {
         char = normalOrderList[char.index];
     }
 
-    console.log('letter: ', char);
+    console.log('char: ', char);
+    console.log('letter: ', letter);
     var param = {
         'sessionId': GAMEPARAM.SESSIONID,
         'action': 'guessWord',
         'guess': char
     };
     sendRequest(param, function(res) {
-        console.log('--get first letter---\n', res);
+        console.log('--get a new letter---\n', res);
         var current_word = GAMEPARAM.current_word;
         var word = res.data.word;
 
         if (/^[A-Z]*$/.test(word)) {
-
             console.log('\n---Congratulations, you got one !---\n');
-            newWord();
+            nextWord();
             return false;
-
-        } else if (word !== current_word && letter >= 6) {
-
+        } else if (word !== current_word) {
             current_word = word;
-            // get letters index
-            var index = [];
 
             // 构建正则表达式
+            var index = [];
             var reg = new RegExp('[a-z]', 'ig');
             var patternStr = '';
             var i = 0;
+
             while (match = reg.exec(word)) {
-                console.log(match);
                 index.push(match.index);
-                if(i == 0){
-                    patternStr = patternStr + '[a-z]{'+ match.index+'}' + match[0];
-                }else{
+                if (i == 0) {
+                    patternStr = patternStr + '[a-z]{' + match.index + '}' + match[0];
+                } else {
                     patternStr = patternStr + '[a-z]{' + (match.index - 1 - i) + '}' + match[0];
                 }
-                console.log('match.index:', match.index);
-                console.log(index);
                 i = match.index;
+                dirtyLetter += match[0] + '|';
             };
 
             var wordLength = current_word.length;
@@ -180,36 +172,131 @@ function guessFirstLetter(list, letter) {
 
             console.log('current_word: ', current_word);
             console.log(patternStr);
-            mostShowLetter = countLetter(reLocateWordCollection(patternStr));
-            console.log(reLocateWordCollection(patternStr));
 
-            guessFirstLetter(mostShowLetter, 0);
+            console.log(dirtyLetter);
+            var letterReg = new RegExp(dirtyLetter, 'ig');
+            mostShowLetter = countLetter(reLocateWordCollection(patternStr).replace(letterReg, ''));
+            console.log(reLocateWordCollection(patternStr).replace(letterReg, ''));
+            console.log('-------');
+            makeGuess(mostShowLetter, 0);
 
         } else {
             letter += 1;
-            console.log('!!!!!!!');
-            guessFirstLetter(list, letter);
+            dirtyLetter += list[letter] + '|';
+            // while (dirtyLetter.indexOf(list[letter])) {
+            //     letter += 1;
+            // }
+            console.log('\nThis letter is not crroct! retry---\n');
+            // console.log(list);
+            makeGuess(list, letter);
         }
     }, function(err) {
-        console.log('get first letter failed!');
+        console.log('\n---get letter failed! retry---\n');
         console.log(err);
-        guessFirstLetter(list, letter);
+        makeGuess(list, letter);
 
     });
-
 }
 
+// 优先查找 频率较高的字母
 
-function makeGuess() {
+function guessFrequencyLetter(letter) {
+    var char = frequencyLetterList[letter];
+    var param = {
+        'sessionId': GAMEPARAM.SESSIONID,
+        'action': 'guessWord',
+        'guess': char
+    };
+    console.log('letter: ', char);
+    sendRequest(param, function(res) {
+        console.log('--get a new letter---\n', res);
+        dirtyLetter += (char + '|');
+        var word = res.data.word;
+        GAMEPARAM.current_word = word;
+        if (/^[A-Z]*$/.test(word)) {
+            console.log('\n---Congratulations, you got one !---\n');
+            nextWord();
+            return false;
+        } else if (/^\**$/.test(word) || letter < 6) {
+            letter += 1;
+            guessFrequencyLetter(letter);
+        } else {
+            guessMostLetter(0);
+        }
+    }, function(err){
+        console.log(err);
+    });
+}
+
+function guessMostLetter(letter) {
+    current_word = GAMEPARAM.current_word;
+    // 构建正则表达式
+    var index = [];
+    var reg = new RegExp('[a-z]', 'ig');
+    var patternStr = '';
+    var i = 0;
+
+    while (match = reg.exec(current_word)) {
+        index.push(match.index);
+        if (i == 0) {
+            if(match.index - 1 <= 0){
+                match.index = 0;
+            }
+            patternStr = patternStr + '[a-z]{' + (match.index)+ '}' + match[0];
+        } else {
+            patternStr = patternStr + '[a-z]{' + (match.index - 1 - i) + '}' + match[0];
+        }
+        i = match.index;
+        dirtyLetter += match[0] + '|';
+    };
+
+    var wordLength = current_word.length;
+    patternStr = patternStr + '[a-z]{' + (wordLength - index[index.length - 1] - 1) + '}';
+
+    console.log('current_word: ', current_word);
+    console.log(patternStr);
+    console.log(dirtyLetter);
+    var letterReg = new RegExp(dirtyLetter, 'ig');
+    mostShowLetter = countLetter(reLocateWordCollection(patternStr).replace(letterReg, ''));
+    console.log(reLocateWordCollection(patternStr).replace(letterReg, ''));
+    var char = normalOrderList[mostShowLetter[letter].index];
+
+    var param = {
+        'sessionId': GAMEPARAM.SESSIONID,
+        'action': 'guessWord',
+        'guess': char
+    };
+    console.log('letter index: ',letter);
+    console.log('letter: ', char);
+    sendRequest(param, function(res) {
+        console.log('--get a new letter---\n', res.data);
+        var word = res.data.word;
+        if (/^[A-Z]*$/.test(word)) {
+            console.log('\n---Congratulations, you got one !---\n');
+            nextWord();
+            return false;
+        }else if(word == GAMEPARAM.current_word){
+            letter += 1;
+            console.log('字母没有正确！');
+            guessMostLetter(letter);
+        }else{
+            GAMEPARAM.current_word = word;
+            console.log('-----------!!!!!!!!!!!!!!!!!');
+            guessMostLetter(0);
+        }
+    }, function(err){
+        console.log(err);
+    });
+    // makeGuess(mostShowLetter, 0);
+}
+
+function guessFirstLetter() {
     var word = GAMEPARAM.current_word;
-
     if (/^\*+$/.test(word)) {
         console.log('\n---This is a new word! Let\'s do this! ---\n');
-        var wordCollection = localteWordCollection(word.length);
-        mostUserList = countLetter(wordCollection);
-        guessFirstLetter(frequencyLetterList, 0);
+        // var wordCollection = localteWordCollection(word.length);
+        makeGuess(frequencyLetterList, 0);
     }
-
 }
 
 function localteWordCollection(length) {
@@ -226,6 +313,7 @@ function reLocateWordCollection(pattern) {
     }
 }
 
+// 读取本地字典txt
 function readWordList() {
     console.log('---loading word list---');
     fs.readFile('words.txt', 'UTF-8', function(err, data) {
@@ -245,5 +333,3 @@ function readWordList() {
 console.log('---start game---');
 readWordList();
 initGame();
-// localteWordCollection(3);
-// countLetter('aahabcndbchf');
