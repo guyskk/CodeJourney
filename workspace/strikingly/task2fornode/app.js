@@ -169,7 +169,7 @@ function nextWord() {
 
     sendRequest(param, function(res) {
         console.log('fetch words successfully\nresult:\n', res.data);
-        if (res.data.totalWordCount == 80) {
+        if (res.data.totalWordCount == 4) {
             console.log('\nGAME OVER!\n'.info);
             // TODO: get result and send it
             getYourResult();
